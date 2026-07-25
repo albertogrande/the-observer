@@ -175,6 +175,16 @@ Code Watch.*
   inside the same filesystem+network fence — the config, the deny-all-network default,
   and what it does and doesn't contain (Operator) [surfaced by the 07-23 sandbox dive;
   sibling to the MCP-trust-boundary and egress items]
+- [x-vs-y] Auto-memory vs a hand-written CLAUDE.md: what Claude's new automatic memory
+  actually saves, where it's stored, whether it's inspectable/portable/version-controlled,
+  and when you still want a hand-curated file — the convenience-vs-auditability tradeoff of
+  a log the actor keeps on itself (Operator/Builder) [surfaced by the 07-26 context-
+  scaffolding dive; sibling to audit-trail 07-08]
+- [practical-guide] Versioning your prompt against the model ID: treating every model
+  swap — an upgrade to a more capable model *or* a downgrade to a cheaper routed one — as a
+  portability event; keeping per-model "altitude" variants (more rules for the weaker model,
+  fewer for the frontier) and gating the swap on an eval fixture (Builder) [surfaced by the
+  07-26 context-scaffolding dive; sibling to tool-schema 07-05, portability 06-22]
 
 ## Live — devtools & systems
 

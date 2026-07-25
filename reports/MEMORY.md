@@ -586,6 +586,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-07-22 (deskilled-reviewer) | Through Q1 2027, no published controlled study demonstrates that experienced engineers' defect *catch-rate* in AI-assisted code *review* (not authoring) holds steady or improves as agent reliability rises — the automation-complacency result (reviewer miss-rate rising with automation reliability, per Parasuraman/Manzey) either reproduces in the code-review setting or the human catch-rate stays unmeasured by vendors/benchmarks; "human in the loop" keeps being asserted as a control without a miss-rate number | 70% | by 2027-Q1 | OPEN |
 | Dive 2026-07-24 (verifier-asymmetry) | Through Q1 2027, frontier AI's headline math/coding wins stay concentrated on the verifier-backed side — no frontier system is credited by domain experts with an *original, human-novel proof of a universal (∀) statement that lacks a cheap external checker* (a genuinely new conceptual result, not a Lean formalization, a counterexample/witness, or a verifier-search construction à la FunSearch/AlphaEvolve) at anything like the cadence of its counterexample/construction results; capability keeps tracking the availability of a cheap, faithful, runnable verifier | 72% | by 2027-Q1 | OPEN |
 | Dive 2026-07-25 (off-balance-sheet) | Through end-2027 the five hyperscalers' AI data-center leverage keeps migrating *off* their balance sheets rather than back on — no voluntary consolidation of the major data-center SPVs/JVs, and no FASB/SEC rule forces debt-equivalent treatment of the un-commenced-lease + unconsolidated-JV obligations; the aggregate off-balance-sheet data-center commitment stays ≥ the group's combined reported adjusted debt (Moody's ~113% baseline, Feb 2026) and does not fall materially below it | 70% | 2027-12-31 | OPEN |
+| Dive 2026-07-26 (context-scaffolding) | Through Q1 2027, Anthropic's context-engineering guidance holds and doesn't re-bloat: Claude Code's default *instruction* system prompt (the hand-written rules, tracked by Piebald's diffs — excluding tool schemas) stays at or below its post-Claude-5 cut size, and Anthropic does NOT reintroduce a comparable volume of prescriptive style/behavior rules for its flagship models; "less scaffolding, higher-signal context" stays the shipped default, not a launch-week talking point | 65% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1225,3 +1226,32 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   B/S + widening CDS. So-what: read the 3 footnote lines (commitments-not-yet-commenced / unconsolidated
   VIEs+JVs / guarantees), not the headline B/S. contrarian/news-to-framework; opens off-balance-sheet-debt
   front on repricing thread. Siblings neocloud-financing (07-12), silicon (06-29), LLMOps (06-11).
+- 2026-07-26 — "Delete the Rules You Wrote for a Dumber Model" (Vance) — a NEW front on the context
+  cluster: not token *budget* (how much — 06-25/07-16) but instruction *content* (what kind) as model
+  capability rises. Peg: Claude Opus 5 shipped Jul 25 (near-Fable-5 on CursorBench within 0.5% at ~½
+  cost/task, same $5/$25 as Opus 4.8, "stronger at verifying its work") + Anthropic's Jul 26 "new rules
+  of context engineering for Claude 5" post. Load-bearing primary: "We removed over 80% of Claude Code's
+  system prompt … with no measurable loss on our coding evaluations." Mechanism: a rule is compensation
+  for a capability gap — it's a proxy that overrides judgment in BOTH directions, so on a capable model
+  it flips help→handcuff (their before/after: "never write multi-line comment blocks" → "match the
+  surrounding code's comment density"). Evergreen anchor = Sutton's Bitter Lesson (2019) arriving in the
+  prompt file: hand-engineered human knowledge caps a model that scales. 80% = 80% of the hand-written
+  *instructions* not the ~33k preamble (mostly tool schemas, 07-16); base unpublished but diffs public
+  (Piebald) → checkable, flagged. Continuity not pivot: Sept-2025 Anthropic guidance already said
+  "smallest possible set of high-signal tokens" / "right altitude" — Opus 5 just moves the altitude up.
+  Four more shifts: examples→expressive params/enums ("examples … constrain them to a certain exploration
+  space"; links 07-05); progressive disclosure→skills (07-09); kill system-prompt/tool-desc repetition;
+  auto-memory over manual CLAUDE.md (watch = self-written log, 07-08). KEY BUILDER DISTINCTION: separate
+  instructions-that-compensate-for-capability (tutoring → delete) from constraints-that-bound-blast-radius
+  (brakes → keep regardless — hooks 07-02, sandbox 07-23; capability ⊥ permission); and keep non-derivable
+  gotchas (post: "spend most of the tokens on gotchas"). do/watch/ignore: audit CLAUDE.md line-by-line
+  ("would a competent engineer who read this repo already do this?" → cut), eval-fixture before/after
+  (07-24), replace few-shot with enums; watch auto-memory legibility + altitude-per-model (cheap/open
+  models 07-13/07-20 still need scaffolding → prompt is model-specific, swap = portability event 07-05);
+  ignore verbatim Opus-4.x→5 port + the delete-everything overcorrection. Deciding question per context
+  line = teaching-something-uninferable vs correcting-a-mistake-this-model-no-longer-makes. Prediction:
+  Claude Code's default *instruction* prompt (Piebald-tracked) stays at/below its post-cut size through
+  Q1'27 — the 80% cut isn't quietly re-bloated (65%). how-it-works/practical-guide; devtools/builder.
+  Advances the context-budget/autonomy-before-brakes cluster from a new (capability×scaffolding) angle;
+  siblings context-tax (07-16), skills (07-09), tool-schema (07-05), context-budget (06-25), hooks (07-02),
+  sandbox (07-23), verifier (07-24), audit-trail (07-08).

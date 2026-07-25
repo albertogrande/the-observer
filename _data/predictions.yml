@@ -607,3 +607,18 @@
   confidence: 70
   due: "2027-12-31"
   status: open
+
+- id: dive-2026-07-26-context-scaffolding
+  made: "Dive · 2026-07-26"
+  made_link: "/reports/deep-dives/2026-07-26-delete-rules-for-dumber-model.html"
+  text: >-
+    Through Q1 2027, Anthropic's "less scaffolding" context-engineering guidance
+    holds and doesn't quietly re-bloat: Claude Code's default INSTRUCTION system
+    prompt — the hand-written rules, tracked by Piebald's public diffs, excluding
+    tool schemas — stays at or below its post-Claude-5 cut size, and Anthropic
+    does not reintroduce a comparable volume of prescriptive style/behavior rules
+    for its flagship models; "fewer rules, higher-signal context" stays the
+    shipped default, not a launch-week talking point.
+  confidence: 65
+  due: "2027-Q1"
+  status: open
