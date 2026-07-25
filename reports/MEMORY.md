@@ -39,9 +39,33 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   thinnest link + anchor renewal, not Nvidia's balance sheet. Deciding quantity = neocloud
   interest ÷ revenue vs utilization/renewal. Capex context: Amazon $25B bond, Anthropic
   $19B/20yr TeraWulf lease, Meta 14GW by 2027; substitutes squeeze the rent (Chinese models
-  46% of US token use). → [2026-W23](./2026-W23.md),
+  46% of US token use).
+  W30 (contrarian lens): the *off-balance-sheet* front — partial inversion of our own 07-12 "end-riders
+  are solvent, so it's cash-funded" reassurance. The debt is being engineered off the exact statement the
+  "they can afford it" argument checks. Three mechanisms: (1) minority-stake SPV/JV — Meta Hyperion (Blue Owl
+  80%/Meta 20%, $27B senior secured notes due 2049, A+ S&P, PIMCO anchor, BlackRock >$3B, Oct 2025) keeps
+  the debt on the vehicle's books, Meta shows a lease; ~$120B shifted off B/S in ~18mo (BIS). (2) un-commenced
+  operating lease — ASC 842 books a lease liability only at commencement, so leases signed-not-delivered are
+  a footnote: Moody's (Feb 26, Gonzales/Drake) counts $662B off-B/S future data-center lease obligations
+  across the 5 hyperscalers ($969B undiscounted) = ~113% of their combined adjusted debt (the invisible
+  obligations exceed all visible debt). (3) neocloud pass-through (07-12) — Oracle kept it ON B/S and shows
+  the cost: FY26 FCF −$23.7B, ~$167B debt, S&P cut to BBB− on OpenAI concentration. So Goldman's reassuring
+  "capex ≈ 100% of OCF" is computed over the visible half. Counter-thesis: the structure MOVES risk (to
+  private credit/insurers — BIS names refi-at-vehicle / procyclical-credit / guarantee-activation channels),
+  it doesn't erase it; right denominator = (reported debt + off-B/S leases + JV obligations + guarantees) ÷
+  OCF, stress-tested vs an AI-revenue miss. Honest bounds: it's disclosed not concealed (Moody's counted it;
+  notes rated) → slow/arguable not Enron-morning; risk transfer partly real. Market already twitching at the
+  edges: bond coverage 5×(Feb)→<2×(Jul), Meta CDS record while equity near highs, spreads still near cycle
+  lows (JPM). Prove-me-wrong = next demand air-pocket, the loss lands on Blue Owl/PIMCO/bondholders + the
+  hyperscaler's guarantees never activate (structure = honest transfer); if it boomerangs via guarantee/lease
+  renegotiation/backstop, the off-B/S line was cosmetic. Tell = pristine reported B/S + widening CDS, or a
+  keep-it-visible name downgraded on concentration. So-what: read 3 footnote lines (commitments-not-yet-
+  commenced; unconsolidated VIEs/equity-method JVs; guarantees/residual backstops), not the headline B/S.
+  Deciding quantity = total committed obligations (on+off+guarantees) ÷ OCF. contrarian/news-to-framework.
+  → [2026-W23](./2026-W23.md),
   [2026-W24](./2026-W24.md), [2026-W25](./2026-W25.md),
-  [dive 2026-07-12](./deep-dives/2026-07-12-gpu-circular-financing-weak-link.md)
+  [dive 2026-07-12](./deep-dives/2026-07-12-gpu-circular-financing-weak-link.md),
+  [dive 2026-07-25](./deep-dives/2026-07-25-ai-capex-off-balance-sheet-debt.md)
 - **The AI coding subsidy died** `↑` — Copilot token billing live Jun 1 (10–50x
   bills, Opus multiplier 7.5x→27x, paid code review); Cursor seat split;
   Anthropic Agent SDK credit split lands Jun 15. Flat-rate AI tooling is
@@ -561,6 +585,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-07-21 (context-price-cliff) | OpenAI's flagship coding model (GPT-5.6 line or successor) keeps a long-context price surcharge through Q1 2027 — a fixed input-token threshold above which the whole request reprices at a higher input/output multiplier — rather than moving to flat pricing across its full advertised window the way Anthropic did (Mar 2026); metered long context stays OpenAI's default | 72% | by 2027-Q1 | OPEN |
 | Dive 2026-07-22 (deskilled-reviewer) | Through Q1 2027, no published controlled study demonstrates that experienced engineers' defect *catch-rate* in AI-assisted code *review* (not authoring) holds steady or improves as agent reliability rises — the automation-complacency result (reviewer miss-rate rising with automation reliability, per Parasuraman/Manzey) either reproduces in the code-review setting or the human catch-rate stays unmeasured by vendors/benchmarks; "human in the loop" keeps being asserted as a control without a miss-rate number | 70% | by 2027-Q1 | OPEN |
 | Dive 2026-07-24 (verifier-asymmetry) | Through Q1 2027, frontier AI's headline math/coding wins stay concentrated on the verifier-backed side — no frontier system is credited by domain experts with an *original, human-novel proof of a universal (∀) statement that lacks a cheap external checker* (a genuinely new conceptual result, not a Lean formalization, a counterexample/witness, or a verifier-search construction à la FunSearch/AlphaEvolve) at anything like the cadence of its counterexample/construction results; capability keeps tracking the availability of a cheap, faithful, runnable verifier | 72% | by 2027-Q1 | OPEN |
+| Dive 2026-07-25 (off-balance-sheet) | Through end-2027 the five hyperscalers' AI data-center leverage keeps migrating *off* their balance sheets rather than back on — no voluntary consolidation of the major data-center SPVs/JVs, and no FASB/SEC rule forces debt-equivalent treatment of the un-commenced-lease + unconsolidated-JV obligations; the aggregate off-balance-sheet data-center commitment stays ≥ the group's combined reported adjusted debt (Moody's ~113% baseline, Feb 2026) and does not fall materially below it | 70% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1182,3 +1207,21 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   fixture); the ceiling on agent output = the quality of your check. how-it-works/news-to-framework. Opens the
   verifier-asymmetry front on the agent-capability thread; siblings benchmark (06-12), reasoning-cost (07-18),
   accept-button (07-10), deskilled-reviewer (07-22).
+- 2026-07-25 — "The AI Buildout Isn't Cash-Funded. The Debt Just Isn't on the Balance Sheet." (Okafor) —
+  inverts "the AI capex is safe because the richest firms fund it from cash flow" (Goldman: capex ≈ 100% of
+  OCF; and our own 07-12 "end-riders solvent" take). Break: the balance-sheet test checks the wrong document —
+  leverage is engineered off it via (1) minority-stake SPV/JV (Meta Hyperion, Blue Owl 80%/Meta 20%, $27B
+  notes due 2049 on the vehicle, Meta shows a lease; ~$120B off-B/S in ~18mo per BIS), (2) un-commenced
+  operating leases (ASC 842 books at commencement → Moody's $662B off-B/S future data-center lease obligations
+  across the 5 = ~113% of their combined adjusted debt; $969B undiscounted), (3) neocloud pass-through (Oracle
+  kept it ON B/S → FY26 FCF −$23.7B, ~$167B debt, S&P BBB− on OpenAI concentration). So "capex ≈ 100% of OCF"
+  measures the visible half; add $662B back and it's the whole story again. Counter-thesis: structure MOVES
+  risk to private credit/insurers (BIS "shadow borrowing": refi-at-vehicle / procyclical-credit /
+  guarantee-activation channels), doesn't erase it; right denominator = (debt + off-B/S leases + JV +
+  guarantees) ÷ OCF stress-tested vs AI-revenue miss. Honest bounds: disclosed not concealed (Moody's
+  counted it; notes A+ rated) → slow not Enron; transfer partly real; market twitching (bond coverage
+  5×→<2× Feb→Jul, Meta CDS record, spreads still near cycle lows). Prove-me-wrong: next air-pocket the loss
+  stays in the SPV (honest transfer) vs boomerangs via guarantee/backstop (cosmetic). Tell = clean reported
+  B/S + widening CDS. So-what: read the 3 footnote lines (commitments-not-yet-commenced / unconsolidated
+  VIEs+JVs / guarantees), not the headline B/S. contrarian/news-to-framework; opens off-balance-sheet-debt
+  front on repricing thread. Siblings neocloud-financing (07-12), silicon (06-29), LLMOps (06-11).

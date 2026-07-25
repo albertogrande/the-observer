@@ -24,6 +24,29 @@
     $24.86B debt, interest 25.8% of revenue, 67% one customer). The end-riders are
     solvent (hyperscalers ~$451B OCF); the weak link is whoever can't refinance,
     this cycle's Winstar.
+    W30 (contrarian lens): a partial inversion of that "cash-funded, therefore
+    safe" reassurance. The debt is being engineered off the exact statement the
+    "they can afford it" argument checks. Three mechanisms: a minority-stake SPV/JV
+    (Meta's Hyperion — Blue Owl 80% / Meta 20%, ~$27B of senior secured notes due
+    2049 on the vehicle, Meta shows a lease; roughly $120B shifted off balance
+    sheets in ~18 months per the BIS); the un-commenced operating lease (under ASC
+    842 a lease liability is booked only at commencement, so Moody's counts $662B of
+    off-balance-sheet future data-center lease obligations across the five
+    hyperscalers — about 113% of their combined adjusted debt, i.e. the invisible
+    obligations exceed all the visible debt); and the neocloud pass-through, where
+    Oracle kept the buildout ON its books and shows the cost (FY26 free cash flow
+    −$23.7B, ~$167B debt, S&P cut to BBB− on OpenAI concentration). So Goldman's
+    reassuring "capex ≈ 100% of operating cash flow" is computed over the visible
+    half. Counter-thesis: the structure MOVES the risk (to private credit and
+    insurers — the BIS names refinancing-at-the-vehicle, procyclical-credit, and
+    guarantee-activation channels), it doesn't erase it; the right denominator is
+    (reported debt + off-B/S leases + JV obligations + guarantees) ÷ OCF, stress-
+    tested against an AI-revenue miss. Honest bounds: it's disclosed, not concealed
+    (Moody's counted it; the notes are A+ rated) — slow and arguable, not an Enron
+    morning — and the risk transfer is partly real. The market is already twitching
+    at the edges: hyperscaler bond order-coverage fell 5×→<2× (Feb→Jul), Meta's CDS
+    hit a record while its equity sat near highs, spreads still near cycle lows. The
+    tell is a clean reported balance sheet with a widening CDS.
   tension: >-
     W24 added a new risk-factor line — a flagship model can be administratively
     switched off overnight (the Fable 5 export ban).
@@ -32,6 +55,7 @@
     - { label: "2026-W24", link: "/reports/2026-W24.html" }
     - { label: "2026-W25", link: "/reports/2026-W25.html" }
     - { label: "Dive · Nvidia Isn't the Domino", link: "/reports/deep-dives/2026-07-12-gpu-circular-financing-weak-link.html" }
+    - { label: "Dive · The AI Buildout Isn't Cash-Funded", link: "/reports/deep-dives/2026-07-25-ai-capex-off-balance-sheet-debt.html" }
 
 - slug: ai-coding-subsidy-died
   title: "The AI coding subsidy died"

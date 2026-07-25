@@ -591,3 +591,19 @@
   confidence: 72
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-07-25-off-balance-sheet-debt
+  made: "Dive · 2026-07-25"
+  made_link: "/reports/deep-dives/2026-07-25-ai-capex-off-balance-sheet-debt.html"
+  text: >-
+    Through end-2027 the five hyperscalers' AI data-center leverage keeps
+    migrating OFF their balance sheets rather than back on — no voluntary
+    consolidation of the major data-center SPVs/JVs onto a hyperscaler's balance
+    sheet, and no FASB/SEC rule forces debt-equivalent classification of the
+    un-commenced-lease + unconsolidated-JV obligations; the aggregate
+    off-balance-sheet data-center commitment of the five stays at or above their
+    combined reported adjusted debt (Moody's ~113% baseline, Feb 2026) and does
+    not fall materially below it. The leverage stays a footnote, not a liability.
+  confidence: 70
+  due: "2027-12-31"
+  status: open

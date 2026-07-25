@@ -260,6 +260,18 @@ Code Watch.*
   lends to its own customers, and the two ratios (financing ÷ revenue, top-customer
   concentration) that flip it from a growth lever into a warning sign (Analyst/
   Contrarian) [surfaced by the 07-12 circular-financing dive]
+- [how-it-works] How a data-center SPV is actually built: the minority-stake JV,
+  the fully-amortizing senior secured note, the operating lease and the guarantee —
+  a line-by-line read of the Meta/Blue Owl Hyperion structure and what consolidates
+  where (Analyst) [surfaced by the 07-25 off-balance-sheet dive]
+- [economics] Private credit is the new bond desk for AI: how Blue Owl / Apollo /
+  PIMCO / BlackRock came to hold ~$200B+ of data-center debt, what covenants they
+  actually wrote, and why the risk left the public bond market for a channel that
+  reports to nobody (Analyst/Contrarian) [surfaced by the 07-25 off-balance-sheet dive]
+- [what-every-engineer-should-know] Reading the footnotes: the three lines in a 10-Q
+  (commitments-not-yet-commenced, unconsolidated VIEs, guarantees) that carry more of
+  a hyperscaler's real AI leverage than its headline balance sheet (Contrarian)
+  [surfaced by the 07-25 off-balance-sheet dive]
 
 ## Live — politics & policy (technical lens)
 
