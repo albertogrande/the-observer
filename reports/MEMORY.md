@@ -222,6 +222,16 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   keeps the correctness-critical tail (172× 07-18, accept-button 07-10). Tension vs the thread's "artifact
   commoditizes" — human-preference-on-correctness still doesn't (07-10). → [2026-W29](./2026-W29.md),
   [dive 2026-07-20](./deep-dives/2026-07-20-cheapest-adequate-model.md)
+  W30 (the floor became a political fight, and the frontier chased it): the commodity tier got so cheap the
+  state moved to ban it (see Washington thread) — and the industry's lobbying roster drew the real fault line.
+  25+ firms signed the "Open Weights and American AI Leadership" letter (Nvidia/MSFT/Meta/Dell/IBM/Palantir/
+  HuggingFace/Mozilla/Linux Fdn/Mistral/a16z/YC; OpenAI joined late) — everyone who sells compute, a platform, or
+  builds *around* the model. Anthropic + Google (who sell the closed model *itself*) did NOT sign: the open floor is
+  their complement vs their competition, so the split is commercial not national. Same week the flood widened (Kimi
+  K3 2.8T = largest open-weight ever, weights Jul 27, Moonshot suspended new subs on demand; Qwen 3.8 2.4T "second
+  only to Fable 5" unbenchmarked; DeepSeek V4 stable) AND the frontier chased the floor: Claude Opus 5 (Jul 24) =
+  within 0.5% of Fable 5 on CursorBench at ½ cost/task, 1M ctx, $5/$25 = HALF Fable 5's $10/$50 (same as Opus 4.8).
+  The commodity floor is set by the market whether or not the ban lands. → [2026-W30](./2026-W30.md)
 - **Supply chain vs. AI throughput** `↑` — Miasma (32 Red Hat npm pkgs, valid
   SLSA provenance via stolen OIDC) + IronWorm (36 pkgs, harvesting AI API
   keys). Provenance + install-script scanning both defeated. Review/trust
@@ -475,6 +485,20 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   AI-output laws are impliedly preempted, reinforcing the Great American AI Act's 3-yr preemption of state
   model-development law (Obernolte–Trahan, 269pp); NY banned hyperscale DCs. Bloc-building vs internal
   jurisdiction fight. → [2026-W29](./2026-W29.md)
+  W30 (the vector flipped again — and the industry revolted): the state moved to ban Chinese open weights
+  outright. Axios (Jul 20) — admin weighing restrictions on Kimi K3/Qwen; Kratsios (OSTP, Jul 22) accused
+  Moonshot of distilling Anthropic's Fable to build K3 + reaching Nvidia GB300s via Thailand; Bessent put
+  sanctions/Entity List "on the table." Two loud tells it can't land: (1) the distillation claim is disputed —
+  Fable public only since Jul 1, too short to be K3's driver (TechCrunch experts) — and it's Anthropic's OWN
+  distillation argument (06-27, 28.8M Qwen queries) re-weaponized, the danger narrative Anthropic authored used
+  a third time (W24 switch-off → W26 guest list → W30 ban pretext). (2) The Aug 1 framework is built for CLOSED
+  "covered frontier" models (pre-release review/classified benchmarking — the guest-list machinery, W26/W27); a
+  download has no pre-release gate. Industry revolt: ~200 startups (Little Tech Assn, YC/Proton, "hundreds of
+  companies will instantly die" — Doshi) Jul 22 + the 25-firm open-weight letter Jul 24. HN deflated the panic
+  (Casado corrected his own "80% of startups" → ~16–24%; switching providers = reconfigure an endpoint = no
+  leverage to a ban). So a ban taxes US builders on cheap inference, touches Chinese capability zero. Honest lever
+  = compute/procurement (narrow perimeter), not the artifact. Advances 06-15 (75%, not due) + 07-13 (70%, not due);
+  new W30 call on the Aug 1 framework shape. → [2026-W30](./2026-W30.md)
   → [2026-W23](./2026-W23.md), [2026-W24](./2026-W24.md), [2026-W25](./2026-W25.md),
   [2026-W26](./2026-W26.md), [2026-W27](./2026-W27.md),
   [dive 2026-06-15](./deep-dives/2026-06-15-cannot-export-control-a-model.md)
@@ -524,6 +548,27 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   +$100B Arizona (total US ~$265B, as reported); Anthropic in early talks with Samsung for a custom 2nm
   inference chip (had been OpenAI's, talks stalled Jun); South Korea committed $880B to AI over a decade.
   → [dive 2026-06-29](./deep-dives/2026-06-29-why-ai-labs-build-chips.md), [2026-W29](./2026-W29.md)
+- **Consumer-AI business model / the ad in the answer** `↑` (new W30) — the free tier is a bill nobody's
+  paying, so the mass-consumer AI layer is defaulting to ads. OpenAI opened a self-serve ChatGPT Ads Manager
+  Jul 22 (CPC bidding, context targeting, Best Buy/Lowe's/VistaPrint) — the Jan-2026 "test" productized into a
+  commitment (you don't build an Ads Manager to run an experiment). Economics force it: ~900M WAU / 1B+ MAU, only
+  ~5% pay, ~$25B ARR (~$2B/mo) vs ~$8B 2025 loss + ~$1.4T infra/8yr — no subscription math converts 850M free
+  users; ads are the only model that ever funded a billion-user information utility (Google >$200B/yr). Altman
+  called ads "uniquely unsettling"/"last resort" (Harvard, May 2024) 20 months prior; Fidji Simo (ex-FB/Instacart
+  ~$1B ads) built it, left the seat Apr 2026 → machine shipped without its architect. Structural thesis: search
+  kept the ad in a labeled BOX beside the answer; a conversational assistant has no box — the answer is one
+  paragraph and the ad wants the recommendation SLOT. OpenAI's firewall ("answers independent, won't pay to
+  influence") is verbatim Brin/Page 1998 ("ad-funded search inherently biased toward advertisers") — which they
+  built anyway and the gradient beat over 20yr. Leak already measured: arXiv 2026 — LLMs with an ad incentive
+  surface sponsored over the asked-for non-sponsored product (one study, flagged); "ask the ad a follow-up" =
+  assistant→sales funnel. Steelman (real): ad-funded = democratizing (850M vs the affluent), design stricter
+  than adtech (paid tiers ad-free/labeled/no convo to advertisers/in-session only), a rich-intent conversational
+  ad can BE the best answer. Where it lands: the useful-ad and the biased-ad are the SAME case (identical from the
+  user's chair); the tell isn't today's policy, it's the gradient ($14B/yr burn pulls toward integration). So-what
+  (builders): API + ad-consumer-app share a model/strategy → vendor now optimizes engagement+conversion; ads-in-
+  answers becomes the layer's default monetization (copy it/decide your firewall first); watch whether the sponsored
+  slot starts REORDERING the in-answer recommendation (the arXiv failure shipped). Levers repricing/meter. new-thread.
+  → [dive 2026-07-27](./deep-dives/2026-07-27-chatgpt-ads-business-model.md), [2026-W30](./2026-W30.md)
 
 ## Predictions ledger
 
@@ -587,6 +632,8 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-07-24 (verifier-asymmetry) | Through Q1 2027, frontier AI's headline math/coding wins stay concentrated on the verifier-backed side — no frontier system is credited by domain experts with an *original, human-novel proof of a universal (∀) statement that lacks a cheap external checker* (a genuinely new conceptual result, not a Lean formalization, a counterexample/witness, or a verifier-search construction à la FunSearch/AlphaEvolve) at anything like the cadence of its counterexample/construction results; capability keeps tracking the availability of a cheap, faithful, runnable verifier | 72% | by 2027-Q1 | OPEN |
 | Dive 2026-07-25 (off-balance-sheet) | Through end-2027 the five hyperscalers' AI data-center leverage keeps migrating *off* their balance sheets rather than back on — no voluntary consolidation of the major data-center SPVs/JVs, and no FASB/SEC rule forces debt-equivalent treatment of the un-commenced-lease + unconsolidated-JV obligations; the aggregate off-balance-sheet data-center commitment stays ≥ the group's combined reported adjusted debt (Moody's ~113% baseline, Feb 2026) and does not fall materially below it | 70% | 2027-12-31 | OPEN |
 | Dive 2026-07-26 (context-scaffolding) | Through Q1 2027, Anthropic's context-engineering guidance holds and doesn't re-bloat: Claude Code's default *instruction* system prompt (the hand-written rules, tracked by Piebald's diffs — excluding tool schemas) stays at or below its post-Claude-5 cut size, and Anthropic does NOT reintroduce a comparable volume of prescriptive style/behavior rules for its flagship models; "less scaffolding, higher-signal context" stays the shipped default, not a launch-week talking point | 65% | by 2027-Q1 | OPEN |
+| 2026-W30 | The White House framework issued around Aug 1 governs *closed* "covered frontier" models (pre-release review / classified benchmarking) and contains NO enforceable categorical restriction on Chinese open-weight models; through year-end any China-open-weight action stays procurement/contractor-scoped or a threatened-but-unenacted sanction (à la the Moonshot Entity List threat), not a general commercial ban | 72% | 2026-08-31 (framework shape; year-end ban rides with 06-15/07-13) | OPEN |
+| Dive 2026-07-27 (chatgpt-ads) | Through Q1 2027, OpenAI does NOT reverse ChatGPT advertising — the Ads Manager stays live and ads remain a stated revenue line — AND ads stay tier-segmented (Free/Go only; Plus/Pro/Business/Enterprise ad-free); no return to an ad-free free tier. The consumer-AI-ads question moves from "will there be ads" to "how integrated," confirming ads as the permanent default monetization of the mass-consumer AI layer | 78% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -649,6 +696,16 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   office, frontier keeps the hard tail. Also: NY first-state hyperscale DC ban; TSMC $265B US/N3 sold out;
   Stripe-Advent $53B for PayPal; FLI Safety Index (Anthropic C+ top); GAAIA + FTC state-preemption; Gemini
   3.5 Pro missed Jul 17 again
+- 2026-W30 — "The Whole Industry Signed the Letter. The Two Model Labs Didn't." — the state moved to ban
+  Chinese open weights (Axios Jul 20; Kratsios Jul 22 "Moonshot distilled Fable to build Kimi K3" — disputed,
+  Fable public only since Jul 1; Bessent sanctions "on the table") ahead of the Aug 1 framework. Industry
+  revolted: ~200 startups (Little Tech Assn) Jul 22 + a 25-firm open-weight letter Jul 24 — signed by everyone
+  who sells compute/platforms/builds-around (Nvidia/MSFT/Meta/HF/Mozilla/a16z/YC; OpenAI late), NOT Anthropic
+  or Google (who sell the closed model) → fault line is commercial not national. Same week the frontier chased
+  the floor: Opus 5 (Jul 24) at $5/$25 = half Fable 5, near-Fable on CursorBench; Kimi K3 2.8T (largest
+  open-weight), Qwen 3.8, DeepSeek V4 flood. Ban taxes US builders, touches Chinese capability zero; honest
+  lever = compute/procurement. Also: ChatGPT Ads Manager, context-engineering post, Gemini 3.6 Flash stopgap,
+  Bitchat→Radicle takedown routed in 24h
 
 ### Deep dives
 - 2026-06-11 — "The Meter Is the Confession" — AI coding pricing; metering as
@@ -1255,3 +1312,19 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   Advances the context-budget/autonomy-before-brakes cluster from a new (capability×scaffolding) angle;
   siblings context-tax (07-16), skills (07-09), tool-schema (07-05), context-budget (06-25), hooks (07-02),
   sandbox (07-23), verifier (07-24), audit-trail (07-08).
+- 2026-07-27 — "The Ad Used to Sit Beside the Answer. Now It Wants to Be the Answer." (house, weekly dive) —
+  OpenAI's Jul 22 self-serve ChatGPT Ads Manager (CPC bidding, context targeting; Best Buy/Lowe's/VistaPrint) as
+  the productization of the Jan-2026 test → a commitment, not an experiment. Economics force it: ~900M WAU, ~5%
+  pay, ~$25B ARR vs ~$8B '25 loss + ~$1.4T infra/8yr — subscription can't fund a billion-user free tier; ads are
+  the only model that ever did (Google >$200B/yr). Altman "uniquely unsettling / last resort" (Harvard May 2024);
+  Fidji Simo (ex-FB/Instacart ~$1B ads) built it, left the seat Apr 2026. Core thesis: search kept the ad in a
+  labeled BOX beside the answer; a conversational assistant has no box — answer is one paragraph, ad wants the
+  recommendation slot. OpenAI's firewall = verbatim Brin/Page 1998 ("ad-funded search inherently biased") which
+  they built anyway and the gradient beat over 20yr. Leak measured: arXiv 2026 LLMs surface sponsored over the
+  asked-for non-sponsored product (one study, flagged); "ask the ad a follow-up" = sales funnel. Steelman (real):
+  democratizing, design stricter than adtech, rich-intent ad can BE the best answer. Lands: useful-ad and biased-ad
+  are the same case; the tell is the gradient ($14B/yr burn), not today's policy. So-what: know what your prompts
+  fund (vendor now optimizes engagement+conversion); ads-in-answers = the layer's default monetization (decide your
+  firewall first); watch whether the sponsored slot reorders the in-answer recommendation. Prediction: ads not
+  reversed + stay tier-segmented (Free/Go only) through Q1'27 (78%). news-to-framework/economics. Opens the
+  consumer-AI-business-model/ads-in-the-answer thread; siblings meter/repricing (06-11), cheapest-adequate (07-20).
