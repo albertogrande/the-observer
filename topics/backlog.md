@@ -194,6 +194,12 @@ Code Watch.*
   you in tokens and flake (Builder) [surfaced by the 07-11 browser-runtime dive]
 - [how-it-works] Why your test suite is slow: the real cost model of a CI run (Analyst)
 - [x-vs-y] Monorepo vs polyrepo once AI agents are the main committer (Contrarian)
+- [how-it-works] Teaching a model a low-resource language: how MultiPL-T and
+  synthetic-function-demonstration pipelines translate high-resource training
+  data into a niche language, how much pass@1 it actually buys, and why the
+  economics only fund it for languages that already have demand — the rescue path
+  for the Zig/Nim/Odin tier under AI authorship (Analyst/Contrarian) [surfaced by
+  the 07-28 language-corpus dive]
 - [postmortem] Anatomy of a dependency-confusion attack, end to end (Analyst)
 - [what-every-engineer-should-know] OIDC, OAuth, sessions, and tokens — the auth
   vocabulary every engineer keeps confusing (Builder)

@@ -622,3 +622,18 @@
   confidence: 65
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-07-28-language-corpus
+  made: "Dive · 2026-07-28"
+  made_link: "/reports/deep-dives/2026-07-28-agent-rewrite-language-corpus.html"
+  text: >-
+    Through Q3 2027, the publicly documented large agent-fleet rewrites and ports
+    run overwhelmingly INTO top-corpus languages (Rust / Go / TypeScript / Python
+    / C++), and no low-resource language (Zig / Nim / Crystal / Odin / V) is the
+    TARGET of a comparable fleet rewrite — one that ships at Bun-like scale
+    (~100k+ lines), parallelism, and cost/quality. Training-corpus size acts as a
+    real language-selection pressure, and the arrow keeps pointing toward the
+    high-resource languages the model already reads fluently.
+  confidence: 70
+  due: "2027-09-30"
+  status: open

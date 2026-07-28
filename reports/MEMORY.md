@@ -634,6 +634,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-07-26 (context-scaffolding) | Through Q1 2027, Anthropic's context-engineering guidance holds and doesn't re-bloat: Claude Code's default *instruction* system prompt (the hand-written rules, tracked by Piebald's diffs — excluding tool schemas) stays at or below its post-Claude-5 cut size, and Anthropic does NOT reintroduce a comparable volume of prescriptive style/behavior rules for its flagship models; "less scaffolding, higher-signal context" stays the shipped default, not a launch-week talking point | 65% | by 2027-Q1 | OPEN |
 | 2026-W30 | The White House framework issued around Aug 1 governs *closed* "covered frontier" models (pre-release review / classified benchmarking) and contains NO enforceable categorical restriction on Chinese open-weight models; through year-end any China-open-weight action stays procurement/contractor-scoped or a threatened-but-unenacted sanction (à la the Moonshot Entity List threat), not a general commercial ban | 72% | 2026-08-31 (framework shape; year-end ban rides with 06-15/07-13) | OPEN |
 | Dive 2026-07-27 (chatgpt-ads) | Through Q1 2027, OpenAI does NOT reverse ChatGPT advertising — the Ads Manager stays live and ads remain a stated revenue line — AND ads stay tier-segmented (Free/Go only; Plus/Pro/Business/Enterprise ad-free); no return to an ad-free free tier. The consumer-AI-ads question moves from "will there be ads" to "how integrated," confirming ads as the permanent default monetization of the mass-consumer AI layer | 78% | by 2027-Q1 | OPEN |
+| Dive 2026-07-28 (language-corpus) | Through Q3 2027, the publicly documented large agent-fleet rewrites/ports run overwhelmingly *into* top-corpus languages (Rust/Go/TypeScript/Python/C++), AND no low-resource language (Zig/Nim/Crystal/Odin/V) is the *target* of a comparable (~100k+ line, fleet-scale, cost/quality-competitive) agent rewrite — training-corpus size acts as a real language-selection pressure, and the arrow keeps pointing toward the high-resource languages | 70% | 2027-09-30 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1328,3 +1329,31 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   firewall first); watch whether the sponsored slot reorders the in-answer recommendation. Prediction: ads not
   reversed + stay tier-segmented (Free/Go only) through Q1'27 (78%). news-to-framework/economics. Opens the
   consumer-AI-business-model/ads-in-the-answer thread; siblings meter/repricing (06-11), cheapest-adequate (07-20).
+- 2026-07-28 — "Bun's Rewrite Only Runs in One Direction" (Okafor) — inverts the read of Bun's
+  Zig→Rust agent-fleet rewrite (535,496 lines, 11 days, ~64 parallel Fable 5 agents = 4 workflows
+  ×16 in git worktrees over ~50 dynamic workflows, ~$165K / $15K per day, May 3–14; Oven joined
+  Anthropic Dec 2025; Claude Code now runs on the Rust Bun — case-study/register reporting, flagged).
+  Consensus: "AI made large migrations cheap → port any codebase to a better language on demand."
+  Steelman: real, ideal-for-agents task (reference impl = spec + test-suite oracle; links verifier-
+  asymmetry 07-24); Sumner's stated motive = memory safety (Zig unsafe, Rust safe). Break: the arrow
+  points *from* a low-resource language *to* a high-resource one, and that direction is the precondition
+  for the economics. Load-bearing: The Stack v2 (StarCoder2) — Rust 15.6 GB / 2.22M files (benchmark-
+  standard tier), Zig not in top 32 of 658 langs (rounding error); pass@1 tiers (2026 no-resource survey)
+  ~100% high-resource / >50% low / <20% (~0 on hard) no-resource. Run the play *into* Zig and 64-way
+  fan-out multiplies a corpus-set error rate → Kelley's "unreviewed slop" and Sumner's "11 days" are the
+  same fact from two sides. Why Rust doubly: corpus (fluency) × a cheap compile-time verifier (borrow
+  checker rejects the exact memory-bug class the rewrite targeted — links 07-24). Counter-thesis: when
+  the model is the author, training-corpus size becomes a first-class language-selection criterion (next
+  to perf/safety/ecosystem/hiring) AND self-reinforcing (model-friendly langs get more AI code → more
+  corpus → better models → rich-get-richer); languages win on representation, not design. Zig lost a
+  corpus contest, not a semantics argument. Honest bounds: memory-safety picks Rust *over Zig* but doesn't
+  explain feasibility (corpus does); low-resource langs rescuable (MultiPL-T translation, +double-digit
+  pass@1 from refined continual-pretraining) but who-pays flows the subsidy to langs that already have
+  corpus (links price-cut/complement 06-28); scaling may narrow the gap but the low-resource tail persists
+  and is decisive at the margin. Prove-me-wrong: a Bun-scale rewrite *into* a low-resource language at
+  Bun-like cost/quality. So-what: add "how much of this language has the model seen + does it ship a
+  compile-time verifier" to language choice; niche-lang lovers lean on types/tests/compiler + recount
+  per-lang tokens (07-14), don't expect 64-agent throughput. news-to-framework/what-every-engineer-should-
+  know; W31 devtools slot (first dive of the week). Opens the language-selection-under-AI-authorship front;
+  siblings verifier-asymmetry (07-24), deskilled-reviewer (07-22), worktrees (06-23), tokenizer (07-14),
+  price-cut (06-28), commoditization (07-13/07-20).
