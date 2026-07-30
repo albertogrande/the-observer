@@ -411,6 +411,14 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   radius. So-what: enable+auto-allow, add credential deny + scoped domains day one, strict for unattended.
   practical-guide/reference. Siblings hooks (07-02), egress (07-17), worktrees (06-23), deskilled-reviewer (07-22).
   → [dive 2026-07-23](./deep-dives/2026-07-23-sandbox-is-the-real-brake.md)
+  W31 (operator lens): the *orchestration* brake — a subagent is a context-isolation primitive, not a worker pool,
+  and the July changelog settled its two open questions: how deep the tree nests (default 3, now set via
+  CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH; was 5 & fixed) and how much of it you can see (`--forward-subagent-text`,
+  v2.1.211, off by default → you trust unwatched summaries). Win = tokens kept out of the main window (~⅓ of a 120K
+  budget), not wall-clock; chase speed and you get blind fan-out. Earn depth only for find→verify (= managed Code
+  Review's fleet→verify→dedup). Make returns checkable (--json-schema), isolate writers (worktree), don't let an
+  API-killed subagent read as a clean one (v2.1.199, cf. Jul 29 outage). Deciding quantity = tokens isolated, not
+  agents spawned. → [dive 2026-07-30](./deep-dives/2026-07-30-subagents-context-not-speed.md)
 - **Platforms eat the layer** `↑` — the LLMOps tool layer (gateway, tracing,
   eval, prompt store) is being absorbed from both ends: ClickHouse bought
   Langfuse (Jan, already built on ClickHouse; 23.1M SDK installs/mo) to own the
@@ -635,6 +643,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | 2026-W30 | The White House framework issued around Aug 1 governs *closed* "covered frontier" models (pre-release review / classified benchmarking) and contains NO enforceable categorical restriction on Chinese open-weight models; through year-end any China-open-weight action stays procurement/contractor-scoped or a threatened-but-unenacted sanction (à la the Moonshot Entity List threat), not a general commercial ban | 72% | 2026-08-31 (framework shape; year-end ban rides with 06-15/07-13) | OPEN |
 | Dive 2026-07-27 (chatgpt-ads) | Through Q1 2027, OpenAI does NOT reverse ChatGPT advertising — the Ads Manager stays live and ads remain a stated revenue line — AND ads stay tier-segmented (Free/Go only; Plus/Pro/Business/Enterprise ad-free); no return to an ad-free free tier. The consumer-AI-ads question moves from "will there be ads" to "how integrated," confirming ads as the permanent default monetization of the mass-consumer AI layer | 78% | by 2027-Q1 | OPEN |
 | Dive 2026-07-28 (language-corpus) | Through Q3 2027, the publicly documented large agent-fleet rewrites/ports run overwhelmingly *into* top-corpus languages (Rust/Go/TypeScript/Python/C++), AND no low-resource language (Zig/Nim/Crystal/Odin/V) is the *target* of a comparable (~100k+ line, fleet-scale, cost/quality-competitive) agent rewrite — training-corpus size acts as a real language-selection pressure, and the arrow keeps pointing toward the high-resource languages | 70% | 2027-09-30 | OPEN |
+| Dive 2026-07-30 (subagents) | Through Q1 2027, Claude Code keeps subagent text-forwarding OPT-IN (default emission stays tool_use/tool_result only; `--forward-subagent-text`/env var remains the switch), AND the default single-session concurrent-subagent limit stays ~20 and default spawn depth stays ~3 (no material increase), AND Anthropic keeps steering *sustained* parallelism to agent teams / background sessions (each with its own context) rather than scaling up the single-context subagent — i.e., the subagent stays positioned as a context-isolation primitive, not a scale-out compute one | 65% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1357,3 +1366,30 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   know; W31 devtools slot (first dive of the week). Opens the language-selection-under-AI-authorship front;
   siblings verifier-asymmetry (07-24), deskilled-reviewer (07-22), worktrees (06-23), tokenizer (07-14),
   price-cut (06-28), commoditization (07-13/07-20).
+- 2026-07-30 — "A Subagent Buys You Context, Not Speed" (Sandoval, Claude Code edition) — reframes the
+  Claude Code subagent as a *context-isolation* primitive, not a parallelism/speed one, pegged to the
+  week's Claude Code Watch (nested-subagent depth now configurable + background-by-default + `/code-review`
+  as background subagent + `--forward-subagent-text`). Failure it opens on: fan out 5 review subagents for
+  speed, get 5 one-paragraph summaries a few turns later, can't tell if the one that said "looks good" on a
+  buggy file actually read it — because by default Claude Code emits only subagent tool_use/tool_result, not
+  reasoning. Thesis: the win is the 40K-token log/grep kept out of your main window (docs' own first bullet =
+  "preserve context"; "returns only the summary"), worth ~⅓ of a 120K usable budget (links 06-25, 07-16);
+  wall-clock is a side effect, and chasing it gives the blind fan-out. Sharpens 06-13 (which priced fan-out):
+  sign the token bill for *isolation*, not parallelism; deciding quantity = tokens kept out of the main
+  window. Two July answers: (1) depth — default 3 layers below main, set via CLAUDE_CODE_MAX_SUBAGENT_SPAWN_
+  DEPTH (v2.1.217; was 5 & fixed on v2.1.172–216; `1`=off); earns depth only for find→verify (docs' reviewer-
+  dispatches-a-verifier-per-finding example = exactly what shipped as managed Code Review's fleet→verify→dedup;
+  search-against-a-verifier, links 07-24). (2) visibility — `--forward-subagent-text`/CLAUDE_CODE_FORWARD_
+  SUBAGENT_TEXT (v2.1.211) forwards subagent text+thinking; follow parent_tool_use_id to rebuild the nesting
+  tree (nested msgs only from v2.1.219); requires --print + --output-format stream-json. Make returns
+  checkable: subagent's final message IS the return → --output-format json + --json-schema (structured_output)
+  beats prose (verifier discipline, 07-24). Guardrails: isolation:worktree for parallel writers (06-23);
+  background results arrive as a completion notification a later turn; API-killed subagent now reports failure
+  not error-as-findings (v2.1.199 — matters on the Jul 29 41-min API outage); `/code-review` background
+  (v2.1.218) keeps context clean but moves review off-camera (deskilled-reviewer 07-22). Copy-paste: settings
+  env caps (depth/concurrent-default-20), headless stream-json + --forward-subagent-text + jq on
+  parent_tool_use_id, reviewer.md frontmatter w/ isolation:worktree + "return JSON {file,line,severity,
+  evidence}". practical-guide/how-it-works. Prediction: text-forwarding stays opt-in + default concurrent 20 /
+  depth 3 hold + sustained parallelism stays pushed to agent teams/background sessions (separate contexts),
+  65%. Lever on autonomy-before-brakes + context-budget; siblings context-budget (06-25), context-tax (07-16),
+  fan-out (06-13), worktrees (06-23), audit-trail (07-08), deskilled-reviewer (07-22), verifier (07-24).

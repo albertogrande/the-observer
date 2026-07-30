@@ -637,3 +637,21 @@
   confidence: 70
   due: "2027-09-30"
   status: open
+
+- id: dive-2026-07-30-subagents
+  made: "Dive · 2026-07-30"
+  made_link: "/reports/deep-dives/2026-07-30-subagents-context-not-speed.html"
+  text: >-
+    Through Q1 2027, Claude Code keeps subagent text-forwarding OPT-IN — the
+    default output stream stays tool_use / tool_result only, and
+    --forward-subagent-text (or CLAUDE_CODE_FORWARD_SUBAGENT_TEXT) remains the
+    switch — and the default single-session concurrent-subagent limit stays
+    around 20 with default spawn depth around 3 (no material increase). Anthropic
+    keeps steering SUSTAINED parallelism to agent teams and background sessions,
+    each with its own context, rather than scaling up the single-context
+    subagent: the subagent stays positioned as a context-isolation primitive, not
+    a scale-out compute one. If text-forwarding flips to default, or the
+    concurrency ceiling jumps, the reframe inverts.
+  confidence: 65
+  due: "2027-Q1"
+  status: open

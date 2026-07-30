@@ -423,6 +423,27 @@
     `@anthropic-ai/sandbox-runtime`, whose `srt` CLI wraps arbitrary commands and local MCP servers in the
     same fence. The VM is the wall (Anthropic runs Cowork in one); the sandbox is the fence (Claude Code) —
     match the boundary to the blast radius you can afford.
+    W31 (operator lens): the orchestration brake. A subagent is a context-isolation primitive, not a worker
+    pool — the docs' own first bullet is "preserve context," and the machine "returns only the summary." The
+    win is the 40k-token log or whole-repo grep kept out of your main window (worth ~a third of a 120K usable
+    budget), not wall-clock; reach for subagents to go faster and you get the blind fan-out — five one-line
+    summaries a few turns later, one saying "looks good" on a buggy file, no way to tell if the agent read it.
+    The July changelog settled the two open questions. How deep: nesting defaults to three layers below the
+    main conversation, now set with CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH (v2.1.217; it was five and fixed on
+    v2.1.172–216; `1` turns it off) — and depth earns its keep in exactly one shape, find-then-verify (the
+    docs' "reviewer that dispatches a verifier per finding," which is precisely what shipped as managed Code
+    Review's fleet → verify-each-candidate → dedup). How visible: `--forward-subagent-text` /
+    CLAUDE_CODE_FORWARD_SUBAGENT_TEXT (v2.1.211) forwards each subagent's text and thinking so you can rebuild
+    the tree by following parent_tool_use_id (nested messages only from v2.1.219); it's off by default, and
+    with --print + --output-format stream-json only. Make the return checkable, not chatty — the subagent's
+    final message IS the interface, so --output-format json + --json-schema beats prose. Guardrails that still
+    bite now that subagents run in the background by default (v2.1.198): isolation:worktree for parallel
+    writers; results arrive as a completion notification a later turn; and since v2.1.199 an API-killed
+    subagent reports the failure instead of returning the error text as findings — the difference between "no
+    issues" and "the run died," which matters on a day like the Jul 29 41-minute API outage. `/code-review`
+    now runs as a background subagent (v2.1.218) that keeps your context clean but moves the review off-camera
+    — the deskilled-reviewer trap in new clothes. Deciding quantity = tokens kept out of the main window, not
+    agents spawned.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -439,6 +460,7 @@
     - { label: "Dive · Your Session Starts 33,000 Tokens in the Hole", link: "/reports/deep-dives/2026-07-16-context-tax-before-your-prompt.html" }
     - { label: "Dive · The Loop Deskills the Human It Depends On", link: "/reports/deep-dives/2026-07-22-human-in-the-loop-deskilled.html" }
     - { label: "Dive · The Kernel Approves Commands Better Than You Do", link: "/reports/deep-dives/2026-07-23-sandbox-is-the-real-brake.html" }
+    - { label: "Dive · A Subagent Buys You Context, Not Speed", link: "/reports/deep-dives/2026-07-30-subagents-context-not-speed.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

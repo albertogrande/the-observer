@@ -109,8 +109,20 @@ Code Watch.*
 - [how-it-works] PostToolUse hooks as *quality* gates — lint, test, and format
   the agent's output before it lands (distinct from the PreToolUse security
   veto covered 2026-07-02) (Operator)
-- [practical-guide] Subagent orchestration that saves wall-clock time, not
-  just tokens (Operator)
+- [how-it-works] Agent teams vs subagents: when sustained parallelism needs
+  workers with their *own* independent contexts (agent teams / background
+  sessions) instead of single-session subagents — the context-isolation vs
+  scale-out-compute line, and what `SendMessage`/`/subtask`/`/fork` actually do
+  (Operator) [surfaced by the 07-30 subagents dive]
+- [practical-guide] Structured subagent returns: designing the schema a
+  subagent hands back (`--output-format json` + `--json-schema`,
+  `structured_output`) so an orchestrator can gate on data, not prose — the
+  return message IS the interface (Operator/Builder) [surfaced by the 07-30
+  subagents dive]
+- [reference] Reading a subagent tree with `--forward-subagent-text`: the
+  stream-json event shapes, `parent_tool_use_id` nesting reconstruction, and a
+  jq recipe to watch an unattended fan-out live (Operator) [surfaced by the
+  07-30 subagents dive]
 - [n-lessons] What the top Claude Code workflows have in common — patterns
   lifted from power users (Operator)
 - [reference] MCP servers worth wiring into Claude Code, and what each one
@@ -341,6 +353,10 @@ product engineering" pools above.*
 
 ## Used
 
+- [practical-guide] Subagent orchestration that saves wall-clock time, not
+  just tokens (Operator) — 2026-07-30 (reframed: subagent = context-isolation
+  primitive, not speed; depth + observability),
+  reports/deep-dives/2026-07-30-subagents-context-not-speed.md
 - [how-it-works] Why AI is better at math counterexamples than proofs: the
   verifier asymmetry — a counterexample is a certificate you check in one pass,
   a proof isn't; search-against-a-cheap-verifier is the shape of every task
