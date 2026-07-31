@@ -577,6 +577,37 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   answers becomes the layer's default monetization (copy it/decide your firewall first); watch whether the sponsored
   slot starts REORDERING the in-answer recommendation (the arXiv failure shipped). Levers repricing/meter. new-thread.
   → [dive 2026-07-27](./deep-dives/2026-07-27-chatgpt-ads-business-model.md), [2026-W30](./2026-W30.md)
+- **What AI is good at / the verifier asymmetry** `↑` (new W31) — the shape of what large models can
+  and can't do, roughly independent of scale: a model is strong exactly where success has a short, cheap,
+  faithful certificate you can *run*, and weak where it doesn't (a counterexample checks in one pass; a
+  proof of a ∀-statement has no single witness — the P-vs-NP asymmetry showing up in the prompt). Opened
+  07-24 (analyst lens): AI out-counterexamples mathematicians but not out-proves them (Fable's Jacobian-
+  conjecture counterexample checkable on a napkin per Tao; AlphaProof minutes-to-disprove vs up-to-3-days-
+  to-prove); the pattern under the headlines is model+verifier+search (FunSearch/AlphaEvolve), a test suite
+  IS a verifier → agents win on test-passing code, lose on "right architecture?/secure?" (universal, no
+  cheap faithful verifier); best-of-N pays only where the check is cheap (07-18); the human is verifier-of-
+  last-resort and deskills (07-22); a runnable verifier is over-optimizable (Goodhart). Deciding quantity =
+  verifier fidelity × verifier cost.
+  W31 (contrarian lens): the law shows up in cryptanalysis, corroborated by a domain expert. Anthropic's Jul 28
+  results (Claude Mythos preview) sort by runnability — the confident ones are executable key recoveries
+  (HAWK-256 2^64→2^38 via a new lattice automorphism; LEA-13-round ~2^30 pt, <1h; Serpent-6-round full recovery
+  = one-pass certificates), the soft one is un-runnable AES-7 (2^105 CP, 2^89 ops), where Matthew Green won't
+  fully vouch ("on-paper analysis that may or may not yield an actual runtime improvement"). Green independently
+  states the same law — exciting recent results carry "machine-checkable proof" or "a simple counterexample you
+  can compute on"; a key recovery IS the counterexample. "Flaws in the algorithm itself" oversells: 3 targets are
+  reduced-round (7/10 AES, 6/32 Serpent, 13/24 LEA) = the designed safety margin measured on purpose; full AES
+  untouched (Green: symmetric "deliberately messy," no breakthrough w/o "groundbreaking intuition"); Claude's own
+  "none of the ingredients are exotic" = synthesis of known tools, not new math. Counter-thesis: cheap cryptanalytic
+  LABOR, not weaker crypto — scarce input was always expert-hours-per-scheme (Green: "not enough human beings
+  dedicated") → a defender's win (grind every candidate pre-standardization; HAWK pulled from NIST the next day =
+  the process working faster). Same distributional frame as 07-07 (marginal cost of the automatable middle fell).
+  Real teeth only in public-key/PQC (few structures, under-analyzed — Green) but that's the SAME asymmetry
+  (executable key-recovery), which predicts what bends first. So-what: don't rotate AES-256/Ed25519/SHA-256;
+  trust the standards process MORE; prefer PQC schemes that survived machine attack. Prove-me-wrong = a novel
+  structural attack on a full-round deployed primitive, verified formally not by execution (the ∀-with-no-cheap-
+  witness result). Levers autonomy-before-brakes (deskilled reviewer) + supply-chain-vs-throughput.
+  → [dive 2026-07-24](./deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.md),
+  [dive 2026-07-31](./deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.md)
 
 ## Predictions ledger
 
@@ -643,6 +674,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | 2026-W30 | The White House framework issued around Aug 1 governs *closed* "covered frontier" models (pre-release review / classified benchmarking) and contains NO enforceable categorical restriction on Chinese open-weight models; through year-end any China-open-weight action stays procurement/contractor-scoped or a threatened-but-unenacted sanction (à la the Moonshot Entity List threat), not a general commercial ban | 72% | 2026-08-31 (framework shape; year-end ban rides with 06-15/07-13) | OPEN |
 | Dive 2026-07-27 (chatgpt-ads) | Through Q1 2027, OpenAI does NOT reverse ChatGPT advertising — the Ads Manager stays live and ads remain a stated revenue line — AND ads stay tier-segmented (Free/Go only; Plus/Pro/Business/Enterprise ad-free); no return to an ad-free free tier. The consumer-AI-ads question moves from "will there be ads" to "how integrated," confirming ads as the permanent default monetization of the mass-consumer AI layer | 78% | by 2027-Q1 | OPEN |
 | Dive 2026-07-28 (language-corpus) | Through Q3 2027, the publicly documented large agent-fleet rewrites/ports run overwhelmingly *into* top-corpus languages (Rust/Go/TypeScript/Python/C++), AND no low-resource language (Zig/Nim/Crystal/Odin/V) is the *target* of a comparable (~100k+ line, fleet-scale, cost/quality-competitive) agent rewrite — training-corpus size acts as a real language-selection pressure, and the arrow keeps pointing toward the high-resource languages | 70% | 2027-09-30 | OPEN |
+| Dive 2026-07-31 (cryptanalysis) | Through Q1 2027, no frontier AI system is credited by cryptographers with a cryptanalytic result that (a) targets a *full-round, standardized, deployed* primitive (AES/ChaCha20/SHA-2/SHA-3/Ed25519/X25519/ML-KEM/ML-DSA) AND (b) is a genuinely novel *technique* whose correctness is established by formal/machine-checkable analysis rather than by execution — AI-found cryptanalysis stays concentrated on the executable-and-checkable side (key recovery on reduced-round or not-yet-standardized schemes, where a recovered key is a one-pass witness); full-round deployed primitives take no such hit | 80% | by 2027-Q1 | OPEN |
 | Dive 2026-07-30 (subagents) | Through Q1 2027, Claude Code keeps subagent text-forwarding OPT-IN (default emission stays tool_use/tool_result only; `--forward-subagent-text`/env var remains the switch), AND the default single-session concurrent-subagent limit stays ~20 and default spawn depth stays ~3 (no material increase), AND Anthropic keeps steering *sustained* parallelism to agent teams / background sessions (each with its own context) rather than scaling up the single-context subagent — i.e., the subagent stays positioned as a context-isolation primitive, not a scale-out compute one | 65% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
@@ -1393,3 +1425,31 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   depth 3 hold + sustained parallelism stays pushed to agent teams/background sessions (separate contexts),
   65%. Lever on autonomy-before-brakes + context-budget; siblings context-budget (06-25), context-tax (07-16),
   fan-out (06-13), worktrees (06-23), audit-trail (07-08), deskilled-reviewer (07-22), verifier (07-24).
+- 2026-07-31 — "Claude Didn't Break Cryptography. It Made Cryptanalysis Cheap." (Okafor) — inverts the "a
+  frontier model is now finding weaknesses in the algorithms themselves, so our crypto is at risk" read of
+  Anthropic's Jul 28 cryptanalysis results (Claude Mythos preview). Steelman at full strength: the HAWK result
+  is real — a previously unknown lattice automorphism cut HAWK-256 key recovery 2^64→2^38 (halves security →
+  doubled keys defeat HAWK's whole efficiency purpose), found in ~60h where 2yr/two rounds of NIST review
+  missed it, from plain prompting not an expert-tuned harness; the HAWK team pulled it from NIST the next day
+  (techtimes, reported). Break: sort every result by "can you run it and check?" — the confident ones are
+  executable key recoveries (HAWK challenge instance; LEA-13-round ~2^30 pt <1h; Serpent-6-round full recovery
+  = one-pass certificates), the soft one is AES-7 (2^105 CP, 2^89 ops, 200–800× over 2013 DS-MITM) that can't
+  be run, so Green: correctness "relies on on-paper analysis that may or may not yield an actual runtime
+  improvement." Matthew Green (linked dissent) independently states the verifier law — exciting results come
+  with "machine-checkable proof" or "a simple counterexample you can compute on"; a key recovery IS the
+  counterexample. "In the algorithm itself" oversells: 3 targets are reduced-round (7/10 AES, 6/32 Serpent,
+  13/24 LEA) = the designed safety margin measured on purpose; full AES untouched (Green: symmetric
+  "deliberately messy," no breakthrough w/o "groundbreaking intuition"); <10× on Salsa20/Poseidon/SHA-1 (dead
+  since 2017). Even HAWK: Claude's own "none of the ingredients are exotic" = synthesis of known tools, not new
+  math. Counter-thesis: what got cheaper is cryptanalytic LABOR, not cryptography's security — scarce input was
+  always expert-hours-per-scheme (Green: "not enough human beings dedicated to analyzing these problems"), and a
+  tireless known-toolkit applier relieves that → mostly a DEFENDER's win (grind every candidate pre-
+  standardization; HAWK caught before NIST blessed it = the process working faster). Same distributional frame
+  as 07-07 (marginal cost of the automatable middle fell → volume/targeting shift, not the ceiling). Real teeth
+  = public-key/PQC (few structures, under-analyzed — Green) but that's the SAME asymmetry (executable key
+  recovery = witness), which predicts what bends first. So-what: don't rotate AES-256/Ed25519/SHA-256; trust the
+  standards process MORE; prefer PQC schemes that survived machine attack, discount novel/in-house primitives;
+  watch for a full-round deployed break verified formally-not-by-execution. Prove-me-wrong = exactly that.
+  contrarian/news-to-framework. Opens the verifier-asymmetry / what-AI-can-do thread with 07-24; siblings
+  verifier-asymmetry (07-24), ransomware/marginal-cost (07-07), reasoning-cost/best-of-N (07-18), language-
+  corpus (07-28), export-control/can't-control-the-artifact (06-15).

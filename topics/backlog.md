@@ -93,6 +93,20 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   `thinkingBudget`/`reasoning_effort` on your own workload, allocating compute by task
   difficulty (Snell), and picking the N for best-of-N where a wrong answer is worth 64
   right ones (Analyst/Operator) [surfaced by the 07-18 reasoning-cost dive]
+- [how-it-works] Reduced-round cryptanalysis, for engineers: why cryptographers attack
+  7-of-10-round AES on purpose, what a meet-in-the-middle attack actually does, and how to
+  read "N-round attack, 2^X operations, 2^Y chosen plaintexts" without panicking — the
+  safety-margin frame that separates an academic result from a break (Analyst/Contrarian)
+  [surfaced by the 07-31 AI-cryptanalysis dive]
+- [what-every-engineer-should-know] "An AI found a vulnerability" is three different claims:
+  an implementation bug (what DevSecOps scanners like OpenAI Codex Security / MAI-Cyber-1-Flash
+  do), a reduced-round or not-yet-standardized cryptanalysis result, and a full-round deployed
+  break — which ones justify rotating a key and which are just cheaper labor (Contrarian)
+  [surfaced by the 07-31 dive]
+- [how-it-works] Post-quantum crypto for the working engineer: what's actually deploying
+  (ML-KEM / ML-DSA / hybrid X25519+ML-KEM), the migration timeline, why "harvest now, decrypt
+  later" is the real threat model, and how the NIST standardization gauntlet withdraws a scheme
+  (HAWK's lattice automorphism) before it ships (Analyst) [surfaced by the 07-31 dive]
 
 ## Live — Claude Code & agent engineering
 

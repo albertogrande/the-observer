@@ -655,3 +655,22 @@
   confidence: 65
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-07-31-cryptanalysis
+  made: "Dive · 2026-07-31"
+  made_link: "/reports/deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.html"
+  text: >-
+    Through Q1 2027, no frontier AI system is credited by cryptographers with a
+    cryptanalytic result that both (a) targets a full-round, standardized,
+    deployed primitive (AES / ChaCha20 / SHA-2 / SHA-3 / Ed25519 / X25519 /
+    ML-KEM / ML-DSA) and (b) is a genuinely novel technique whose correctness is
+    established by formal or machine-checkable analysis rather than by execution.
+    AI-found cryptanalysis stays concentrated on the executable-and-checkable side
+    — key recovery on reduced-round or not-yet-standardized schemes, where a
+    recovered key is a one-pass witness — while full-round deployed primitives take
+    no such hit. If a model produces a novel structural attack, verified formally
+    rather than by running it, against a primitive people actually deploy, the
+    labor-not-security reading flips.
+  confidence: 80
+  due: "2027-Q1"
+  status: open

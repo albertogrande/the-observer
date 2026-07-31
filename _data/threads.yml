@@ -559,3 +559,53 @@
   issues:
     - { label: "Dive · Your Next Customer Is an Agent With a Wallet", link: "/reports/deep-dives/2026-07-06-agent-with-a-wallet.html" }
     - { label: "Dive · The Agent Reading Your Docs Won't Scroll", link: "/reports/deep-dives/2026-07-04-docs-for-agents-distribution.html" }
+
+- slug: verifier-asymmetry
+  title: "What AI is good at / the verifier asymmetry"
+  momentum: up
+  summary: >-
+    The shape of what large models can and can't do, roughly independent of
+    scale: a model is strong exactly where success has a short, cheap, faithful
+    certificate you can *run*, and weak where it doesn't. A counterexample checks
+    in one pass; a proof of a ∀-statement has no single witness — the P-vs-NP
+    asymmetry showing up in the prompt. Opened 07-24: AI out-counterexamples
+    mathematicians but not out-proves them (Fable's Jacobian-conjecture
+    counterexample checkable on a napkin per Tao; AlphaProof minutes-to-disprove
+    vs up-to-three-days-to-prove). The pattern under the headlines is
+    model + verifier + search (FunSearch, AlphaEvolve) — a test suite IS a
+    verifier, so agents win on test-passing code and lose on "right
+    architecture?/secure?" where no cheap faithful verifier exists; best-of-N
+    pays only where the check is cheap; the human is verifier-of-last-resort and
+    deskills; a runnable verifier is over-optimizable (Goodhart). Deciding
+    quantity = verifier fidelity × verifier cost.
+    W31 (contrarian lens): the law shows up in cryptanalysis, corroborated by a
+    domain expert. Anthropic's Jul 28 results (Claude Mythos preview) sort by
+    runnability — the confident ones are executable key recoveries (HAWK-256
+    2^64→2^38 via a newly found lattice automorphism; LEA reduced to 13 rounds,
+    ~2^30 plaintexts in under an hour; Serpent reduced to 6 rounds, full recovery
+    — each a one-pass certificate), and the soft one is the un-runnable 7-round
+    AES attack (2^105 chosen plaintexts, 2^89 operations) where Matthew Green
+    won't fully vouch: correctness "relies on on-paper analysis that may or may
+    not yield an actual runtime improvement." Green independently states the same
+    law — exciting recent results carry a "machine-checkable proof" or a "simple
+    counterexample you can compute on"; a key recovery IS the counterexample.
+    "Flaws in the algorithm itself" oversells: three targets are reduced-round
+    variants (7 of 10 AES rounds, 6 of 32 Serpent, 13 of 24 LEA) — the designed
+    safety margin measured on purpose, not the wall breached — and Claude's own
+    summary is that "none of the ingredients are exotic," i.e. synthesis of known
+    tools, not new mathematics. Counter-thesis: what got cheaper is cryptanalytic
+    *labour*, not cryptography's security. The scarce input was always
+    expert-hours pointed at a specific scheme (Green: "there simply have not been
+    enough human beings dedicated to analysing these problems"), so a tireless
+    known-toolkit applier is mostly a defender's win — grind every candidate
+    before standardisation freezes it; HAWK was caught and pulled from NIST the
+    next day, the process working faster. Same distributional frame as the
+    autonomous-ransomware dive (the marginal cost of the automatable middle fell;
+    volume and targeting shift, not the capability ceiling). The one place with
+    real teeth is public-key / post-quantum crypto (few underlying structures,
+    under-analysed) — but that is the same asymmetry pointing the same way, since
+    key recovery is an executable witness, which is what predicts that PQC bends
+    before full-round symmetric ciphers do.
+  issues:
+    - { label: "Dive · A Counterexample Checks in One Pass", link: "/reports/deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.html" }
+    - { label: "Dive · Claude Didn't Break Cryptography", link: "/reports/deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.html" }
