@@ -226,6 +226,18 @@ Code Watch.*
   economics only fund it for languages that already have demand — the rescue path
   for the Zig/Nim/Odin tier under AI authorship (Analyst/Contrarian) [surfaced by
   the 07-28 language-corpus dive]
+- [how-it-works] The MCP Tasks extension: how long-running agent work moves from
+  a held-open connection to a poll-based, resumable task once the transport goes
+  stateless — the durability you now own yourself, and where a plain tool call
+  ends and a Task begins (Builder) [surfaced by the 08-01 MCP stateless dive]
+- [what-every-engineer-should-know] Sealed state on the wire: HMAC-signed vs
+  encrypted request/session state, TTLs, the "visible but tamper-evident" trade,
+  and the replay/accumulation footguns — the signed-cookie pattern the 2026-07-28
+  MCP spec adopted, generalized (Builder) [surfaced by the 08-01 MCP stateless dive]
+- [architecture] The MCP gateway: what a managed middlebox in front of a fleet of
+  MCP servers actually does — header-based routing (Mcp-Method/Mcp-Param-*),
+  per-request OAuth (RFC 9728/8707), list caching, and the confused-deputy trap it
+  has to avoid (Builder/Analyst) [surfaced by the 08-01 MCP stateless dive]
 - [postmortem] Anatomy of a dependency-confusion attack, end to end (Analyst)
 - [what-every-engineer-should-know] OIDC, OAuth, sessions, and tokens — the auth
   vocabulary every engineer keeps confusing (Builder)

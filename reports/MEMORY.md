@@ -427,7 +427,19 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   returned ~half its $7.3M seed despite Fortune-10 use and 11.6k stars. Thesis:
   a wrapper around someone else's durable asset (model endpoint / analytics DB)
   is a feature, not a company. Third face of the channel/meter rule.
-  → [dive 2026-06-11 llmops](./deep-dives/2026-06-11-llmops-not-a-company.md)
+  W31 (builder lens): the *integration protocol* is being shaped for the middlebox. The 2026-07-28 MCP spec
+  deletes server-side sessions (no Mcp-Session-Id, no held-open SSE server→client stream) — every request
+  carries its version/identity/capabilities in _meta, flow state moves into a client-held HMAC-signed
+  requestState, and the SDK server becomes a per-request handler (createMcpHandler) you drop on Lambda/Vercel.
+  Paired with header-based routing (Mcp-Method/Mcp-Name/Mcp-Param-*, SEP-2243 — gateways route+authorize without
+  parsing the JSON body), cacheable lists (ttlMs/cacheScope), and per-request OAuth (already mandated 2025: RFC
+  9728 PRM + RFC 8707 audience binding; new RFC 9207, DCR→CIMD), stateless + per-request-auth makes MCP servers
+  fungible behind a gateway = exactly the layer the platforms sit on. ~½B SDK downloads/mo → the protocol matured
+  from local-dev toy to production deployment target, and deployment targets get optimized for operators, not
+  authors. Honest cost = lost cheap resumability (long work → Tasks extension poll / own store) + re-shipped _meta
+  per MRTR round; the web's server-session→signed-cookie trade, made legible. Siblings context-tax (07-16).
+  → [dive 2026-06-11 llmops](./deep-dives/2026-06-11-llmops-not-a-company.md),
+  [dive 2026-08-01](./deep-dives/2026-08-01-mcp-session-is-dead.md)
 - **Who pays for AI's power** `↑` — PJM uncapped capacity auction imminent;
   dueling studies on data centers vs. household bills; 1GW
   bring-your-own-power deals (Vantage–Liberty). W26: stopped being a sleeper —
@@ -675,6 +687,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-07-27 (chatgpt-ads) | Through Q1 2027, OpenAI does NOT reverse ChatGPT advertising — the Ads Manager stays live and ads remain a stated revenue line — AND ads stay tier-segmented (Free/Go only; Plus/Pro/Business/Enterprise ad-free); no return to an ad-free free tier. The consumer-AI-ads question moves from "will there be ads" to "how integrated," confirming ads as the permanent default monetization of the mass-consumer AI layer | 78% | by 2027-Q1 | OPEN |
 | Dive 2026-07-28 (language-corpus) | Through Q3 2027, the publicly documented large agent-fleet rewrites/ports run overwhelmingly *into* top-corpus languages (Rust/Go/TypeScript/Python/C++), AND no low-resource language (Zig/Nim/Crystal/Odin/V) is the *target* of a comparable (~100k+ line, fleet-scale, cost/quality-competitive) agent rewrite — training-corpus size acts as a real language-selection pressure, and the arrow keeps pointing toward the high-resource languages | 70% | 2027-09-30 | OPEN |
 | Dive 2026-07-31 (cryptanalysis) | Through Q1 2027, no frontier AI system is credited by cryptographers with a cryptanalytic result that (a) targets a *full-round, standardized, deployed* primitive (AES/ChaCha20/SHA-2/SHA-3/Ed25519/X25519/ML-KEM/ML-DSA) AND (b) is a genuinely novel *technique* whose correctness is established by formal/machine-checkable analysis rather than by execution — AI-found cryptanalysis stays concentrated on the executable-and-checkable side (key recovery on reduced-round or not-yet-standardized schemes, where a recovered key is a one-pass witness); full-round deployed primitives take no such hit | 80% | by 2027-Q1 | OPEN |
+| Dive 2026-08-01 (mcp-stateless) | Through Q1 2027, the 2026-07-28 stateless MCP transport holds as the forward default — the SDKs keep session-based Streamable HTTP (server-side Mcp-Session-Id state) as legacy-only, with no reversion to server-side sessions as the *recommended* remote model — AND stdio stays unchanged (no session/auth layer added) — AND server-initiated requests (elicitation/sampling) stay in-band via MRTR/input_required rather than reverting to held-open SSE server→client streams as the default; the protocol keeps moving toward the gateway-fronted, per-request-auth deployment target (header-based routing / CIMD not withdrawn) | 72% | by 2027-Q1 | OPEN |
 | Dive 2026-07-30 (subagents) | Through Q1 2027, Claude Code keeps subagent text-forwarding OPT-IN (default emission stays tool_use/tool_result only; `--forward-subagent-text`/env var remains the switch), AND the default single-session concurrent-subagent limit stays ~20 and default spawn depth stays ~3 (no material increase), AND Anthropic keeps steering *sustained* parallelism to agent teams / background sessions (each with its own context) rather than scaling up the single-context subagent — i.e., the subagent stays positioned as a context-isolation primitive, not a scale-out compute one | 65% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
@@ -1453,3 +1466,36 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   contrarian/news-to-framework. Opens the verifier-asymmetry / what-AI-can-do thread with 07-24; siblings
   verifier-asymmetry (07-24), ransomware/marginal-cost (07-07), reasoning-cost/best-of-N (07-18), language-
   corpus (07-28), export-control/can't-control-the-artifact (06-15).
+- 2026-08-01 — "MCP Deleted the Session. Your Server Just Became a Lambda." (Vance) — the 2026-07-28 MCP
+  spec revision deletes server-side sessions; Builder architecture/practical-guide, opens the
+  MCP-as-infrastructure / integration-protocol-layer front (first dedicated MCP-transport dive). Peg: the
+  2026-07-28 spec (blog.modelcontextprotocol.io) — stateless transport, Multi Round-Trip Requests (MRTR),
+  header-based routing, cacheable lists (ttlMs/cacheScope), Tasks extension, auth hardening (RFC 9207,
+  DCR→CIMD); ~½B SDK downloads/mo (TS+Py >1B total). Mechanism (the "before", real 2025-06-18 spec):
+  Streamable HTTP allowed OPTIONAL stateful sessions via an Mcp-Session-Id header = server-side memory keyed
+  by header → a 404 when request 2 hits a pod that never saw it → the sticky-routing tax you paid to obey the
+  protocol; and server-initiated requests (elicitation/sampling) needed a held-open SSE stream = a stateful
+  connection that dies with the pod (stateless mode existed — sessionIdGenerator:undefined — but dropped
+  resumability, SDK issue #340). The "after": every request carries version/identity/capabilities in _meta
+  (server identity → _meta['io.modelcontextprotocol/serverInfo']); the SDK server becomes
+  createMcpHandler(()=>{...}) building a fresh instance per request (exports as a Vercel/Lambda fn;
+  legacy:'stateless' default serves both eras — not a flag day); MRTR replaces push — a tool RETURNS
+  inputRequired(...) and is re-entered with inputResponses instead of pushing down a live stream (sampling too:
+  inputRequired.sampling); roots/logging-as-RPC removed, log level = per-request _meta.logLevel; flow state
+  externalized into a client-held sealed requestState (HMAC-signed NOT encrypted, TTL — the signed-cookie/JWT
+  move: visible to the client so no secrets, tamper-evident so reject stale/forged, "replace on re-entry, never
+  accumulate"). Natural extension (not forced): the protocol is being shaped for the MIDDLEBOX — header routing
+  (Mcp-Method/Mcp-Name; x-mcp-header→Mcp-Param-*, SEP-2243; mismatch=400/-32020) lets gateways route+authorize
+  without parsing the body, cacheable lists feed a cache, and per-request OAuth was already mandated in 2025
+  (server = OAuth 2.1 resource server; RFC 9728 Protected Resource Metadata, RFC 8707 resource/audience binding,
+  token passthrough forbidden/confused-deputy) → stateless + per-request-auth makes MCP servers fungible behind
+  a gateway = the layer platforms sit on (links llmops 06-11, context-tax 07-16). Honest cost: stateless loses
+  cheap resumability (long jobs → Tasks extension poll or your own store — protocol stopped pretending the
+  connection was your DB), and MRTR re-ships _meta/state each round (bandwidth/latency on chatty wizards; a plain
+  tools/call pays nothing new) — the web's server-session→signed-cookie trade, made legible. do/watch/ignore: DO
+  move remote servers to the stateless handler now + externalize per-call state into sealed requestState + add
+  RFC 8707 resource/audience validation regardless (the confused-deputy fix); WATCH header-routing + CIMD-over-DCR
+  + managed MCP gateways + Tasks adoption; IGNORE the "stateless=slower" reflex for ordinary calls and don't touch
+  local stdio servers (transport unchanged). architecture/practical-guide. Siblings context-tax (07-16), llmops
+  (06-11), agent-control-flow (06-19), portability (06-22), docs-for-agents (07-04). W31 (Vance, generalist Sat;
+  devtools slot already filled 07-28).

@@ -473,8 +473,28 @@
     evals natively. TensorZero archived its repo Jun 12 and returned ~half its
     $7.3M seed despite Fortune-10 use and 11.6k stars. A wrapper around someone
     else's durable asset is a feature, not a company.
+    W31 (builder lens): the integration *protocol* is now being shaped for the
+    middlebox too. The 2026-07-28 MCP spec deletes server-side sessions — no
+    Mcp-Session-Id memory, no held-open SSE server→client stream. Every request
+    carries its own version, identity, and capabilities in `_meta`; flow state
+    moves into a client-held, HMAC-signed `requestState`; server-initiated
+    elicitation/sampling become in-band returns (Multi Round-Trip Requests); and
+    the SDK server becomes a per-request handler (`createMcpHandler`) you drop on
+    Lambda or Vercel. Paired with header-based routing (Mcp-Method / Mcp-Name /
+    Mcp-Param-*, SEP-2243 — a gateway can route and authorize without parsing the
+    JSON body), cacheable tool/resource lists (ttlMs / cacheScope), and per-request
+    OAuth that was already mandated in 2025 (RFC 9728 Protected Resource Metadata +
+    RFC 8707 audience binding; new RFC 9207, DCR deprecated for CIMD), stateless
+    plus per-request-auth makes an MCP server fungible behind a gateway — exactly
+    the layer the platforms sit on. At ~half a billion SDK downloads a month the
+    protocol matured from local-dev toy to production deployment target, and
+    deployment targets get optimized for the operators, not the authors. The honest
+    cost: stateless loses cheap resumability (long jobs move to the Tasks extension
+    poll or your own store), and each MRTR round re-ships the `_meta` and signed
+    state — the web's server-session-to-signed-cookie trade, made legible.
   issues:
     - { label: "Dive · LLMOps Is a Feature", link: "/reports/deep-dives/2026-06-11-llmops-not-a-company.html" }
+    - { label: "Dive · MCP Deleted the Session", link: "/reports/deep-dives/2026-08-01-mcp-session-is-dead.html" }
 
 - slug: who-pays-for-ai-power
   title: "Who pays for AI's power"

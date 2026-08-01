@@ -674,3 +674,22 @@
   confidence: 80
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-08-01-mcp-stateless
+  made: "Dive · 2026-08-01"
+  made_link: "/reports/deep-dives/2026-08-01-mcp-session-is-dead.html"
+  text: >-
+    Through Q1 2027, the 2026-07-28 stateless MCP transport holds as the forward
+    default: the SDKs keep session-based Streamable HTTP (server-side
+    Mcp-Session-Id state) as legacy-only, with no reversion to server-side
+    sessions as the recommended remote model; stdio stays unchanged (no session
+    or auth layer added); and server-initiated requests (elicitation / sampling)
+    stay in-band via Multi Round-Trip Requests (input_required) rather than
+    reverting to held-open SSE server-to-client streams as the default. The
+    protocol keeps moving toward the gateway-fronted, per-request-auth deployment
+    target — header-based routing and CIMD-over-DCR are not withdrawn. If the
+    session model returns as the recommended default, or MRTR is rolled back to a
+    push transport, the reframe inverts.
+  confidence: 72
+  due: "2027-Q1"
+  status: open
