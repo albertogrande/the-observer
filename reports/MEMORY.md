@@ -174,6 +174,17 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   → [dive 2026-06-27](./deep-dives/2026-06-27-distillation-without-logits.md),
   [dive 2026-06-28](./deep-dives/2026-06-28-price-cut-is-a-weapon.md),
   [dive 2026-07-01](./deep-dives/2026-07-01-invisible-marker-not-surveillance.md)
+  W31 (analyst lens): the readable-output law meets the statute — the EU AI Act's Article 50(2) (in force 2026-08-02;
+  synthetic-content marking for pre-existing systems postponed to Dec 2) *mandates* provider marking that is "machine-
+  readable + detectable as artificially generated," and its own hedge ("robust and reliable AS FAR AS TECHNICALLY
+  FEASIBLE / state of the art") concedes the bit may not survive. Ceiling by medium: C2PA metadata stripped ~100% by
+  major platforms on re-encode (soft bindings added *because* the hard binding dies); SynthID signal watermark robust
+  to COMMON perturbations but explicitly not to adversarial removal (79%/~90% removal claimed); text worst (paraphrase
+  99%→15% TPR, 07-03). Externality: duty on the provider, survival controlled by the platform → a €15M/3% fine (Art. 99)
+  doesn't move a re-encode pipeline. Same law as export-control (06-15)/marker (07-01)/watermark (07-03): you can't
+  provenance-control a readable/renderable output, and a state can't legislate the control into existence — deciding
+  quantity = fraction of marks recoverable AT the point of consumption, a number nobody must publish.
+  → [dive 2026-08-02](./deep-dives/2026-08-02-ai-act-marking-survival-gap.md)
   W27 (analyst lens): the *watermark* half of the marker/watermark split, quantified. A
   statistical text watermark (green-list logit bias, read back with a z-test) is the strongest
   of the provenance markings — no symbol to grep — but its signal is a function of token count
@@ -688,6 +699,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-07-28 (language-corpus) | Through Q3 2027, the publicly documented large agent-fleet rewrites/ports run overwhelmingly *into* top-corpus languages (Rust/Go/TypeScript/Python/C++), AND no low-resource language (Zig/Nim/Crystal/Odin/V) is the *target* of a comparable (~100k+ line, fleet-scale, cost/quality-competitive) agent rewrite — training-corpus size acts as a real language-selection pressure, and the arrow keeps pointing toward the high-resource languages | 70% | 2027-09-30 | OPEN |
 | Dive 2026-07-31 (cryptanalysis) | Through Q1 2027, no frontier AI system is credited by cryptographers with a cryptanalytic result that (a) targets a *full-round, standardized, deployed* primitive (AES/ChaCha20/SHA-2/SHA-3/Ed25519/X25519/ML-KEM/ML-DSA) AND (b) is a genuinely novel *technique* whose correctness is established by formal/machine-checkable analysis rather than by execution — AI-found cryptanalysis stays concentrated on the executable-and-checkable side (key recovery on reduced-round or not-yet-standardized schemes, where a recovered key is a one-pass witness); full-round deployed primitives take no such hit | 80% | by 2027-Q1 | OPEN |
 | Dive 2026-08-01 (mcp-stateless) | Through Q1 2027, the 2026-07-28 stateless MCP transport holds as the forward default — the SDKs keep session-based Streamable HTTP (server-side Mcp-Session-Id state) as legacy-only, with no reversion to server-side sessions as the *recommended* remote model — AND stdio stays unchanged (no session/auth layer added) — AND server-initiated requests (elicitation/sampling) stay in-band via MRTR/input_required rather than reverting to held-open SSE server→client streams as the default; the protocol keeps moving toward the gateway-fronted, per-request-auth deployment target (header-based routing / CIMD not withdrawn) | 72% | by 2027-Q1 | OPEN |
+| Dive 2026-08-02 (ai-act-marking) | Through Q1 2027, no published detector-*survival* benchmark — machine-detectability measured at platform ingest on content that went through a real social pipeline (upload/re-encode/screenshot for media; a paraphrase or re-type for text), not a lab transform — shows AI-content marking holding above ~90% true-positive for images OR any meaningful (>~50% TPR at low FPR) figure for re-typed/paraphrased text; the metadata/C2PA path stays near-zero survival on the major platforms, AND the EU's Article 50(2) enforcement/Code of Practice keeps "as far as technically feasible" as the compliance standard rather than mandating a fixed survival threshold — so 50(2) stays a duty-to-attach-at-origin, not a guarantee-to-detect | 78% | by 2027-Q1 | OPEN |
 | Dive 2026-07-30 (subagents) | Through Q1 2027, Claude Code keeps subagent text-forwarding OPT-IN (default emission stays tool_use/tool_result only; `--forward-subagent-text`/env var remains the switch), AND the default single-session concurrent-subagent limit stays ~20 and default spawn depth stays ~3 (no material increase), AND Anthropic keeps steering *sustained* parallelism to agent teams / background sessions (each with its own context) rather than scaling up the single-context subagent — i.e., the subagent stays positioned as a context-isolation primitive, not a scale-out compute one | 65% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
@@ -1499,3 +1511,30 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   local stdio servers (transport unchanged). architecture/practical-guide. Siblings context-tax (07-16), llmops
   (06-11), agent-control-flow (06-19), portability (06-22), docs-for-agents (07-04). W31 (Vance, generalist Sat;
   devtools slot already filled 07-28).
+- 2026-08-02 — "You Can Mark the Image. You Can't Make the Mark Survive." (Quist) — the strongest version yet of
+  the "you can't control a readable output" law: the STATE now writes the impossible property into statute. Peg:
+  EU AI Act Article 50 transparency obligations take effect today (application 2026-08-02; synthetic-content
+  marking for pre-existing systems postponed to 2026-12-02). Sort the four duties by build-able vs
+  fights-physics: 50(1) chatbot disclosure, 50(3) emotion/biometric notice, 50(4) deepfake human-label = UX/process,
+  ship them. 50(2) provider-marks-output "machine-readable + detectable as artificially generated" = the open problem;
+  the clause's own hedge "effective, interoperable, robust and reliable AS FAR AS TECHNICALLY FEASIBLE / state of the
+  art" is the statute conceding the bit may not survive. Ceiling by medium: (a) metadata/C2PA Content Credentials —
+  stripped ~100% by major platforms on re-encode (2018 Imatag 80% → effectively total 2026; C2PA 2.0 added invisible
+  "soft bindings" because the hard binding doesn't survive); (b) signal watermark/SynthID — 10B+ images marked, "robust
+  to COMMON perturbations" but the paper explicitly separates common vs "adversarial…malicious intent"; removal tools
+  claim 79% (Google disputes) / ~90% reverse-engineered (single-src, flagged) → robust to accidents not adversaries;
+  (c) TEXT is worst and the law names it — paraphrase 99%→15% TPR (Sadasivan), SynthID-Text >90% scrubbed by one
+  paraphrase, detector cap AUROC ≤ ½+TV−TV²/2 → coin flip (reuses 07-03). Penalty: €15M or 3% turnover (Art. 99 tier
+  2). Externality: duty sits on the PROVIDER (50(2)), survival depends on the PLATFORM (strips for cost/privacy) → the
+  party charged doesn't control the channel where it fails; a fine doesn't move a re-encode pipeline. Counter (steel):
+  detection ≠ perfection — catches volume + good faith (the cheap un-laundered unit), and the law builds the
+  ecosystem (Code of Practice, harmonised standards, C2PA-at-source) even if the bit doesn't arrive; both concede the
+  value is at ORIGIN + cooperating-platform ingest, not in the artifact. So-what: do the 3 solvable duties fully; for
+  50(2) emit C2PA + SynthID-class at origin best-effort + DOCUMENT vs state-of-the-art (compliance is a paper trail);
+  never build downstream logic on an incoming mark surviving; watch Dec 2 + the Code of Practice (defines "technically
+  feasible"). Deciding quantity = fraction of marks machine-recoverable AT THE POINT OF CONSUMPTION (after upload/
+  re-encode/screenshot/paraphrase) — near-zero metadata, high-for-accidents/low-for-adversaries signal — a number
+  nobody must publish. Prove-me-wrong = a detector-SURVIVAL benchmark at platform ingest holding >90% for images / any
+  meaningful figure for re-typed text against ordinary handling. news-to-framework/economics. Advances the
+  readable-output law-line on channel-war/off-ramps; siblings watermark (07-03), marker (07-01), export-control (06-15).
+  W31 (Quist, generalist Sun).

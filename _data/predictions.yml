@@ -693,3 +693,22 @@
   confidence: 72
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-08-02-ai-act-marking-survival
+  made: "Dive · 2026-08-02"
+  made_link: "/reports/deep-dives/2026-08-02-ai-act-marking-survival-gap.html"
+  text: >-
+    Through Q1 2027, no published detector-survival benchmark — machine-
+    detectability measured at platform ingest on content that went through a real
+    social pipeline (upload / re-encode / screenshot for media; a paraphrase or
+    re-type for text), not a lab transform — shows AI-content marking holding
+    above ~90% true-positive for images, or any meaningful figure (>~50% TPR at
+    low FPR) for re-typed / paraphrased text. The metadata / C2PA path stays
+    near-zero survival on the major platforms, and the EU's Article 50(2)
+    enforcement and Code of Practice keep "as far as technically feasible" as the
+    compliance standard rather than mandating a fixed survival threshold — so
+    50(2) stays a duty to attach at origin, not a guarantee to detect at
+    consumption.
+  confidence: 78
+  due: "2027-Q1"
+  status: open

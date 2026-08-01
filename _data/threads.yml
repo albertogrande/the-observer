@@ -190,8 +190,26 @@
     from contamination, 11.7–31.6% verbatim; Grok shipped no system card). The moat
     isn't the model or the weights — it's whoever owns the surface where the accept
     happens.
+    W31 (analyst lens): the readable-output law met the statute. The EU AI Act's
+    Article 50(2) took effect 2 August 2026 (marking for pre-existing synthetic-content
+    systems postponed to 2 December), *mandating* that a provider's output be marked
+    "machine-readable and detectable as artificially generated" — with the clause's own
+    hedge, "robust and reliable as far as this is technically feasible / state of the
+    art," conceding the bit may not survive. It doesn't. C2PA metadata is stripped by
+    roughly 100% of major-platform re-encodes (C2PA 2.0 added invisible soft bindings
+    *because* the hard binding dies); SynthID-class signal watermarks are robust to
+    common perturbations but explicitly not to adversarial removal (79%/~90% removal
+    claimed); text is worst (paraphrase 99%→15% TPR). The duty sits on the provider, but
+    survival is controlled by the platform that strips the mark for cost and privacy — so
+    a €15M/3% fine doesn't move a re-encode pipeline. Same law as export control
+    (06-15), the deletable marker (07-01), and the paraphrase-washed watermark (07-03):
+    you can't provenance-control a readable or renderable output, and a state can't
+    legislate the control into existence. The deciding quantity is the fraction of marks
+    still machine-recoverable at the point of consumption — near-zero on the metadata
+    path — a number nobody is required to publish.
   issues:
     - { label: "Dive · The Channel Was the Product", link: "/reports/deep-dives/2026-06-09-channel-was-the-product.html" }
+    - { label: "Dive · You Can Mark the Image, Not Make It Survive", link: "/reports/deep-dives/2026-08-02-ai-act-marking-survival-gap.html" }
     - { label: "Dive · The Moat Is the Accept Button", link: "/reports/deep-dives/2026-07-10-accept-button-is-the-moat.html" }
     - { label: "Dive · You Cannot Export-Control a Model", link: "/reports/deep-dives/2026-06-15-cannot-export-control-a-model.html" }
     - { label: "Dive · The Coding Model You Can Run", link: "/reports/deep-dives/2026-06-17-local-coding-model-memory-budget.html" }

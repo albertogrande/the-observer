@@ -103,6 +103,16 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   do), a reduced-round or not-yet-standardized cryptanalysis result, and a full-round deployed
   break — which ones justify rotating a key and which are just cheaper labor (Contrarian)
   [surfaced by the 07-31 dive]
+- [how-it-works] Content provenance from the inside: C2PA / Content Credentials hard
+  bindings (signed manifests) vs soft bindings (invisible watermarks), why an upload
+  re-encode / screenshot / crop breaks the cryptographic signature, the cloud-manifest
+  fallback, and what a provenance chain can and can't promise once the file leaves your
+  server (Analyst) [surfaced by the 08-02 AI-Act-marking dive]
+- [x-vs-y] The two answers to "mark AI content": cryptographic provenance (C2PA, beside
+  the pixels) vs signal watermarking (SynthID, in the pixels/tokens) — the survival
+  curve of each against common vs adversarial transforms, why text is the worst medium,
+  and why a regulation ends up wanting both (Analyst/Contrarian) [surfaced by the 08-02
+  AI-Act-marking dive]
 - [how-it-works] Post-quantum crypto for the working engineer: what's actually deploying
   (ML-KEM / ML-DSA / hybrid X25519+ML-KEM), the migration timeline, why "harvest now, decrypt
   later" is the real threat model, and how the NIST standardization gauntlet withdraws a scheme
