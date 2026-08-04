@@ -712,3 +712,20 @@
   confidence: 78
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-08-04-local-bandwidth-wall
+  made: "Dive · 2026-08-04"
+  made_link: "/reports/deep-dives/2026-08-04-fit-70b-in-4gb-bandwidth-wall.html"
+  text: >-
+    Through Q1 2027, no weight-streaming / offloading loader (AirLLM-class) makes
+    a dense 70B-or-larger model run at interactive speed (>=5 tokens/sec) on a
+    consumer GPU of 8GB or less. Batch-1 decoding reads the full set of weights
+    once per token, so single-stream throughput stays bounded by (slowest-link
+    bandwidth / model bytes) — streaming from disk or system RAM just picks the
+    slowest bus. Usable local speedups on that hardware keep coming from smaller
+    models or from MoE sparsity (streaming only the ~5% active experts per token),
+    not from streaming dense weights. If a dense 70B streams at interactive speed
+    on a 4-8GB card, the bandwidth-wall framing is wrong.
+  confidence: 85
+  due: "2027-Q1"
+  status: open

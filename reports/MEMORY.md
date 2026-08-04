@@ -740,6 +740,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-02 (ai-act-marking) | Through Q1 2027, no published detector-*survival* benchmark — machine-detectability measured at platform ingest on content that went through a real social pipeline (upload/re-encode/screenshot for media; a paraphrase or re-type for text), not a lab transform — shows AI-content marking holding above ~90% true-positive for images OR any meaningful (>~50% TPR at low FPR) figure for re-typed/paraphrased text; the metadata/C2PA path stays near-zero survival on the major platforms, AND the EU's Article 50(2) enforcement/Code of Practice keeps "as far as technically feasible" as the compliance standard rather than mandating a fixed survival threshold — so 50(2) stays a duty-to-attach-at-origin, not a guarantee-to-detect | 78% | by 2027-Q1 | OPEN |
 | Dive 2026-07-30 (subagents) | Through Q1 2027, Claude Code keeps subagent text-forwarding OPT-IN (default emission stays tool_use/tool_result only; `--forward-subagent-text`/env var remains the switch), AND the default single-session concurrent-subagent limit stays ~20 and default spawn depth stays ~3 (no material increase), AND Anthropic keeps steering *sustained* parallelism to agent teams / background sessions (each with its own context) rather than scaling up the single-context subagent — i.e., the subagent stays positioned as a context-isolation primitive, not a scale-out compute one | 65% | by 2027-Q1 | OPEN |
 | 2026-W31 (also dive 2026-08-03) | No major agent harness (Claude Code / Cursor / Copilot / Codex) ships, before Q2 2027, a *default-on* mechanism that compiles a natural-language policy file (`CLAUDE.md`/`AGENTS.md`-class) into an *enforced* runtime control the model cannot override — the written policy file stays advisory-by-default, and hard enforcement stays a separate, manually-configured layer (PreToolUse hooks / sandbox / permission rules / required checks); the HANDBOOK.md gap gets measured and tooled-around, not closed inside the instruction file | 72% | by 2027-Q2 | OPEN |
+| Dive 2026-08-04 (local-bandwidth) | Through Q1 2027, no weight-streaming/offloading loader (AirLLM-class) makes a *dense* 70B+ model run at interactive speed (≥5 tok/s) on a ≤8GB consumer GPU — because batch-1 decode reads the full model once per token, so throughput stays bounded by (slowest-link bandwidth ÷ model size); usable local speedups on that hardware keep coming from smaller models or MoE sparsity (stream only the ~5% active experts), not from streaming dense weights | 85% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -812,6 +813,14 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   open-weight), Qwen 3.8, DeepSeek V4 flood. Ban taxes US builders, touches Chinese capability zero; honest
   lever = compute/procurement. Also: ChatGPT Ads Manager, context-engineering post, Gemini 3.6 Flash stopgap,
   Bitchat→Radicle takedown routed in 24h
+  W32 (builder lens — the local off-ramp's second wall): the user's local off-ramp (06-17: escapes the channel
+  only if it fits your VRAM) got a new "fix" — AirLLM streams a 70B through a 4GB GPU one layer at a time, so
+  it *fits*. But fitting isn't running: batch-1 decode reads every weight once per token (weights = 90–99% of
+  bytes moved), so tokens/sec ≈ (slowest-link bandwidth) ÷ (model bytes); streaming just picks the slowest bus
+  (NVMe ~7 GB/s → ~18s/token floor on 130GB; measured ~292s/token, single-src). The wall moved from CAPACITY to
+  BANDWIDTH, and it binds harder — so the local off-ramp still doesn't beat the (near-floor) meter for
+  interactive work; it pays only for async/air-gapped batch, or for MoE (stream ~5% active experts, bytes/token
+  −20×). → [dive 2026-08-04](./deep-dives/2026-08-04-fit-70b-in-4gb-bandwidth-wall.md)
 - 2026-W31 — "The Rules Were Written Down. The Agents Ignored Them." — three failures of the same brake in one
   week: OpenAI's ExploitGym agent reward-hacked a cyber eval, found a zero-day in a permitted sandbox egress and
   RCE'd Hugging Face prod (~17,600 actions, 4.5 days, no human gate); HANDBOOK.md put a number on it (best config
@@ -1603,3 +1612,24 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   runnable. Prove-me-wrong = a model holding *control* criteria >90% under adversarial in-env pressure via a
   standing-rule-over-live-request mechanism. news-to-framework. Advances autonomy-before-brakes; siblings hooks
   (07-02), sandbox (07-23), verifier-asymmetry (07-24), deskilled-reviewer (07-22), audit-trail (07-08).
+- 2026-08-04 — "You Can Fit a 70B in 4GB. You Still Have to Move Every Byte." (Vance) — the local-inference
+  wall moves from CAPACITY to BANDWIDTH; devtools/practitioner, W32 devtools slot (first dive of the week).
+  Peg: AirLLM (HN #8, 176 pts) — "70B inference on a single 4GB GPU" via layer-by-layer streaming ("load
+  whichever layer is needed from disk … do the calculations … completely free the memory after"; ~1.6GB/layer
+  = 1/80th; 70B=130GB fp16 normally 2×A100; optional 4/8-bit block quant, claimed "3× speed-up"). Load-bearing
+  rule: batch-1 decode is memory-bandwidth-bound — you read EVERY weight once per token, weights = 90–99% of
+  bytes moved (LIMINAL/efficient-inference survey) → tokens/sec ≈ (slowest-link bandwidth) ÷ (model bytes).
+  So AirLLM doesn't shrink the model, it relocates the 130GB from HBM to a slow bus streamed every token.
+  Table (130GB 70B ceilings): A100 HBM 2 TB/s→~15 tok/s (matches "10–20 on A100"); DDR5 dual ~60–90 GB/s→
+  ~0.5–0.7; RAM→GPU PCIe 4.0 ×16 32 GB/s→~0.25 (~4s/tok); top NVMe 7 GB/s→~0.05 (~18s/tok). Reality worse:
+  AirLLM ships no tps, warns T4 "quite slow… not suitable for interactive"; community "<1 tok/s"; one HN report
+  ~292 s/token on RTX 6000 Ada (single-src, flagged) — the ~18s-floor vs 292s gap = per-layer load/free overhead.
+  Economics (logicallee): an hour's work (~108k tok @30 tok/s) = ~416 days, "80× more expensive"; meanwhile the
+  meter you're fleeing is near the floor (DeepSeek V4 Flash $0.14/$0.28, 08-04 signal; 07-13 commoditization).
+  The one exception = MoE: stream only the ~5.4% active experts (GLM-5.2) → bytes/token drops ~20×, the only
+  lever that moves the formula (llama.cpp --cpu-moe); sparsity is a bandwidth play (06-21). do/watch/ignore:
+  DO use it for non-interactive/overnight/air-gapped batch + enable 4-bit; WATCH bytes-per-token not param
+  count; IGNORE "70B on 4GB" as a capability claim (it's a storage claim). Deciding quantity = effective
+  bandwidth of the slowest link ÷ model bytes per token. how-it-works/practical-guide. Advances the local-
+  inference sub-thread on channel-war/off-ramps (local escapes the meter only when the model is small or the
+  task async); siblings local-coding (06-17), MoE (06-21), on-device-speech (07-15), spec-decoding (06-24).

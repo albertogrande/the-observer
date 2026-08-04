@@ -207,7 +207,20 @@
     legislate the control into existence. The deciding quantity is the fraction of marks
     still machine-recoverable at the point of consumption — near-zero on the metadata
     path — a number nobody is required to publish.
+    W32 (builder lens — the local off-ramp's second wall): the user's own off-ramp is
+    running the model locally, and 06-17 set the first wall — it escapes the channel only
+    if it fits your VRAM. AirLLM ("70B on a 4GB GPU," HN #8) claims to remove that wall by
+    streaming the model one layer at a time from disk, so it fits. But fitting isn't
+    running: batch-1 decoding reads every weight once per token (weights are 90–99% of the
+    bytes moved), so tokens/sec ≈ slowest-link bandwidth ÷ model size — and streaming just
+    picks the slowest bus (top NVMe ~7 GB/s → an ~18-second-per-token floor on a 130GB
+    model; one HN report measured ~292s/token). The wall moved from capacity to bandwidth
+    and binds harder. So the local off-ramp still can't beat the (near-floor) meter for
+    interactive work — DeepSeek V4 Flash is $0.14/$0.28 — and pays only for async or
+    air-gapped batch, or for MoE, where streaming just the ~5% active experts cuts
+    bytes-per-token ~20× (the same sparsity that cheapens the API, 06-21).
   issues:
+    - { label: "Dive · You Can Fit a 70B in 4GB", link: "/reports/deep-dives/2026-08-04-fit-70b-in-4gb-bandwidth-wall.html" }
     - { label: "Dive · The Channel Was the Product", link: "/reports/deep-dives/2026-06-09-channel-was-the-product.html" }
     - { label: "Dive · You Can Mark the Image, Not Make It Survive", link: "/reports/deep-dives/2026-08-02-ai-act-marking-survival-gap.html" }
     - { label: "Dive · The Moat Is the Accept Button", link: "/reports/deep-dives/2026-07-10-accept-button-is-the-moat.html" }

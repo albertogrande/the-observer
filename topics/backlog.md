@@ -40,6 +40,18 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   copyright exposure as the reason no frontier model ships its corpus (Contrarian)
 - [how-it-works] The KV cache: why context length, not parameter count,
   decides what fits in your VRAM — with the linear-growth math (Builder)
+- [how-it-works] Why batch-1 decode is memory-bandwidth-bound: the weights are
+  90–99% of the bytes moved per token, so single-stream tokens/sec ≈ effective
+  bandwidth ÷ model size — the arithmetic under "10–20 tok/s on an A100," why
+  batching (not a faster GPU) is how providers amortize the weight read, and why
+  it's the opposite of the compute-bound prefill/training regime (Analyst/Builder)
+  [surfaced by the 08-04 AirLLM bandwidth-wall dive; sibling to spec-decoding 06-24]
+- [x-vs-y] Weight offloading, done right: llama.cpp `--cpu-moe`/mmap vs
+  AirLLM-style dense layer-streaming — what actually moves per token across the
+  disk→RAM→GPU chain, why MoE is the one architecture where streaming is tolerable
+  (only the ~5% active experts move), and how to size a partial offload before you
+  download the weights (Builder) [surfaced by the 08-04 dive; sibling to local-coding
+  06-17, MoE 06-21]
 - [practical-guide] Quantization without tears: dynamic 4-bit, KV-cache
   quantization, and what actually loses quality vs what doesn't (Analyst)
 - [how-it-works] How a vision model tokenizes an image: patches as visual
