@@ -243,6 +243,24 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   only to Fable 5" unbenchmarked; DeepSeek V4 stable) AND the frontier chased the floor: Claude Opus 5 (Jul 24) =
   within 0.5% of Fable 5 on CursorBench at ½ cost/task, 1M ctx, $5/$25 = HALF Fable 5's $10/$50 (same as Opus 4.8).
   The commodity floor is set by the market whether or not the ban lands. → [2026-W30](./2026-W30.md)
+  W32 (analyst lens): the *measurement* mechanism under commoditization — a saturated benchmark and a commoditized
+  model are the same event. SWE-bench Verified (N=500) frontier self-reports cluster Mythos 5 95.5 / Fable 5 95.0 /
+  Mythos Preview 93.9 = a 1.6-pt band, while the binomial 95% CI at p≈0.95 is ±1.9 → the top models sit inside each
+  other's error bar; the correct paired test (McNemar) also dies because the discordant set collapses to a handful of
+  items near the ceiling. And those items aren't clean: OpenAI's frontier-evals review found >60% of remaining Verified
+  tasks defective (49 too-narrow/26 too-wide), UTBoost found 79 patches wrongly graded pass + 271/500 parser-affected
+  (single-src), and all three labs reproduce the gold patch verbatim from the task ID (contamination). So the residual
+  capability gap at the top is smaller than the benchmark's own label-error rate — the ranking is noise. Same across
+  MMLU (frontier low-90s, saturated), GPQA (top compressing, mid still resolves), AIME (15 Qs → 6.7 pt/item), Arena
+  Elo (six labs 1424–1503). Deciding quantity = discriminating power D = (gap you care about) ÷ (CI + label-error rate);
+  D<1 near the ceiling → the leaderboard is decoration, so the buyer buys on the axis that still has spread (cost/
+  latency/reliability) = commoditization. To push the 95% CI under 1 pt at p≈0.9 you need ~3,500 clean items (7× Verified).
+  The escape hatch is the industry's tell: flee to unsaturable + machine-checkable + contamination-proof evals — OpenAI
+  Astra's ten math results (Lean 4, "sorry"=0, not yet refereed, ~$2k), FrontierMath Open Problems (~50, >98% unsolved),
+  SWE-bench Pro (1–4h tasks) — which is the verifier-asymmetry law (07-24/07-31) applied to eval design. So-what: stop
+  ranking on saturated public leaderboards, size a private post-cutoff expert-curated eval to your gap (06-13), measure
+  cost/latency/reliability. Cross-levers commoditization (07-13/07-20), verifier-asymmetry (07-24/07-31); siblings
+  benchmark-not-capability (06-12). → [dive 2026-08-05](./deep-dives/2026-08-05-benchmark-saturation-margin-of-error.md)
 - **Supply chain vs. AI throughput** `↑` — Miasma (32 Red Hat npm pkgs, valid
   SLSA provenance via stolen OIDC) + IronWorm (36 pkgs, harvesting AI API
   keys). Provenance + install-script scanning both defeated. Review/trust
@@ -741,6 +759,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-07-30 (subagents) | Through Q1 2027, Claude Code keeps subagent text-forwarding OPT-IN (default emission stays tool_use/tool_result only; `--forward-subagent-text`/env var remains the switch), AND the default single-session concurrent-subagent limit stays ~20 and default spawn depth stays ~3 (no material increase), AND Anthropic keeps steering *sustained* parallelism to agent teams / background sessions (each with its own context) rather than scaling up the single-context subagent — i.e., the subagent stays positioned as a context-isolation primitive, not a scale-out compute one | 65% | by 2027-Q1 | OPEN |
 | 2026-W31 (also dive 2026-08-03) | No major agent harness (Claude Code / Cursor / Copilot / Codex) ships, before Q2 2027, a *default-on* mechanism that compiles a natural-language policy file (`CLAUDE.md`/`AGENTS.md`-class) into an *enforced* runtime control the model cannot override — the written policy file stays advisory-by-default, and hard enforcement stays a separate, manually-configured layer (PreToolUse hooks / sandbox / permission rules / required checks); the HANDBOOK.md gap gets measured and tooled-around, not closed inside the instruction file | 72% | by 2027-Q2 | OPEN |
 | Dive 2026-08-04 (local-bandwidth) | Through Q1 2027, no weight-streaming/offloading loader (AirLLM-class) makes a *dense* 70B+ model run at interactive speed (≥5 tok/s) on a ≤8GB consumer GPU — because batch-1 decode reads the full model once per token, so throughput stays bounded by (slowest-link bandwidth ÷ model size); usable local speedups on that hardware keep coming from smaller models or MoE sparsity (stream only the ~5% active experts), not from streaming dense weights | 85% | by 2027-Q1 | OPEN |
+| Dive 2026-08-05 (benchmark-saturation) | Before 2027-01-01, at least two of {OpenAI, Anthropic, Google} lead a flagship agentic-coding launch with a *harder successor* eval (SWE-bench Pro / a contamination-resistant or unsaturable benchmark) as the headline coding number *instead of* SWE-bench Verified — because Verified no longer resolves the frontier (top models inside the score's own CI + label-error rate); the retirement of Verified-as-headline is the visible sign of the saturation-equals-commoditization thesis | 68% | 2026-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1612,6 +1631,21 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   runnable. Prove-me-wrong = a model holding *control* criteria >90% under adversarial in-env pressure via a
   standing-rule-over-live-request mechanism. news-to-framework. Advances autonomy-before-brakes; siblings hooks
   (07-02), sandbox (07-23), verifier-asymmetry (07-24), deskilled-reviewer (07-22), audit-trail (07-08).
+- 2026-08-05 — "The Top of the Leaderboard Is Inside the Margin of Error" (Quist) — benchmark saturation as a
+  measurement-resolution problem: a ruler runs out of marks near the top of the scale, so the gap between the best
+  models falls below the score's confidence interval AND the benchmark's own label-error rate. Peg: an arXiv
+  saturation study (60 benchmarks/14 properties, ~half saturated, expert-curation resists longest) + OpenAI's Astra
+  ten-math-proofs landing the same day. Anchor: SWE-bench Verified (N=500) self-reports Mythos 5 95.5 / Fable 5 95.0 /
+  Mythos Preview 93.9 (1.6-pt band) vs ±1.9 binomial 95% CI; OpenAI frontier-evals >60% remaining tasks defective;
+  UTBoost 79 wrongly-passed + 271/500 parser-affected (single-src); verbatim gold-patch reproduction = contamination.
+  Thesis: measurement collapse and price collapse are the same event — when the leaderboard can't separate the leader,
+  the buyer buys on cost/latency/reliability (links commoditization 07-13/07-20). Escape hatch = unsaturable +
+  machine-checkable + contamination-proof evals (Astra Lean/"sorry"=0/~$2k not-refereed; FrontierMath >98% unsolved;
+  SWE-bench Pro), i.e. verifier-asymmetry (07-24/07-31) applied to eval design. Deciding quantity D = gap ÷ (CI +
+  label-error); D<1 near ceiling. So-what: private post-cutoff expert-curated eval sized to your gap (~3,500 clean
+  items to resolve 1 pt at p≈0.9), measure the axes that still have spread. how-it-works/economics. Advances channel-war
+  commoditization; siblings benchmark-not-capability (06-12), cheapest-adequate (07-20), verifier-asymmetry (07-24).
+  W32 (Quist, generalist Wed; devtools slot already filled 08-04).
 - 2026-08-04 — "You Can Fit a 70B in 4GB. You Still Have to Move Every Byte." (Vance) — the local-inference
   wall moves from CAPACITY to BANDWIDTH; devtools/practitioner, W32 devtools slot (first dive of the week).
   Peg: AirLLM (HN #8, 176 pts) — "70B inference on a single 4GB GPU" via layer-by-layer streaming ("load

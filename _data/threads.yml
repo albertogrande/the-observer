@@ -219,7 +219,28 @@
     interactive work — DeepSeek V4 Flash is $0.14/$0.28 — and pays only for async or
     air-gapped batch, or for MoE, where streaming just the ~5% active experts cuts
     bytes-per-token ~20× (the same sparsity that cheapens the API, 06-21).
+    W32 (analyst lens — the measurement mechanism under commoditization): a saturated
+    benchmark and a commoditized model are the same event. On SWE-bench Verified (N=500)
+    the frontier self-reports cluster inside a 1.6-point band (Mythos 5 95.5 / Fable 5
+    95.0 / Mythos Preview 93.9), while the binomial 95% confidence interval at that score
+    is ±1.9 points — the top models sit inside each other's error bar, and the correct
+    paired test dies too because the items that separate them collapse to a handful near
+    the ceiling. Those items aren't clean: OpenAI's own frontier-evals review found more
+    than 60% of the remaining Verified tasks defective, a separate audit (UTBoost,
+    single-source) found 79 patches wrongly graded as passes, and all three labs
+    reproduce the gold patch verbatim from the task ID (contamination). So the residual
+    capability gap at the top is smaller than the benchmark's own label-error rate — the
+    ranking is noise, the same pattern across MMLU (saturated), GPQA (top compressing),
+    AIME (15 questions) and Arena Elo (six labs, 1424–1503). Deciding quantity is the
+    discriminating power D = (the gap you care about) ÷ (the confidence interval + the
+    label-error rate); once D drops below 1 near the ceiling the leaderboard is
+    decoration, so the buyer buys on the axis that still has spread — cost, latency,
+    reliability — which is commoditization. The industry's escape hatch is the tell:
+    flee to unsaturable, machine-checkable, contamination-proof evals (OpenAI Astra's
+    ten Lean-verified math proofs, FrontierMath's >98%-unsolved open problems, SWE-bench
+    Pro's multi-hour tasks) — the verifier-asymmetry law applied to eval design.
   issues:
+    - { label: "Dive · The Top of the Leaderboard Is Inside the Margin of Error", link: "/reports/deep-dives/2026-08-05-benchmark-saturation-margin-of-error.html" }
     - { label: "Dive · You Can Fit a 70B in 4GB", link: "/reports/deep-dives/2026-08-04-fit-70b-in-4gb-bandwidth-wall.html" }
     - { label: "Dive · The Channel Was the Product", link: "/reports/deep-dives/2026-06-09-channel-was-the-product.html" }
     - { label: "Dive · You Can Mark the Image, Not Make It Survive", link: "/reports/deep-dives/2026-08-02-ai-act-marking-survival-gap.html" }

@@ -729,3 +729,21 @@
   confidence: 85
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-08-05-benchmark-saturation
+  made: "Dive · 2026-08-05"
+  made_link: "/reports/deep-dives/2026-08-05-benchmark-saturation-margin-of-error.html"
+  text: >-
+    Before 2027-01-01, at least two of {OpenAI, Anthropic, Google} lead a flagship
+    agentic-coding launch with a harder successor evaluation (SWE-bench Pro, or a
+    contamination-resistant / unsaturable benchmark) as the headline coding number,
+    instead of SWE-bench Verified — because Verified no longer resolves the frontier:
+    the top models sit inside the score's own confidence interval (~±1.9 pts at
+    N=500, p≈0.95) and inside the benchmark's documented label-error rate. The
+    retirement of Verified-as-headline is the visible sign of the thesis that
+    benchmark saturation and model commoditization are the same event. If both
+    labs keep leading with SWE-bench Verified as the headline coding number through
+    year-end, the framing was early.
+  confidence: 68
+  due: "2026-12-31"
+  status: open

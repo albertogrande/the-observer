@@ -241,6 +241,15 @@ Code Watch.*
   reliable way for agents to read a page — and what unlabeled `<div>` soup costs
   you in tokens and flake (Builder) [surfaced by the 07-11 browser-runtime dive]
 - [how-it-works] Why your test suite is slow: the real cost model of a CI run (Analyst)
+- [practical-guide] How to size a model-selection eval: the sample-size math for
+  telling two close models apart (binomial CI, McNemar on paired items, discordant-pair
+  power), how many clean items you actually need to resolve a 2-point gap, and why a
+  private post-cutoff expert-curated set beats any public leaderboard near the ceiling
+  (Analyst/Builder) [surfaced by the 08-05 benchmark-saturation dive]
+- [how-it-works] The successor-benchmark landscape after saturation: SWE-bench Pro,
+  FrontierMath Open Problems, formal-conjecture / Lean-verified evals — what "unsaturable
+  + machine-checkable + contamination-proof" costs to build and who is paying for it
+  (Analyst) [surfaced by the 08-05 benchmark-saturation dive]
 - [x-vs-y] Monorepo vs polyrepo once AI agents are the main committer (Contrarian)
 - [how-it-works] Teaching a model a low-resource language: how MultiPL-T and
   synthetic-function-demonstration pipelines translate high-resource training
