@@ -496,6 +496,25 @@
     now runs as a background subagent (v2.1.218) that keeps your context clean but moves the review off-camera
     — the deskilled-reviewer trap in new clothes. Deciding quantity = tokens kept out of the main window, not
     agents spawned.
+    W32 (operator lens): the context-budget thread's *output* front. After the fixed preamble (07-16, paid once)
+    and conversation growth (06-20/06-25), the largest uncapped consumer of the usable window is what your own
+    tools print back. One audit posted to the tracker (issue #32105, single-source) put tool results at ~60% of
+    context tokens across 8 sessions / 603 calls / 626K tokens — every session over 49%, worst 73.6%, ~82%
+    compactable. And Bash output is unpredictable from its input: the same `git status` returns 5 tokens on a
+    clean repo and 5,491 on one with 200+ untracked files (a 1,098× spread), so the 07-02 PreToolUse hook — which
+    only sees input — is blind here; only post-execution modification works. The recent change generalized
+    PostToolUse output replacement from MCP-only to *all* tools: a hook fires after the tool runs, reads
+    `tool_response` on stdin, and returns `hookSpecificOutput.updatedToolOutput` — the model reads that string
+    instead of the original (docs). Reported win: `git status` 5,491→~200 tokens (94%/call), ~35% of the budget
+    recovered over a 257-call session. It's the reclaim caching can't do: caching refunds dollars, not the window
+    or attention (07-16), so compress-at-write is the only move on the output side. Contrast the subagent (07-30)
+    = a whole noisy *task* off-window, vs the hook = surgical, per-*call*. Honest catches: the tool already ran
+    (this is not containment); the replaced output is what lands in the transcript, so a careless compressor can
+    hide a failure from your own audit trail (07-08 — OTel spans keep the original); read `tool_response`, not
+    `tool_output` (agentmemory #539 bug, ~47% loss, single-source); and head+tail beats a model-summarizer for
+    the same reason dump-to-markdown beats /compact (06-25) — you choose what survives, deterministically. So-what:
+    measure your own tool-result ratio with /context, then wire one PostToolUse matcher on Bash that compresses
+    anything over ~2,000 tokens to head+tail and tells the agent how to fetch the middle.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -513,6 +532,7 @@
     - { label: "Dive · The Loop Deskills the Human It Depends On", link: "/reports/deep-dives/2026-07-22-human-in-the-loop-deskilled.html" }
     - { label: "Dive · The Kernel Approves Commands Better Than You Do", link: "/reports/deep-dives/2026-07-23-sandbox-is-the-real-brake.html" }
     - { label: "Dive · A Subagent Buys You Context, Not Speed", link: "/reports/deep-dives/2026-07-30-subagents-context-not-speed.html" }
+    - { label: "Dive · Your Context Window Is 60% Tool Output", link: "/reports/deep-dives/2026-08-06-posttooluse-output-context-recovery.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

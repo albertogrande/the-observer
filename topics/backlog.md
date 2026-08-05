@@ -144,7 +144,13 @@ Code Watch.*
   going full YOLO (Operator)
 - [how-it-works] PostToolUse hooks as *quality* gates — lint, test, and format
   the agent's output before it lands (distinct from the PreToolUse security
-  veto covered 2026-07-02) (Operator)
+  veto covered 2026-07-02, and from the output-*replacement*/context-recovery
+  angle covered 2026-08-06) (Operator)
+- [practical-guide] Redaction hooks for the coding agent: a PreToolUse +
+  PostToolUse pair that strips secrets/PII from tool input and `tool_response`
+  so the model never reads (or echoes into a commit) an AWS key or bearer token
+  — the one case where losing the original output is the goal (Operator)
+  [surfaced by the 08-06 tool-output dive]
 - [how-it-works] Agent teams vs subagents: when sustained parallelism needs
   workers with their *own* independent contexts (agent teams / background
   sessions) instead of single-session subagents — the context-isolation vs

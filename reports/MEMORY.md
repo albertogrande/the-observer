@@ -760,6 +760,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | 2026-W31 (also dive 2026-08-03) | No major agent harness (Claude Code / Cursor / Copilot / Codex) ships, before Q2 2027, a *default-on* mechanism that compiles a natural-language policy file (`CLAUDE.md`/`AGENTS.md`-class) into an *enforced* runtime control the model cannot override — the written policy file stays advisory-by-default, and hard enforcement stays a separate, manually-configured layer (PreToolUse hooks / sandbox / permission rules / required checks); the HANDBOOK.md gap gets measured and tooled-around, not closed inside the instruction file | 72% | by 2027-Q2 | OPEN |
 | Dive 2026-08-04 (local-bandwidth) | Through Q1 2027, no weight-streaming/offloading loader (AirLLM-class) makes a *dense* 70B+ model run at interactive speed (≥5 tok/s) on a ≤8GB consumer GPU — because batch-1 decode reads the full model once per token, so throughput stays bounded by (slowest-link bandwidth ÷ model size); usable local speedups on that hardware keep coming from smaller models or MoE sparsity (stream only the ~5% active experts), not from streaming dense weights | 85% | by 2027-Q1 | OPEN |
 | Dive 2026-08-05 (benchmark-saturation) | Before 2027-01-01, at least two of {OpenAI, Anthropic, Google} lead a flagship agentic-coding launch with a *harder successor* eval (SWE-bench Pro / a contamination-resistant or unsaturable benchmark) as the headline coding number *instead of* SWE-bench Verified — because Verified no longer resolves the frontier (top models inside the score's own CI + label-error rate); the retirement of Verified-as-headline is the visible sign of the saturation-equals-commoditization thesis | 68% | 2026-12-31 | OPEN |
+| Dive 2026-08-06 (tool-output) | Through Q1 2027, Claude Code does NOT ship a *default-on* mechanism that compresses or caps verbose tool-result tokens in the context the model reads (a built-in/config that trims Bash/Read/tool output by default, beyond the existing raw character truncation) — recovering context budget on the output side stays a manual opt-in (a PostToolUse `updatedToolOutput` hook or subagent isolation), and tool results stay the largest uncontrolled consumer of the usable window unless the user configures one | 65% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1667,3 +1668,22 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   bandwidth of the slowest link ÷ model bytes per token. how-it-works/practical-guide. Advances the local-
   inference sub-thread on channel-war/off-ramps (local escapes the meter only when the model is small or the
   task async); siblings local-coding (06-17), MoE (06-21), on-device-speech (07-15), spec-decoding (06-24).
+- 2026-08-06 — "Your Context Window Is 60% Tool Output. A PostToolUse Hook Takes It Back." (Sandoval, Claude
+  Code edition) — the context-budget thread's OUTPUT front: after the preamble (07-16, paid once) and conversation
+  growth (06-20/06-25), the largest uncapped consumer of the window is what your own tools print back. Peg: the
+  changelog line "PostToolUse hooks can now replace tool output for all tools via hookSpecificOutput.updatedToolOutput
+  (previously MCP-only)" (this week's Watch) + the feature request that asked for it (issue #32105). Load-bearing
+  numbers (single-src, #32105 audit): tool results ~60% of context tokens across 8 sessions/603 calls/626K tok
+  (every session >49%, worst 73.6%; ~82% compactable); Bash output is unpredictable from input — git status 5→5,491
+  tok (1098×), git diff 20→6,211, docker logs 10→5,000 — so PreToolUse (input-side, 07-02) is blind here and only
+  post-execution modification works. Mechanism (docs code.claude.com/docs/en/hooks): hook fires after the tool runs,
+  reads tool_response on stdin, returns hookSpecificOutput.updatedToolOutput → model sees that instead. Reported win:
+  git status 5,491→~200 tok = 94%/call, ~35% of budget over a 257-call session. Why it's the missing brake: caching
+  refunds dollars not the window/attention (07-16), so compress-at-write is the only reclaim; contrast the subagent
+  (07-30) = whole noisy TASK off-window vs hook = surgical per-CALL. Honest catches: tool already ran (not containment);
+  the replaced output is what's recorded → can hide a failure from the transcript (audit-trail tension, 07-08; OTel spans
+  keep the original); read tool_response not tool_output (agentmemory #539 bug, ~47% loss, single-src); head+tail beats a
+  model-summarizer (deterministic, same logic as dump-to-md>/compact 06-25). Ships a paste-in squeeze.py + settings.json
+  matcher + redaction sed (l-mb/redaction-hooks). practical-guide/reference. Advances autonomy-before-brakes (context-budget
+  sub-thread); siblings context-tax (07-16), context-budget (06-25), hooks-guardrail (07-02), subagents (07-30), audit (07-08).
+  W32 (Sandoval, Thursday Claude Code edition).

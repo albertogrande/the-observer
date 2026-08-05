@@ -747,3 +747,19 @@
   confidence: 68
   due: "2026-12-31"
   status: open
+
+- id: dive-2026-08-06-tool-output
+  made: "Dive · 2026-08-06"
+  made_link: "/reports/deep-dives/2026-08-06-posttooluse-output-context-recovery.html"
+  text: >-
+    Through Q1 2027, Claude Code does NOT ship a default-on mechanism that
+    compresses or caps verbose tool-result tokens in the context the model reads
+    (a built-in or config that trims Bash/Read/tool output by default, beyond the
+    existing raw character truncation). Recovering context budget on the output
+    side stays a manual opt-in — a PostToolUse `updatedToolOutput` hook or subagent
+    isolation — and tool results stay the largest uncontrolled consumer of the
+    usable window unless the user configures one. If Claude Code ships default-on
+    tool-output compaction, this was wrong.
+  confidence: 65
+  due: "2027-Q1"
+  status: open
