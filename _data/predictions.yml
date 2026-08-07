@@ -781,3 +781,20 @@
   confidence: 80
   due: "2027-Q2"
   status: open
+
+- id: dive-2026-08-08-model-in-silicon
+  made: "Dive · 2026-08-08"
+  made_link: "/reports/deep-dives/2026-08-08-model-in-silicon-shelf-life.html"
+  text: >-
+    Through end-2027, no model-in-silicon product (weights baked into mask-ROM —
+    Taalas/AMD or a peer) serves a current frontier-tier model in production: none
+    carries a top-~5 intelligence-index model while that model is still current
+    (within ~one release cycle) from etched weights. Weights-in-silicon deployments
+    stay confined to small/stable/commodity models the operator has deliberately
+    frozen, because frontier release cadence stays faster than the ~2-month metal
+    re-spin — so the shelf-life constraint holds and etching stays the commodity
+    tier's endgame, not the frontier's. If an etched current frontier model carries
+    production traffic, this was wrong.
+  confidence: 75
+  due: "2027-12-31"
+  status: open

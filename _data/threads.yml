@@ -715,3 +715,46 @@
   issues:
     - { label: "Dive · A Counterexample Checks in One Pass", link: "/reports/deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.html" }
     - { label: "Dive · Claude Didn't Break Cryptography", link: "/reports/deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.html" }
+
+- slug: labs-go-vertical-silicon
+  title: "Labs go vertical / own the silicon"
+  momentum: up
+  summary: >-
+    The deepest layer of the channel war: inference (not training) is now the
+    spend, and Nvidia keeps ~70% gross margin on it, so buyers push down the
+    hardware stack to claw it back. OpenAI + Broadcom unveiled Jalapeño (Jun 24):
+    a custom LLM-inference chip, 9-month design, gigawatt by end-2026, Microsoft
+    pre-buying 40%. Precedent: Google's TPU (production 2015, born of the
+    data-center-doubling voice-search calc; >90% silicon utilization vs ~30% on a
+    GPU; Anthropic runs up to a million of them). Economics: a custom ASIC trades
+    flexibility for ~3–5× perf/watt, ~$300–500M NRE recouped under a year at
+    scale; Morgan Stanley sees ASICs at 25% of inference by 2026 (from <5% in
+    2023); Broadcom is the common arms dealer (TPU/MTIA/Maia/Jalapeño). The fork:
+    OpenAI and Google *build*; Anthropic *rents three* (TPU + >1M Trainium2 +
+    Nvidia) — multi-silicon as the hardware version of provider-portability. Bear
+    case: ASIC inflexibility is a frozen bet the workload is stable; Nvidia's real
+    moat is CUDA + NVLink networking, not the GPU; only giants with captive volume
+    and their own compiler can play. So-what: token price falls structurally
+    (margin transfer, not promo), but the platform keeps the savings.
+    W32 (analyst lens): the extreme bottom rung — model-IN-silicon. AMD bought
+    Taalas (Aug 6, closing Q4): weights etched into mask-ROM, no HBM, so the memory
+    wall is deleted, not scaled. The ladder is GPU (freezes nothing, loads any
+    weights in ms) → transformer ASIC / Etched Sohu (freezes the architecture,
+    still loads weights from HBM) → Taalas (freezes the exact weights; a new model
+    is a ~2-month metal re-spin). All figures self-reported and un-benchmarked
+    (HC1 6nm, Llama 8B ~17k tok/s at ~1/10 an H200's power, $0.0075/Mtok, built by
+    24 people for $30M). Deciding quantity = release cadence − re-spin time, which
+    is negative today — so the frontier can't be etched (it churns faster than it
+    cures), and model-in-silicon is the terminal form of commoditization: a chip
+    that freezes a model is a bet the model is finished, which only fits the
+    small/stable cheapest-adequate tier. The tell is that AMD, a flexible-GPU
+    vendor, bought the anti-GPU.
+  tension: >-
+    The perf-per-watt headline numbers are self-reported with no independent
+    benchmarks, and first-gen custom silicon has a long history of slipping dates
+    and under-delivering. A chip only pays if you fill it and the workload holds
+    still — the whole bet is on volume and stability, and at the frozen extreme
+    (Taalas) the bet narrows to a per-model shelf-life measured in weeks.
+  issues:
+    - { label: "Dive · Nvidia Keeps 70 Cents of Every Dollar", link: "/reports/deep-dives/2026-06-29-why-ai-labs-build-chips.html" }
+    - { label: "Dive · AMD Bought a Chip That Takes Two Months", link: "/reports/deep-dives/2026-08-08-model-in-silicon-shelf-life.html" }

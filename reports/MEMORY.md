@@ -643,7 +643,18 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   W29: supply stayed sold out — TSMC posted a record Q2 (~$39.6B reported), N3 sold out through year-end,
   +$100B Arizona (total US ~$265B, as reported); Anthropic in early talks with Samsung for a custom 2nm
   inference chip (had been OpenAI's, talks stalled Jun); South Korea committed $880B to AI over a decade.
-  → [dive 2026-06-29](./deep-dives/2026-06-29-why-ai-labs-build-chips.md), [2026-W29](./2026-W29.md)
+  W32 (analyst lens): the ladder's extreme bottom rung — model-IN-silicon. AMD bought Taalas (Aug 6, closing Q4):
+  weights etched into mask-ROM, no HBM, so the memory wall is deleted not scaled (batch-1 decode is bandwidth-bound,
+  08-04). Ladder: GPU (freezes nothing) → transformer ASIC/Etched Sohu (freezes architecture, loads weights from HBM,
+  ~20× vs H100 self-report) → Taalas (freezes the exact weights; new model = ~2-month metal re-spin). Self-reported
+  (un-benchmarked, decks disagree 48×/100×): HC1 6nm Llama 8B ~17k tok/s @ ~1/10 H200 power, $0.0075/Mtok, 24 people/$30M.
+  Deciding quantity = release cadence − re-spin time (today NEGATIVE) → the frontier can't be etched (churns faster than
+  it cures, W28/07-05/07-14/08-05); model-in-silicon is the TERMINAL form of commoditization — a chip that freezes a model
+  bets the model is FINISHED, which only fits the small/stable cheapest-adequate tier (07-20). AMD (flexible-GPU vendor)
+  buying the anti-GPU = betting a slice of inference ossifies. Bear (from 06-29) sharpened: inflexibility isn't a 3-yr
+  architecture bet here, it's a per-model shelf-life bet measured in weeks.
+  → [dive 2026-06-29](./deep-dives/2026-06-29-why-ai-labs-build-chips.md), [2026-W29](./2026-W29.md),
+  [dive 2026-08-08](./deep-dives/2026-08-08-model-in-silicon-shelf-life.md)
 - **Consumer-AI business model / the ad in the answer** `↑` (new W30) — the free tier is a bill nobody's
   paying, so the mass-consumer AI layer is defaulting to ads. OpenAI opened a self-serve ChatGPT Ads Manager
   Jul 22 (CPC bidding, context targeting, Best Buy/Lowe's/VistaPrint) — the Jan-2026 "test" productized into a
@@ -771,6 +782,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-05 (benchmark-saturation) | Before 2027-01-01, at least two of {OpenAI, Anthropic, Google} lead a flagship agentic-coding launch with a *harder successor* eval (SWE-bench Pro / a contamination-resistant or unsaturable benchmark) as the headline coding number *instead of* SWE-bench Verified — because Verified no longer resolves the frontier (top models inside the score's own CI + label-error rate); the retirement of Verified-as-headline is the visible sign of the saturation-equals-commoditization thesis | 68% | 2026-12-31 | OPEN |
 | Dive 2026-08-06 (tool-output) | Through Q1 2027, Claude Code does NOT ship a *default-on* mechanism that compresses or caps verbose tool-result tokens in the context the model reads (a built-in/config that trims Bash/Read/tool output by default, beyond the existing raw character truncation) — recovering context budget on the output side stays a manual opt-in (a PostToolUse `updatedToolOutput` hook or subagent isolation), and tool results stay the largest uncontrolled consumer of the usable window unless the user configures one | 65% | by 2027-Q1 | OPEN |
 | Dive 2026-08-07 (agent-config-portability) | Through Q2 2027, agent-config standardization stays confined to the *advisory* instructions file: no shared cross-harness standard for the *enforcement* layer (a portable hook/permission/sandbox spec adopted by ≥2 major agent harnesses, e.g. under the Agentic AI Foundation) ships or is formally adopted — AND Claude Code keeps reading `CLAUDE.md` by default (no native default AGENTS.md read; the `@AGENTS.md` import / symlink stays the only bridge). Distinct from the 08-03/W31 call (which is about compiling policy into enforcement *inside* one harness); this is about *portability/standardization* of that enforcement layer across harnesses | 80% | by 2027-Q2 | OPEN |
+| Dive 2026-08-08 (model-in-silicon) | Through end-2027, no model-in-silicon product (weights baked into mask-ROM — Taalas/AMD or a peer) serves a *current frontier-tier* model in production: none carries a top-~5 intelligence-index model *while that model is still current* (within ~one release cycle) served from etched weights; weights-in-silicon deployments stay confined to small/stable/commodity models the operator has deliberately frozen — because frontier release cadence stays faster than the ~2-month metal re-spin, so the shelf-life constraint holds and etching stays the commodity tier's endgame, not the frontier's | 75% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1728,3 +1740,26 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   (first of the week). Advances channel-war/off-ramps + autonomy-before-brakes (written-policy-not-a-control);
   siblings portability (06-22), docs-as-distribution (07-04), written-policy (08-03), hooks (07-02), egress
   (07-17), context-tax (07-16), skills (07-09).
+- 2026-08-08 — "A GPU Swaps Models in Milliseconds. AMD Just Bought a Chip That Takes Two Months." (Quist) —
+  model-in-silicon economics; the deciding quantity is the frozen model's shelf-life. Peg: AMD acquired Taalas
+  (Aug 6, Toronto, closing Q4) — weights baked into mask-ROM, no HBM (memory wall deleted, not scaled). The
+  specialization ladder: GPU (freezes nothing, loads any weights ~ms) → transformer ASIC / Etched Sohu (freezes
+  the ARCHITECTURE, still loads weights from 144GB HBM3E; ~20× vs H100 self-report; $800M raised/$1B contracts) →
+  Taalas model-in-silicon (freezes the EXACT weights; re-etch = ~2 MONTHS via top-two-metal-layer re-spin on
+  pre-fabbed wafers). Numbers (all self-reported, un-benchmarked, and Taalas's own decks disagree 48× vs 100× over
+  a GPU): HC1 6nm Llama 3.1 8B ~17,000 tok/s @ ~1/10 H200 power, 12–15 kW/rack vs 120–600; $0.0075/Mtok vs GPU
+  $0.038–0.286; capex −60–75%/4yr; first product 24 people/$30M; "100× cheaper than training" to etch; HC2 targets
+  20B/chip. Physics is sound (batch-1 decode is bandwidth-bound, 08-04 — GPU pays the weight-move tax every token,
+  etch pays it once at the foundry). THESIS: the frontier can't be etched because it churns faster than the 2-month
+  re-spin (5 models GA in a stretch W28; version bumps re-tune tools 07-05 + re-price via tokenizer 07-14; top of
+  leaderboard inside the margin of error 08-05) — so model-in-silicon is the TERMINAL form of commoditization: a
+  chip that freezes a model is a bet the model is FINISHED, which only describes the small/stable/high-volume
+  cheapest-adequate tier (07-20). Tell: AMD (a flexible-GPU vendor) bought the anti-GPU → betting a slice of
+  inference is about to ossify. Counter (steelmanned): Taalas built the fast re-spin to beat churn + most tokens
+  aren't frontier + if the frontier plateaus (08-05) the frozen zone grows — rebutted: 2 months ≠ 2 ms, can't
+  hotfix/A-B/fine-tune-in-place, so etching only fits models you've stopped changing. Deciding quantity = release
+  cadence − re-spin time (today negative). So-what: sort workloads by shelf-life; the model you haven't changed in
+  a year is the etch candidate (price going where a GPU can't follow), keep fast-changing work on flexible silicon.
+  economics/how-it-works. Advances labs-go-vertical/own-the-silicon (the extreme bottom rung below 06-29's
+  programmable ASICs); cross-levers commoditization (07-13/07-20), benchmark-saturation (08-05); siblings
+  why-labs-build-chips (06-29), bandwidth-wall (08-04), MoE (06-21). W32 (Quist, generalist Sat).

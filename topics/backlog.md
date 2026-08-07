@@ -34,6 +34,15 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   goal (Analyst) [surfaced by the 07-24 verifier-asymmetry dive]
 - [how-it-works] What a tool call costs: tokens, latency, and round-trips in
   an agent loop (Builder)
+- [how-it-works] The memory wall, from first principles: why batch-1 LLM decode
+  is bandwidth-bound not compute-bound, how HBM/SRAM/mask-ROM sit on the
+  roofline, and why batching (not a faster multiplier) is the real throughput
+  lever — the physics under every inference-chip pitch (Analyst) [surfaced by the
+  08-08 model-in-silicon dive]
+- [economics] The tapeout ladder: what a chip actually costs to design at 5nm vs
+  3nm (mask sets, EDA, verification, headcount), why NRE not wafer price gates who
+  can build custom silicon, and how model-specific "metal-only re-spin" tricks
+  change the math (Analyst) [surfaced by the 08-08 model-in-silicon dive]
 - [x-vs-y] Open weights vs closed APIs: the real total cost once you price
   inference, ops, and eval (Analyst)
 - [news-to-framework] Why training data is the moat and the liability at once —
