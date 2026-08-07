@@ -239,7 +239,21 @@
     flee to unsaturable, machine-checkable, contamination-proof evals (OpenAI Astra's
     ten Lean-verified math proofs, FrontierMath's >98%-unsolved open problems, SWE-bench
     Pro's multi-hour tasks) — the verifier-asymmetry law applied to eval design.
+    W32 (builder lens — the lock-in retreated one more layer): even the agent-config
+    instructions file commoditized. The coding-agent CLI market exploded (Meta's Muse
+    Code, Warp's standalone Agent CLI, Herdr/Hoplite runtimes) and converged on AGENTS.md
+    — a Linux-Foundation-stewarded standard on ~60k repos, read by nearly every harness.
+    But AGENTS.md standardizes only the advisory prose (Anthropic's own docs: "context,
+    not enforced configuration"; followed roughly a third of the time under pressure). The
+    layer that actually governs the agent — enforcement (hooks, permissions, sandbox) plus
+    capability wiring (skills, MCP servers, path-scoped rules) — stayed per-harness. So the
+    moat kept retreating (model → harness → instructions file) and landed on exactly the
+    enforcement-and-tools config the standard leaves out. MCP is a shared protocol; your
+    wiring isn't. Claude Code notably keeps its own filename (CLAUDE.md, bridged by an
+    `@AGENTS.md` import) even though Anthropic co-founded the foundation that stewards the
+    standard. Rules travel; guardrails don't.
   issues:
+    - { label: "Dive · Your Rules Travel, Your Guardrails Don't", link: "/reports/deep-dives/2026-08-07-agents-md-rules-travel-guardrails-dont.html" }
     - { label: "Dive · The Top of the Leaderboard Is Inside the Margin of Error", link: "/reports/deep-dives/2026-08-05-benchmark-saturation-margin-of-error.html" }
     - { label: "Dive · You Can Fit a 70B in 4GB", link: "/reports/deep-dives/2026-08-04-fit-70b-in-4gb-bandwidth-wall.html" }
     - { label: "Dive · The Channel Was the Product", link: "/reports/deep-dives/2026-06-09-channel-was-the-product.html" }

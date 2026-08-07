@@ -261,6 +261,15 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   ranking on saturated public leaderboards, size a private post-cutoff expert-curated eval to your gap (06-13), measure
   cost/latency/reliability. Cross-levers commoditization (07-13/07-20), verifier-asymmetry (07-24/07-31); siblings
   benchmark-not-capability (06-12). → [dive 2026-08-05](./deep-dives/2026-08-05-benchmark-saturation-margin-of-error.md)
+  W32 (builder lens): the lock-in retreated one more layer — even the agent-config *instructions file* commoditized.
+  The coding-agent CLI market exploded (Meta Muse Code, Warp Agent CLI, Herdr/Hoplite runtimes) and converged on
+  AGENTS.md (Linux-Foundation-stewarded, ~60k repos, read by ~every harness). But AGENTS.md standardizes only the
+  ADVISORY prose (context, not enforced config; ~⅓ followed under pressure, 08-03). The layer that actually governs
+  the agent — enforcement (hooks/permissions/sandbox) + capability wiring (skills, MCP servers, path-scoped rules) —
+  stayed per-harness. So the moat kept retreating (model → harness → instructions file) and landed on exactly the
+  enforcement+tools config the standard omits. MCP is a shared protocol; the wiring isn't. Claude Code notably keeps
+  its own filename (CLAUDE.md, not AGENTS.md) — bridged by `@AGENTS.md` import — even though Anthropic co-founded the
+  foundation stewarding the standard. Rules travel; guardrails don't. → [dive 2026-08-07](./deep-dives/2026-08-07-agents-md-rules-travel-guardrails-dont.md)
 - **Supply chain vs. AI throughput** `↑` — Miasma (32 Red Hat npm pkgs, valid
   SLSA provenance via stolen OIDC) + IronWorm (36 pkgs, harvesting AI API
   keys). Provenance + install-script scanning both defeated. Review/trust
@@ -761,6 +770,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-04 (local-bandwidth) | Through Q1 2027, no weight-streaming/offloading loader (AirLLM-class) makes a *dense* 70B+ model run at interactive speed (≥5 tok/s) on a ≤8GB consumer GPU — because batch-1 decode reads the full model once per token, so throughput stays bounded by (slowest-link bandwidth ÷ model size); usable local speedups on that hardware keep coming from smaller models or MoE sparsity (stream only the ~5% active experts), not from streaming dense weights | 85% | by 2027-Q1 | OPEN |
 | Dive 2026-08-05 (benchmark-saturation) | Before 2027-01-01, at least two of {OpenAI, Anthropic, Google} lead a flagship agentic-coding launch with a *harder successor* eval (SWE-bench Pro / a contamination-resistant or unsaturable benchmark) as the headline coding number *instead of* SWE-bench Verified — because Verified no longer resolves the frontier (top models inside the score's own CI + label-error rate); the retirement of Verified-as-headline is the visible sign of the saturation-equals-commoditization thesis | 68% | 2026-12-31 | OPEN |
 | Dive 2026-08-06 (tool-output) | Through Q1 2027, Claude Code does NOT ship a *default-on* mechanism that compresses or caps verbose tool-result tokens in the context the model reads (a built-in/config that trims Bash/Read/tool output by default, beyond the existing raw character truncation) — recovering context budget on the output side stays a manual opt-in (a PostToolUse `updatedToolOutput` hook or subagent isolation), and tool results stay the largest uncontrolled consumer of the usable window unless the user configures one | 65% | by 2027-Q1 | OPEN |
+| Dive 2026-08-07 (agent-config-portability) | Through Q2 2027, agent-config standardization stays confined to the *advisory* instructions file: no shared cross-harness standard for the *enforcement* layer (a portable hook/permission/sandbox spec adopted by ≥2 major agent harnesses, e.g. under the Agentic AI Foundation) ships or is formally adopted — AND Claude Code keeps reading `CLAUDE.md` by default (no native default AGENTS.md read; the `@AGENTS.md` import / symlink stays the only bridge). Distinct from the 08-03/W31 call (which is about compiling policy into enforcement *inside* one harness); this is about *portability/standardization* of that enforcement layer across harnesses | 80% | by 2027-Q2 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1687,3 +1697,34 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   matcher + redaction sed (l-mb/redaction-hooks). practical-guide/reference. Advances autonomy-before-brakes (context-budget
   sub-thread); siblings context-tax (07-16), context-budget (06-25), hooks-guardrail (07-02), subagents (07-30), audit (07-08).
   W32 (Sandoval, Thursday Claude Code edition).
+- 2026-08-07 — "Your Rules Now Travel Between Coding Agents. Your Guardrails Don't." (Vance) — agent-config
+  portability. Peg: the coding-agent CLI market exploded this week — Meta Muse Code (terminal agent, beta,
+  $1.25/$4.25 per Mtok, contributor tier "10× cheaper," Aug 5) + Warp standalone Agent CLI (multi-model, can
+  "delegate … with entirely different harnesses like Claude Code and Codex") → you now drive 3+ agents, so where
+  do project rules live? Answer: the INSTRUCTIONS file standardized. AGENTS.md = plain Markdown, no required
+  fields ("README for agents"), read natively by Codex/Cursor/Gemini CLI/Jules/Windsurf/Amp/Devin/Aider/Zed/
+  VS Code/Junie/Copilot/goose/opencode/Warp; ~60k repos (agents.md self-reported, flagged); Linux-Foundation
+  Agentic AI Foundation stewards it + MCP + goose (founding contributions Anthropic/Block/OpenAI). BUT Claude
+  Code reads CLAUDE.md, NOT AGENTS.md (docs blunt; issue #6235 open since Aug-2025, no committed answer) —
+  Anthropic funded the foundation that stewards the standard, kept its own filename. Documented bridge:
+  `@AGENTS.md` import (cross-platform, imports recurse 4 hops) or `ln -s AGENTS.md CLAUDE.md` (Unix; Windows
+  needs Dev Mode → use import); `CLAUDE_CODE_NEW_INIT=1 /init` reads AGENTS.md + Cursor/Copilot/Windsurf/cline
+  rules. LOAD-BEARING PRIMARY (Anthropic memory docs): CLAUDE.md/AGENTS.md is "context, not enforced
+  configuration … to block an action regardless of what Claude decides, use a PreToolUse hook" — delivered as a
+  user message after the system prompt, no compliance guarantee, keep <200 lines. Thesis: the industry
+  standardized only the CHEAP half of your agent config — the advisory instructions prose (followed ~⅓ under
+  pressure, links 08-03) — and left the half that GOVERNS the agent per-harness: enforcement (hooks/permissions/
+  sandbox/managed policy) + capability (skills/SKILL.md, MCP wiring, path-scoped `.claude/rules`) don't travel.
+  MCP is a shared protocol (also LF-stewarded) but your server WIRING is per-harness. So "portable agent config"
+  is real but shallow — rules travel, guardrails don't; the lock-in retreated to exactly the layer AGENTS.md
+  omits (channel-war one turn deeper). Peg-in-passing: the Terraform-wiped-prod-RDS report (this week's Watch,
+  2.5yr/~2M rows) — a prose "be careful with infra" line wouldn't have stopped it; a hook/deny evaluated before
+  the model votes would. do/watch/ignore: DO one AGENTS.md `@`-imported into CLAUDE.md + move your 2–3 most-
+  expensive-to-violate rules OUT of prose into hooks/deny; WATCH native AGENTS.md in Claude Code (#6235) +
+  whether anyone standardizes the ENFORCEMENT layer under the AAIF (the real tell — bet against, MCP was safe
+  to give away, a shared guardrail format just makes it easy to leave); IGNORE "AGENTS.md = portability win"
+  full stop (a win for the advisory half, a non-event for the governing half). Deciding split per rule =
+  does violating it cost money/data (→ code) or not (→ prose). practical-guide; W32 devtools/dev-marketing slot
+  (first of the week). Advances channel-war/off-ramps + autonomy-before-brakes (written-policy-not-a-control);
+  siblings portability (06-22), docs-as-distribution (07-04), written-policy (08-03), hooks (07-02), egress
+  (07-17), context-tax (07-16), skills (07-09).

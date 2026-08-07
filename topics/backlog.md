@@ -242,6 +242,19 @@ Code Watch.*
 
 ## Live — devtools & systems
 
+- [architecture] The agent control plane: where governed tool access and egress
+  actually get enforced for *deployed* agents once you can't trust the agent
+  (Cloudflare OS "Gatekeepers," Microsoft's Foundry router, identity-for-agents) —
+  the org-level mirror of the CLI's hooks/sandbox, and why the confused-deputy /
+  prompt-injection case (Atlassian Rovo exfiltration) forces enforcement to the
+  network gateway (Builder) [surfaced by the 08-07 agent-config-portability dive]
+- [x-vs-y] The orchestration layer above the harness: Warp's "delegate to Claude
+  Code and Codex" model vs a single-harness setup — when a router-of-agents beats a
+  best-agent, and what it costs you in observability (Builder) [surfaced 08-07]
+- [reference] A portable MCP-server manifest? Why your tool *wiring* (which servers,
+  which scopes, which auth) is still per-harness even though MCP is a shared protocol,
+  and what a repo-committed, harness-agnostic MCP config would have to specify to
+  travel (Builder/Operator) [surfaced by the 08-07 agent-config-portability dive]
 - [how-it-works] The accessibility tree as an agent API: how a screen-reader
   data structure (roles, names, ARIA states, stable refs) became the cheap,
   reliable way for agents to read a page — and what unlabeled `<div>` soup costs

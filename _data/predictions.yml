@@ -763,3 +763,21 @@
   confidence: 65
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-08-07-agent-config-portability
+  made: "Dive · 2026-08-07"
+  made_link: "/reports/deep-dives/2026-08-07-agents-md-rules-travel-guardrails-dont.html"
+  text: >-
+    Through Q2 2027, agent-config standardization stays confined to the advisory
+    instructions file: no shared cross-harness standard for the enforcement layer
+    (a portable hook/permission/sandbox spec adopted by ≥2 major agent harnesses,
+    e.g. under the Agentic AI Foundation) ships or is formally adopted — AND Claude
+    Code keeps reading CLAUDE.md by default (no native default AGENTS.md read; the
+    `@AGENTS.md` import or symlink stays the only bridge). Distinct from the 08-03
+    call (compiling policy into enforcement inside one harness); this is about the
+    portability/standardization of that enforcement layer across harnesses. If a
+    portable enforcement spec is adopted, or Claude Code reads AGENTS.md natively by
+    default, this was wrong.
+  confidence: 80
+  due: "2027-Q2"
+  status: open
