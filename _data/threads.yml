@@ -712,9 +712,33 @@
     under-analysed) — but that is the same asymmetry pointing the same way, since
     key recovery is an executable witness, which is what predicts that PQC bends
     before full-round symmetric ciphers do.
+    W32 (contrarian lens): the human skill-distribution corollary. Whether AI
+    *levels* or *concentrates* skill is set by the same verifier variable, not by
+    AI. The famous "AI democratizes knowledge work" field experiments all measured
+    tasks with a cheap, tolerant verifier and a bounded downside: Brynjolfsson,
+    Li and Raymond's customer-support study (QJE 2025, 5,179 agents) raised
+    productivity 14% on average but 34% for novices and roughly zero for experts,
+    "disseminating the best practices of more able workers"; the Harvard–BCG
+    "jagged frontier" experiment (Organization Science 2025, 758 consultants)
+    lifted below-average performers 43% versus 17% for above-average — inside the
+    frontier. Flip to expensive-verifier, silent-costly-error work and the sign
+    flips: METR's 2025 RCT (16 expert open-source developers on their own mature
+    repositories, 246 issues) found them 19% *slower* with AI, having predicted a
+    24% speedup and still believing in a 20% speedup afterward; BCG's own
+    outside-frontier task made AI users 19 points less likely to be correct. So
+    leveling (cheap verifier → the machine supplies the check → the novice rides
+    along) and concentration (expensive verifier → only the expert can supply the
+    check) are one mechanism read at two verifier prices — the human-side reading
+    of the same asymmetry, and the scarce residual skill, verification, is exactly
+    the one that deskills with disuse. It reframes the week's displacement-anxiety
+    HN arc: the residual isn't aesthetic *taste*, it's *verification* — spec plus
+    error-detection, which is checkable and trainable and has right answers. Prove
+    it wrong with a production, brownfield, correctness-critical RCT, stratified by
+    skill, showing AI narrowing the junior–senior defect gap as models improve.
   issues:
     - { label: "Dive · A Counterexample Checks in One Pass", link: "/reports/deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.html" }
     - { label: "Dive · Claude Didn't Break Cryptography", link: "/reports/deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.html" }
+    - { label: "Dive · AI Levels the Field Where the Errors Are Cheap", link: "/reports/deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.html" }
 
 - slug: labs-go-vertical-silicon
   title: "Labs go vertical / own the silicon"

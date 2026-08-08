@@ -139,6 +139,19 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   later" is the real threat model, and how the NIST standardization gauntlet withdraws a scheme
   (HAWK's lattice automorphism) before it ships (Analyst) [surfaced by the 07-31 dive]
 
+- [what-every-engineer-should-know] Verification as the career skill: how to
+  practice the checkable half of "taste" on purpose — writing the spec before the
+  code, predicting the diff, seeding known-bad changes to measure your own
+  false-negative rate — and why output speed is the skill AI just made worthless
+  while error-detection is the one it made scarce (Contrarian/Builder) [surfaced
+  by the 08-09 skill-distribution dive; sibling to deskilled-reviewer 07-22]
+- [x-vs-y] Where AI levels skill vs where it concentrates it: a field-experiment
+  map (customer support / consulting / greenfield — cheap verifier, leveling) vs
+  (brownfield production / security — expensive verifier, concentration), the
+  Brynjolfsson-QJE and Dell'Acqua-BCG vs METR results side by side, and the
+  verifier-cost variable that predicts the sign before you run the study (Analyst/
+  Contrarian) [surfaced by the 08-09 skill-distribution dive]
+
 ## Live — Claude Code & agent engineering
 
 *The Operator's home pool — Claude Code workflows and max-performance. The

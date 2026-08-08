@@ -705,8 +705,26 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   trust the standards process MORE; prefer PQC schemes that survived machine attack. Prove-me-wrong = a novel
   structural attack on a full-round deployed primitive, verified formally not by execution (the ∀-with-no-cheap-
   witness result). Levers autonomy-before-brakes (deskilled reviewer) + supply-chain-vs-throughput.
+  W32 (contrarian lens): the *human skill-distribution* corollary — whether AI LEVELS or CONCENTRATES skill is
+  set by the same verifier variable, not by AI. The "AI democratizes knowledge work" field experiments all measured
+  cheap-verifier/bounded-downside tasks: Brynjolfsson-Li-Raymond customer support (QJE 2025, N=5,179) +14% avg but
+  +34% for novices / ~0 for experts (leveling — "disseminates the best practices of more able workers"); Dell'Acqua/
+  BCG consultants (Org Science 2025, N=758) below-avg +43% vs above-avg +17% INSIDE the frontier, but −19pp correct
+  OUTSIDE it (the jagged edge). Flip to expensive-verifier/silent-costly-error work and the sign flips: METR 2025 RCT
+  (16 expert OSS devs on their OWN mature repos, 246 issues) 19% SLOWER, predicted +24%, still-believed +20% after.
+  So leveling (cheap verifier → machine supplies the check → novice rides along) and concentration (expensive verifier
+  → only the expert can supply the check) = ONE mechanism at two verifier prices; the scarce residual = specification
+  + error-detection (the check itself), which also deskills (07-22). Reframes the week's HN displacement arc
+  ("LLMs reward expertise" Goedecke / "Taste Is All That's Left" / "code was never the hard part" senko / "why is
+  everyone in tech so sad" Noema 953pts): the residual isn't aesthetic TASTE, it's VERIFICATION (checkable, trainable,
+  has right answers). So-what: import the leveling result only where the verifier is cheap (internal tools, well-tested
+  modules); invest in the check not output speed (failing-test-first, seed known-bad diffs, measure your miss-rate).
+  Prove-me-wrong = a production/brownfield RCT stratified by skill where AI NARROWS the junior-senior defect-rate gap
+  as models get more reliable. contrarian/news-to-framework. Levers autonomy-before-brakes (deskilled-reviewer 07-22);
+  siblings verifier-asymmetry (07-24/07-31), benchmark-not-capability (06-12).
   → [dive 2026-07-24](./deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.md),
-  [dive 2026-07-31](./deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.md)
+  [dive 2026-07-31](./deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.md),
+  [dive 2026-08-09](./deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.md)
 
 ## Predictions ledger
 
@@ -783,6 +801,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-06 (tool-output) | Through Q1 2027, Claude Code does NOT ship a *default-on* mechanism that compresses or caps verbose tool-result tokens in the context the model reads (a built-in/config that trims Bash/Read/tool output by default, beyond the existing raw character truncation) — recovering context budget on the output side stays a manual opt-in (a PostToolUse `updatedToolOutput` hook or subagent isolation), and tool results stay the largest uncontrolled consumer of the usable window unless the user configures one | 65% | by 2027-Q1 | OPEN |
 | Dive 2026-08-07 (agent-config-portability) | Through Q2 2027, agent-config standardization stays confined to the *advisory* instructions file: no shared cross-harness standard for the *enforcement* layer (a portable hook/permission/sandbox spec adopted by ≥2 major agent harnesses, e.g. under the Agentic AI Foundation) ships or is formally adopted — AND Claude Code keeps reading `CLAUDE.md` by default (no native default AGENTS.md read; the `@AGENTS.md` import / symlink stays the only bridge). Distinct from the 08-03/W31 call (which is about compiling policy into enforcement *inside* one harness); this is about *portability/standardization* of that enforcement layer across harnesses | 80% | by 2027-Q2 | OPEN |
 | Dive 2026-08-08 (model-in-silicon) | Through end-2027, no model-in-silicon product (weights baked into mask-ROM — Taalas/AMD or a peer) serves a *current frontier-tier* model in production: none carries a top-~5 intelligence-index model *while that model is still current* (within ~one release cycle) served from etched weights; weights-in-silicon deployments stay confined to small/stable/commodity models the operator has deliberately frozen — because frontier release cadence stays faster than the ~2-month metal re-spin, so the shelf-life constraint holds and etching stays the commodity tier's endgame, not the frontier's | 75% | 2027-12-31 | OPEN |
+| Dive 2026-08-09 (skill-distribution) | Through Q1 2027, no published controlled field study of *production/brownfield, correctness-critical* software — stratified by developer skill and run on real repositories (not customer-support scripts, graded consulting decks, or greenfield toy tasks) — shows AI *narrowing* the junior–senior defect-rate or output-quality gap as models get more reliable; the "AI levels knowledge work" result (Brynjolfsson-Li-Raymond +34% novice / Dell'Acqua-BCG +43% below-avg) stays confined to cheap-verifier/bounded-downside tasks, while the expensive-verifier case keeps reproducing expert-slowdown / skill-concentration (METR-class), confirming that AI's distributional effect is set by verifier cost, not by AI | 70% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1763,3 +1782,24 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   economics/how-it-works. Advances labs-go-vertical/own-the-silicon (the extreme bottom rung below 06-29's
   programmable ASICs); cross-levers commoditization (07-13/07-20), benchmark-saturation (08-05); siblings
   why-labs-build-chips (06-29), bandwidth-wall (08-04), MoE (06-21). W32 (Quist, generalist Sat).
+- 2026-08-09 — "AI Levels the Field Where the Errors Are Cheap. It Widens It Where They Aren't." (Okafor) —
+  inverts the years-old "AI democratizes/levels knowledge work" consensus (and both halves of this week's HN
+  displacement arc: "LLMs reward expertise" Goedecke / "Taste Is All That's Left" / "code was never the hard
+  part" senko / "why is everyone in tech so sad" Noema 953pts). Steelman at full strength = two big peer-reviewed
+  field experiments showing leveling: Brynjolfsson-Li-Raymond "Generative AI at Work" (QJE 2025, N=5,179 support
+  agents) +14% avg / +34% novices / ~0 experts ("disseminates the best practices of more able workers");
+  Dell'Acqua/BCG "Jagged Frontier" (Org Science 2025, N=758 consultants) below-avg +43% vs above-avg +17% INSIDE
+  the frontier. Break: both measured tasks with a cheap, tolerant verifier + bounded downside; run the same question
+  where the verifier is expensive and errors silent/costly and the sign flips — METR 2025 RCT (16 expert OSS devs,
+  OWN mature repos, 246 issues) 19% SLOWER, predicted +24%, still-believed +20% after; BCG's own OUTSIDE-frontier
+  tasks −19pp correct. Counter-thesis: AI is neither leveler nor concentrator in general — the sign of its
+  distributional effect is set by ONE variable, the task's verifier (cost × fidelity). Cheap verifier → machine
+  supplies the check → novice rides along (leveling); expensive verifier → only the expert can supply the check
+  (concentration) = one mechanism at two verifier prices (the human-side corollary of 07-24; the residual skill,
+  verification, also deskills 07-22). Reframes the week: the residual isn't aesthetic TASTE, it's VERIFICATION
+  (spec + error-detection — checkable, trainable, right answers). So-what: import the leveling result only where
+  the verifier is cheap (internal tools/well-tested modules); invest in the check not output speed (failing-test-
+  first, predict-the-diff, seed known-bad diffs, measure your miss-rate). Prove-me-wrong = a production/brownfield
+  RCT stratified by skill where AI narrows the junior-senior defect gap as models improve. contrarian/news-to-
+  framework. Advances the verifier-asymmetry thread (human skill-distribution front); siblings verifier-asymmetry
+  (07-24/07-31), deskilled-reviewer (07-22), benchmark-not-capability (06-12). W32 (Okafor, generalist Sun).

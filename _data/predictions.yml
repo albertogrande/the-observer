@@ -798,3 +798,22 @@
   confidence: 75
   due: "2027-12-31"
   status: open
+
+- id: dive-2026-08-09-skill-distribution
+  made: "Dive · 2026-08-09"
+  made_link: "/reports/deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.html"
+  text: >-
+    Through Q1 2027, no published controlled field study of production/brownfield,
+    correctness-critical software — stratified by developer skill and run on real
+    repositories, not customer-support scripts, graded consulting decks, or
+    greenfield toy tasks — shows AI narrowing the junior–senior defect-rate or
+    output-quality gap as models get more reliable. The "AI levels knowledge work"
+    result (Brynjolfsson-Li-Raymond +34% for novices; Dell'Acqua-BCG +43% for
+    below-average performers) stays confined to cheap-verifier, bounded-downside
+    tasks, while the expensive-verifier case keeps reproducing expert-slowdown /
+    skill-concentration (METR-class) — confirming that AI's distributional effect is
+    set by the task's verifier cost, not by AI. If a production RCT shows AI closing
+    the skill gap where the verifier is expensive, this was wrong.
+  confidence: 70
+  due: "2027-Q1"
+  status: open
