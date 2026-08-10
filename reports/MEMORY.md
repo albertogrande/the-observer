@@ -722,9 +722,27 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   Prove-me-wrong = a production/brownfield RCT stratified by skill where AI NARROWS the junior-senior defect-rate gap
   as models get more reliable. contrarian/news-to-framework. Levers autonomy-before-brakes (deskilled-reviewer 07-22);
   siblings verifier-asymmetry (07-24/07-31), benchmark-not-capability (06-12).
+  W32 (the legal twin): the asymmetry has a provenance corollary — you can machine-check that code WORKS (a test suite
+  is a cheap runnable certificate) but not where it CAME FROM (provenance has no cheap certificate). So serious codebases
+  price AI-generated code the way markets price any expensive-to-verify property: with contracts and bans, not detection.
+  Oracle bans AI in OpenJDK (OCA IP-warranty load-bearing; Oracle-v-Google $8.8B/6–2-fair-use ghost) yet ALLOWS it in
+  GraalVM (Oracle Labs, disclosure-optional, contributor-accountable) — same company, opposite calls; deciding variable =
+  downstream warranty exposure, not tool/quality. US Copyright Office (Jan 2025 Part 2): AI-only output not copyrightable
+  → the DCO/CLA signature ("I have the right to submit this") can't be signed truthfully; Linux kernel concedes it ("AI
+  agents MUST NOT add Signed-off-by; only humans can certify the DCO"). Contamination: GitHub's own recitation study 41
+  verbatim/453,780 (Tim Davis cs_transpose); Doe v GitHub narrowed to license/contract. Spectrum ban(Gentoo/NetBSD/QEMU/
+  Servo/OpenJDK)→disclose(Fedora/kernel/GraalVM/curl)→allow(private) tracks warranty weight. Steelman (undetectable —
+  61% detector FP non-native English, OpenAI killed its own 2023; same-co GraalVM disagrees; bad-PRs-not-AI) rebutted:
+  the ban is liability-ALLOCATION not detection (defensibility > enforceability; HN jerf "law firm with a tech business
+  attached… in the driver's seat"), and quality≠provenance. So-what: know your repo's agreement (CLA vs DCO), log
+  model-gen provenance where the warranty is load-bearing, match tool to stakes (QEMU relaxes only on the ≤20-line
+  no-creativity slice). Deciding quantity = the repo's downstream IP-warranty exposure. devtools/dev-marketing + legal.
+  Siblings deskilled-reviewer (07-22), supply-chain-vs-throughput (curl slop 20%/valid<5%); levers coding-subsidy (AI
+  writes ~30–80% of code at Google/MS/Anthropic — the volume that makes provenance a live liability).
   → [dive 2026-07-24](./deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.md),
   [dive 2026-07-31](./deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.md),
-  [dive 2026-08-09](./deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.md)
+  [dive 2026-08-09](./deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.md),
+  [dive 2026-08-10](./deep-dives/2026-08-10-provenance-is-the-product.md)
 
 ## Predictions ledger
 
@@ -802,6 +820,8 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-07 (agent-config-portability) | Through Q2 2027, agent-config standardization stays confined to the *advisory* instructions file: no shared cross-harness standard for the *enforcement* layer (a portable hook/permission/sandbox spec adopted by ≥2 major agent harnesses, e.g. under the Agentic AI Foundation) ships or is formally adopted — AND Claude Code keeps reading `CLAUDE.md` by default (no native default AGENTS.md read; the `@AGENTS.md` import / symlink stays the only bridge). Distinct from the 08-03/W31 call (which is about compiling policy into enforcement *inside* one harness); this is about *portability/standardization* of that enforcement layer across harnesses | 80% | by 2027-Q2 | OPEN |
 | Dive 2026-08-08 (model-in-silicon) | Through end-2027, no model-in-silicon product (weights baked into mask-ROM — Taalas/AMD or a peer) serves a *current frontier-tier* model in production: none carries a top-~5 intelligence-index model *while that model is still current* (within ~one release cycle) served from etched weights; weights-in-silicon deployments stay confined to small/stable/commodity models the operator has deliberately frozen — because frontier release cadence stays faster than the ~2-month metal re-spin, so the shelf-life constraint holds and etching stays the commodity tier's endgame, not the frontier's | 75% | 2027-12-31 | OPEN |
 | Dive 2026-08-09 (skill-distribution) | Through Q1 2027, no published controlled field study of *production/brownfield, correctness-critical* software — stratified by developer skill and run on real repositories (not customer-support scripts, graded consulting decks, or greenfield toy tasks) — shows AI *narrowing* the junior–senior defect-rate or output-quality gap as models get more reliable; the "AI levels knowledge work" result (Brynjolfsson-Li-Raymond +34% novice / Dell'Acqua-BCG +43% below-avg) stays confined to cheap-verifier/bounded-downside tasks, while the expensive-verifier case keeps reproducing expert-slowdown / skill-concentration (METR-class), confirming that AI's distributional effect is set by verifier cost, not by AI | 70% | by 2027-Q1 | OPEN |
+| 2026-W32 | Through Q1 2027, the 2026 tech-worker malaise stays a sentiment-and-anecdote phenomenon, not a measured collapse of the occupation: US BLS software-developer employment does not fall >~5% YoY, and no official statistical series or peer-reviewed study attributes the majority of tech layoffs to AI automation (vs the rate cycle + 2021–22 over-hiring correction) — the mood leads the metric | 68% | by 2027-Q1 | OPEN |
+| Dive 2026-08-10 (provenance) | Through end-2027, no major AI coding vendor ships a provenance/authorship guarantee strong enough to satisfy an IP-warranty contribution agreement — one letting a contributor truthfully sign a DCO/CLA on model output (vendor "IP indemnities" stay scoped to the user's third-party-claim defense, not a transferable clean-provenance warranty) — AND the projects that stake a downstream IP warranty on every commit (OpenJDK-class, CLA/OCA-gated) keep AI contributions banned-or-disclosed rather than freely allowed | 72% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -890,6 +910,18 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   control; compile the load-bearing rules outside the model. Even Altman blinked ("may have to pace"). Also:
   GPT-5.6 Luna −80%, Cursor hides $ costs, Dario's open-weights position, Aug 1 framework shape (W30 leg RIGHT),
   Copilot-for-Word AI worm, TurboFieldfare Gemma 4 in 2GB, AI layoffs 205K / trades hiring, Fed holds
+- 2026-W32 — "AI Aced the Test This Week. Nobody Felt Better." — capability's cleanest demo (OpenAI Astra: 10
+  decade-old math problems, Lean sorry=0, ~$2,000, first non-sofic group; DeepMind WeatherNext beats numerical
+  cyclone models) collided with the week's LOUDEST signal — a mood (HN displacement arc: "why is everyone in tech
+  so sad" Noema 953pts, "taste is all that's left," "code was never the hard part") — while the benchmarks that
+  should referee the fear stopped resolving (saturation 08-05, "LLMs Can't Jump"). Thesis: the residual isn't
+  taste, it's VERIFICATION (Astra automated the part with a certificate; Jeff Dean → Discovery Loop PBC "AI for
+  science" = the verifiable side) — but the brake we retreat to is measurably unreliable (40k-run study: humans
+  miss 1-in-3 threats, 66.3% acc, worse under load; OpenAI→HF agent-breach timeline, Willison/Black Hat). So-what:
+  build the check, don't argue from vibes. Also: DeepMind reorg (Hassabis→chair); Oracle bans AI in OpenJDK (dive);
+  Meta $942M + $567M kids judgments; Cloudflare OS/Kitesurf agent runtime; Qwen3.8-Max 58 vs Opus 5 59; Denmark
+  oral defenses; Claude Code reverses auto-commit default + adds spend-limit warnings. Prediction: the tech malaise
+  stays sentiment-not-labor-data (68%)
 
 ### Deep dives
 - 2026-06-11 — "The Meter Is the Confession" — AI coding pricing; metering as
@@ -1803,3 +1835,22 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   RCT stratified by skill where AI narrows the junior-senior defect gap as models improve. contrarian/news-to-
   framework. Advances the verifier-asymmetry thread (human skill-distribution front); siblings verifier-asymmetry
   (07-24/07-31), deskilled-reviewer (07-22), benchmark-not-capability (06-12). W32 (Okafor, generalist Sun).
+- 2026-08-10 — "The Codebases Banning AI Aren't Worried About Quality" (house, weekly dive) — why serious repos
+  refuse AI-generated code: PROVENANCE, not quality. Peg: Oracle bans AI in OpenJDK (OCA IP-warranty; 3 reasons =
+  reviewer burden / mission-critical safety / IP "subject of active litigation") yet ALLOWS it in GraalVM (Oracle
+  Labs, disclosure-optional, contributor-accountable) — same company, opposite calls; deciding variable = downstream
+  warranty exposure, not tool/model/productivity. Ellison "the code Oracle is writing, Oracle isn't writing" while
+  banning it from the JDK. Core: US Copyright Office (Jan 2025 Part 2) — AI-only output not copyrightable → the
+  DCO/CLA signature ("I have the right to submit this") can't be signed truthfully; Linux kernel agrees ("AI agents
+  MUST NOT add Signed-off-by; only humans can certify the DCO"). Contamination: GitHub's own recitation study 41
+  verbatim/453,780 (Tim Davis cs_transpose); Doe v GitHub narrowed to license/contract ("rarely… long excerpts" =
+  the residual a warranty can't absorb); Oracle-v-Google $8.8B/6–2-fair-use ghost = why Oracle is hyper-cautious.
+  Spectrum ban(Gentoo/NetBSD/QEMU/Servo/OpenJDK)→disclose(Fedora/kernel/GraalVM/curl)→allow(private) tracks warranty
+  weight. Steelman (undetectable — 61% detector FP, OpenAI killed its own; same-co GraalVM disagrees; bad-PRs-not-AI
+  rpdillon/lanyard-textile HN) rebutted: liability-ALLOCATION not detection (defensibility>enforceability, derdi HN
+  "day at the beach"); quality≠provenance. HN top comment (jerf, 534pts): Oracle = "law firm with a tech business
+  attached… retain the option to sue… the law firm is in the driver's seat." So-what: know CLA vs DCO, log model-gen
+  provenance where warranty is load-bearing, match tool to stakes (QEMU relaxes only on the ≤20-line slice).
+  Prediction: no vendor ships a transferable clean-provenance warranty + warranty-gated projects stay banned/disclosed
+  through 2027 (72%). devtools/dev-marketing + legal; legal twin of verifier-asymmetry (07-24/08-09); siblings
+  deskilled-reviewer (07-22), trust-stack (06-10), supply-chain-vs-throughput (curl slop).
