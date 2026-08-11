@@ -817,3 +817,22 @@
   confidence: 70
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-08-12-reasoning-trace
+  made: "Dive · 2026-08-12"
+  made_link: "/reports/deep-dives/2026-08-12-reasoning-trace-encrypted-not-hidden.html"
+  text: >-
+    Through Q1 2027, the major closed frontier providers (Anthropic / OpenAI /
+    Google) do NOT move reasoning-trace handling fully server-side: the flagship
+    reasoning APIs keep returning the encrypted/omitted chain-of-thought to the
+    client (Anthropic's signature, OpenAI's encrypted_content) as replayed
+    round-trip state, rather than a never-returned server-held trace with
+    per-session-bound, non-portable keys — AND independent researchers demonstrate
+    at least one further cross-session / cross-model reasoning-trace recovery on a
+    shipped flagship in that window. The trace stays client-held and recoverable in
+    the tail because the stateless round-trip is load-bearing. If the providers move
+    the trace server-side (never returned, keys session-bound and non-portable) and
+    the recovery attacks stop reproducing, this was wrong.
+  confidence: 70
+  due: "2027-Q1"
+  status: open

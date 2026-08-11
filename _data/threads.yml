@@ -252,7 +252,24 @@
     wiring isn't. Claude Code notably keeps its own filename (CLAUDE.md, bridged by an
     `@AGENTS.md` import) even though Anthropic co-founded the foundation that stewards the
     standard. Rules travel; guardrails don't.
+    W33 (contrarian lens — the readable-output law's sharpest instance): the labs didn't
+    hide the reasoning trace, they encrypted it and shipped it to the client. OpenAI's
+    `encrypted_content` and Anthropic's `signature` (the full chain-of-thought, omitted but
+    shipped by default on the current flagships, billed either way) are client-held state you
+    replay on every turn — so "hidden" means "you don't have the key," not "it never left."
+    A paper (arXiv 2608.09867) exploited the fact that these blocks are interchangeable across
+    sessions, users, and models in one provider's ecosystem: inject a strong model's encrypted
+    trace into a weaker, less-guarded sibling, which decrypts and prints it verbatim — the
+    provider's own cheap model is the decryption oracle, no flagship jailbreak needed. Decoding
+    315,320 blocks scraped from public repos yielded 367 pieces of personal data and 182
+    credentials. This is a distinct front from export control (06-15), the deletable marker
+    (07-01), and the paraphrase-washed watermark (07-03) — those say you can't control a
+    readable output; this says you made it un-readable and then shipped the ciphertext, which
+    flips the distillation economics (06-27's 28.8M-query receipt shrinks once the reasoning is
+    recoverable). Deciding quantity: whether reasoning stays client-held (recoverable in the
+    tail) or moves server-side with session-bound, non-portable keys.
   issues:
+    - { label: "Dive · They Encrypted the Reasoning and Handed It Back", link: "/reports/deep-dives/2026-08-12-reasoning-trace-encrypted-not-hidden.html" }
     - { label: "Dive · Your Rules Travel, Your Guardrails Don't", link: "/reports/deep-dives/2026-08-07-agents-md-rules-travel-guardrails-dont.html" }
     - { label: "Dive · The Top of the Leaderboard Is Inside the Margin of Error", link: "/reports/deep-dives/2026-08-05-benchmark-saturation-margin-of-error.html" }
     - { label: "Dive · You Can Fit a 70B in 4GB", link: "/reports/deep-dives/2026-08-04-fit-70b-in-4gb-bandwidth-wall.html" }

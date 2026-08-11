@@ -185,6 +185,17 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   provenance-control a readable/renderable output, and a state can't legislate the control into existence — deciding
   quantity = fraction of marks recoverable AT the point of consumption, a number nobody must publish.
   → [dive 2026-08-02](./deep-dives/2026-08-02-ai-act-marking-survival-gap.md)
+  W33 (contrarian lens): the readable-output law's sharpest instance yet — the labs didn't *hide* the
+  reasoning trace, they ENCRYPTED it and shipped it to the client. OpenAI `encrypted_content` / Anthropic
+  `signature` (full CoT, omitted-but-shipped by default, billed either way) is client-held state you replay
+  each turn → "hidden" = "you don't have the key." A paper (arXiv 2608.09867) exploited cross-session/user/
+  MODEL block compatibility: feed a strong model's encrypted trace to a weaker sibling, which decrypts+prints
+  it (the provider's own model is the oracle); 315,320 blocks scraped from public repos yielded 367 PII + 182
+  creds. Distinct front from 06-15/07-01/07-03/08-02 (those = "you can't control a readable output"); this =
+  "you made it UN-readable, then shipped the ciphertext" → distillation-cost flip (06-27's 28.8M receipt
+  shrinks when the reasoning is recoverable). Deciding quantity = whether reasoning stays client-held
+  (recoverable in the tail) or moves server-side (session-bound keys).
+  → [dive 2026-08-12](./deep-dives/2026-08-12-reasoning-trace-encrypted-not-hidden.md)
   W27 (analyst lens): the *watermark* half of the marker/watermark split, quantified. A
   statistical text watermark (green-list logit bias, read back with a z-test) is the strongest
   of the provenance markings — no symbol to grep — but its signal is a function of token count
@@ -822,6 +833,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-09 (skill-distribution) | Through Q1 2027, no published controlled field study of *production/brownfield, correctness-critical* software — stratified by developer skill and run on real repositories (not customer-support scripts, graded consulting decks, or greenfield toy tasks) — shows AI *narrowing* the junior–senior defect-rate or output-quality gap as models get more reliable; the "AI levels knowledge work" result (Brynjolfsson-Li-Raymond +34% novice / Dell'Acqua-BCG +43% below-avg) stays confined to cheap-verifier/bounded-downside tasks, while the expensive-verifier case keeps reproducing expert-slowdown / skill-concentration (METR-class), confirming that AI's distributional effect is set by verifier cost, not by AI | 70% | by 2027-Q1 | OPEN |
 | 2026-W32 | Through Q1 2027, the 2026 tech-worker malaise stays a sentiment-and-anecdote phenomenon, not a measured collapse of the occupation: US BLS software-developer employment does not fall >~5% YoY, and no official statistical series or peer-reviewed study attributes the majority of tech layoffs to AI automation (vs the rate cycle + 2021–22 over-hiring correction) — the mood leads the metric | 68% | by 2027-Q1 | OPEN |
 | Dive 2026-08-10 (provenance) | Through end-2027, no major AI coding vendor ships a provenance/authorship guarantee strong enough to satisfy an IP-warranty contribution agreement — one letting a contributor truthfully sign a DCO/CLA on model output (vendor "IP indemnities" stay scoped to the user's third-party-claim defense, not a transferable clean-provenance warranty) — AND the projects that stake a downstream IP warranty on every commit (OpenJDK-class, CLA/OCA-gated) keep AI contributions banned-or-disclosed rather than freely allowed | 72% | 2027-12-31 | OPEN |
+| Dive 2026-08-12 (reasoning-trace) | Through Q1 2027, the major closed frontier providers (Anthropic/OpenAI/Google) do NOT move reasoning-trace handling fully server-side — the flagship reasoning APIs keep returning the encrypted/omitted chain-of-thought to the client (Anthropic `signature`, OpenAI `encrypted_content`) as replayed round-trip state rather than a never-returned server-held trace with per-session-bound, non-portable keys — AND independent researchers demonstrate at least one further cross-session / cross-model reasoning-trace recovery on a shipped flagship in that window; the trace stays client-held and recoverable in the tail because the stateless round-trip is load-bearing | 70% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1854,3 +1866,33 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   Prediction: no vendor ships a transferable clean-provenance warranty + warranty-gated projects stay banned/disclosed
   through 2027 (72%). devtools/dev-marketing + legal; legal twin of verifier-asymmetry (07-24/08-09); siblings
   deskilled-reviewer (07-22), trust-stack (06-10), supply-chain-vs-throughput (curl slop).
+- 2026-08-12 — "They Didn't Hide the Reasoning. They Encrypted It and Handed It Back." (Okafor) —
+  inverts the consensus that frontier labs "hide" the chain-of-thought to protect the moat. Peg: the
+  paper *Stealing Reasoning Traces from Proprietary LLM APIs* (arXiv 2608.09867, HN 454pts/199c, Aug 11).
+  Steelman = concealment raises the distillation cost (06-27: the 28.8M-query receipt was the price of NO
+  logprobs/reasoning). Break = they don't hide it, they ENCRYPT it and ship it to the client: OpenAI
+  Responses returns reasoning as `encrypted_content` you replay each turn; Anthropic thinking blocks carry
+  a `signature` = "an encrypted copy of the full reasoning," full CoT omitted-but-shipped by default on
+  Opus 4.7→Fable 5/Mythos 5, billed either way ("omitting reduces latency, not cost"; raw CoT "never
+  returned" on Fable 5/Mythos 5). So "hidden" = "you don't have the key." Attack: blocks are interchangeable
+  across sessions/users/models in a provider ecosystem (Anthropic docs even boast cross-PLATFORM signature
+  compat) → inject a strong model's encrypted trace into a weaker, less-guarded sibling, which decrypts+prints
+  it verbatim; the provider's own cheap model is the decryption oracle, no flagship jailbreak needed. Demoed
+  vs Anthropic/OpenAI/Google. Data leak: 315,320 blocks scraped from public repos → 367 PII + 182 credentials
+  (devs commit "opaque" session logs). Counter-thesis = concealment was never IP protection, it's a
+  statelessness/latency choice (ship state to client so the API stays stateless) wearing a moat's costume;
+  where you hide a secret decides whether it's a secret; client-side-encrypted ≠ hidden — the classic
+  sealed-state-on-the-wire footgun (signed cookie / stuffed JWT) at the AI frontier (sibling to the 08-01 MCP
+  signed-session-state dive). Consequences: distillation economics flip (read the teacher's worked solutions
+  vs Monte-Carlo it — HN tied it to Kimi/GLM, the commoditization thread); your PII/creds sit decryptable in
+  your git history; "the model refused" measures the wrong surface (hazardous content in the recoverable
+  trace behind a safe visible answer); injection carrier. Honest counters engaged: patchable (key-bind per
+  session kills THIS oracle, not the posture — ciphertext still client-held); "you paid for the tokens"
+  (entitlement ≠ security); "only a summary is returned" (signature carries the full thing, attack decrypts
+  the full thing). So-what: treat an encrypted reasoning block as sensitive plaintext-in-disguise — strip
+  reasoning/thinking blocks from commits/logs like a bearer token (it may hold one); don't read a refusal as
+  a safety guarantee. Prove-me-wrong = providers move reasoning server-side (never returned, keys
+  session-bound, non-portable) within 2 quarters. contrarian/news-to-framework. Advances channel-war/off-ramps
+  (readable-output law → now the actively-shipped-secret front) + the AI-coding-subsidy/distillation thread;
+  siblings distillation (06-27), reasoning-cost (07-18), export-control (06-15), marker (07-01), watermark
+  (07-03), AI-Act-marking (08-02), MCP sealed-state (08-01). W33 (Okafor, generalist Wed).

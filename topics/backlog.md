@@ -305,7 +305,16 @@ Code Watch.*
 - [what-every-engineer-should-know] Sealed state on the wire: HMAC-signed vs
   encrypted request/session state, TTLs, the "visible but tamper-evident" trade,
   and the replay/accumulation footguns — the signed-cookie pattern the 2026-07-28
-  MCP spec adopted, generalized (Builder) [surfaced by the 08-01 MCP stateless dive]
+  MCP spec adopted, generalized (Builder) [surfaced by the 08-01 MCP stateless dive;
+  now also pegged by the 08-12 reasoning-trace dive — encrypted client-held CoT is the
+  same footgun at the LLM frontier]
+- [how-it-works] The reasoning-block protocol, from the inside: what an
+  `encrypted_content` (OpenAI) / `signature` / `redacted_thinking` (Anthropic) block
+  actually is, why the stateless API forces the full chain-of-thought to round-trip
+  through the client, what the server verifies vs decrypts on the way back, and the
+  key-scoping choices (session-bound vs portable-across-model) that decide whether a
+  "hidden" trace is recoverable — the systems layer under the 08-12 stolen-traces
+  result (Builder/Analyst) [surfaced by the 08-12 reasoning-trace dive]
 - [architecture] The MCP gateway: what a managed middlebox in front of a fleet of
   MCP servers actually does — header-based routing (Mcp-Method/Mcp-Param-*),
   per-request OAuth (RFC 9728/8707), list caching, and the confused-deputy trap it
