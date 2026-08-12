@@ -496,6 +496,21 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   (07-08). Also-this-week rhyme: document-borne AI worm through Copilot for Word (Måløy, MSRC 144-day disclosure;
   "don't follow hidden instructions" is prose too). → [2026-W31](./2026-W31.md),
   [dive 2026-08-03](./deep-dives/2026-08-03-written-policy-is-not-a-control.md)
+  W33 (operator lens): the orchestration sub-thread's next layer up from 07-30 — the *session*, not the
+  subagent, is Claude Code's real unit of parallelism, and this week Anthropic shipped its control plane.
+  07-30 fixed the subagent as context-isolation (dies with its parent, reports to caller); the durable
+  concurrency unit is the independent session, now made a fleet by cross-session `SendMessage`/`ListAgents`
+  (v2.1.224, any machine), `--teleport` (cloud↔local), `self-hosted-runner` (v2.1.225), and the `claude agents`
+  board (needs-input/working/completed). Boris Cherny runs ~10–15 sessions (5 terminal ×5 checkouts + 5–10 web/
+  phone), NOT one session with 15 subagents (secondhand, flagged). Parallelism moves the bottleneck off the
+  context window (06-25/07-16) onto the HUMAN's attention, which doesn't parallelize → the brake is the
+  `Notification` hook firing `agent_needs_input`/`agent_completed` (v2.1.198) to PULL your attention to the
+  blocked session instead of polling. Three tiers, deciding Q = do workers talk mid-flight: subagent
+  (isolation) < agent team (mailbox+shared task list, but experimental/one-per-session/no-resume) < separate
+  sessions (independent, restart-surviving, addressable — production). Catches: attention has a ceiling (docs'
+  own 3–5); background sessions auto-commit off-camera (07-08, trust git not the badge); parallel writers need
+  worktree isolation (06-23); incoming cross-session messages are untrusted (can't approve your prompts).
+  Deciding quantity = things-shipped per unit of your attention. → [dive 2026-08-13](./deep-dives/2026-08-13-run-many-sessions-attention-bottleneck.md)
 - **Platforms eat the layer** `↑` — the LLMOps tool layer (gateway, tracing,
   eval, prompt store) is being absorbed from both ends: ClickHouse bought
   Langfuse (Jan, already built on ClickHouse; 23.1M SDK installs/mo) to own the
@@ -834,6 +849,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | 2026-W32 | Through Q1 2027, the 2026 tech-worker malaise stays a sentiment-and-anecdote phenomenon, not a measured collapse of the occupation: US BLS software-developer employment does not fall >~5% YoY, and no official statistical series or peer-reviewed study attributes the majority of tech layoffs to AI automation (vs the rate cycle + 2021–22 over-hiring correction) — the mood leads the metric | 68% | by 2027-Q1 | OPEN |
 | Dive 2026-08-10 (provenance) | Through end-2027, no major AI coding vendor ships a provenance/authorship guarantee strong enough to satisfy an IP-warranty contribution agreement — one letting a contributor truthfully sign a DCO/CLA on model output (vendor "IP indemnities" stay scoped to the user's third-party-claim defense, not a transferable clean-provenance warranty) — AND the projects that stake a downstream IP warranty on every commit (OpenJDK-class, CLA/OCA-gated) keep AI contributions banned-or-disclosed rather than freely allowed | 72% | 2027-12-31 | OPEN |
 | Dive 2026-08-12 (reasoning-trace) | Through Q1 2027, the major closed frontier providers (Anthropic/OpenAI/Google) do NOT move reasoning-trace handling fully server-side — the flagship reasoning APIs keep returning the encrypted/omitted chain-of-thought to the client (Anthropic `signature`, OpenAI `encrypted_content`) as replayed round-trip state rather than a never-returned server-held trace with per-session-bound, non-portable keys — AND independent researchers demonstrate at least one further cross-session / cross-model reasoning-trace recovery on a shipped flagship in that window; the trace stays client-held and recoverable in the tail because the stateless round-trip is load-bearing | 70% | by 2027-Q1 | OPEN |
+| Dive 2026-08-13 (multi-session) | Through Q1 2027, Claude Code's durable multi-Claude concurrency stays the *separate-session* path — cross-session messaging (`SendMessage`/`ListAgents`) + the `claude agents` control plane + background sessions + the `Notification` hook (`agent_needs_input`/`agent_completed`) as the human-attention router — while *agent teams stay experimental/opt-in* (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`, off by default) and do NOT become a resumable, default-on, cross-session-shareable feature; the shipped answer to "run many Claudes at once" keeps being independent, addressable, restart-surviving sessions coordinated by a human, not an automated team, and the subagent stays context-isolation (07-30), not the concurrency unit | 68% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1896,3 +1912,35 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   (readable-output law → now the actively-shipped-secret front) + the AI-coding-subsidy/distillation thread;
   siblings distillation (06-27), reasoning-cost (07-18), export-control (06-15), marker (07-01), watermark
   (07-03), AI-Act-marking (08-02), MCP sealed-state (08-01). W33 (Okafor, generalist Wed).
+- 2026-08-13 — "You Can Run Fifteen Claudes. The One That Can't Scale Is You." (Sandoval, Claude Code
+  edition) — the SESSION, not the subagent, is Claude Code's real unit of parallelism, and the control
+  plane for a fleet of them shipped this week. Opens on the multi-tab failure (8 sessions, you hand-schedule
+  with your eyeballs, the slowest part of the system). Compounds 07-30: a subagent is context-isolation and
+  dies with its parent (docs: "own context window; results return to the caller… report results back to the
+  main agent only"); the thing that runs in parallel and survives you is the session. This week's Watch made
+  sessions a fleet — cross-session `SendMessage`/`ListAgents` (v2.1.224, addressable on any machine),
+  `claude --teleport <id>` (v2.1.223, cloud↔local handoff), `claude self-hosted-runner` (v2.1.225, your own
+  boxes as executors), background sessions + the `claude agents` board (needs-input/working/completed, v2.1.212).
+  Boris Cherny (creator) runs ~5 terminal sessions across 5 git checkouts (tabs 1–5) + 5–10 web/phone =
+  10–15 at once, NOT one session with 15 subagents (VentureBeat/xda, secondhand, flagged). Thesis: parallelism
+  moved the bottleneck from the 120K window (06-25) / 33K preamble (07-16) onto the HUMAN's attention, which
+  doesn't parallelize. Fix Anthropic shipped = control plane (`claude agents` board) + routing primitive: the
+  `Notification` hook fires `agent_needs_input`/`agent_completed` (v2.1.198; matchers also `permission_prompt`/
+  `idle_prompt`; stdin carries session_id/cwd/notification_type; output discarded except terminalSequence → a
+  side-effecting beep/banner/push is exactly the point) so your attention is PULLED to the blocked session
+  instead of you polling. Three-tier distinction (deciding Q: do workers talk mid-flight?): subagent (one
+  session, isolation, dies with parent, cheapest) vs agent team (teammates message each other + shared task
+  list/mailbox, but `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`, one-team-per-session, no `/resume`, no nested
+  teams, experimental — collaboration not production) vs separate sessions (independent, restart-surviving,
+  any machine, addressable — the durable concurrency unit Boris actually runs). Catches: more sessions ≠ more
+  throughput past your attention ceiling (docs' own 3–5 / diminishing-returns applies to YOU); fixed cost ×N
+  (33K preamble ×N, checkout ×N); background sessions auto-commit/push (v2.1.221/224) → writing off-camera,
+  trust git log not the "completed" badge (07-08); parallel writers still need worktree isolation (06-23, leaked
+  repeatedly v2.1.216/.222/.223/.224); an incoming cross-session message is UNTRUSTED (can't approve your
+  permission prompts) → right default, also why full hands-off orchestration isn't here. Ships a paste-in
+  `Notification`-hook settings.json (macOS osascript / Linux notify-send, jq the cwd). Metric = things-shipped
+  per unit of your attention, not sessions-running. practical-guide/reference; W33 Thursday Claude Code slot.
+  Prediction: separate-session path stays the durable multi-Claude concurrency model + agent teams stay
+  experimental/opt-in through Q1'27 (68%). Advances autonomy-before-brakes (context-budget/orchestration
+  sub-thread); siblings subagents (07-30), context-budget (06-25), context-tax (07-16), worktrees (06-23),
+  audit-trail (07-08), hooks (07-02), skills (07-09).

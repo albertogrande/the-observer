@@ -546,6 +546,32 @@
     the same reason dump-to-markdown beats /compact (06-25) — you choose what survives, deterministically. So-what:
     measure your own tool-result ratio with /context, then wire one PostToolUse matcher on Bash that compresses
     anything over ~2,000 tokens to head+tail and tells the agent how to fetch the middle.
+    W33 (operator lens): the orchestration sub-thread's next layer up. If a subagent is context-isolation and
+    dies with its parent (07-30), the thing that actually runs in parallel and survives you is the *session* —
+    and this week Anthropic shipped its control plane. Cross-session messaging (SendMessage / ListAgents,
+    v2.1.224) makes a session addressable on any of your machines; `claude --teleport <id>` (v2.1.223) hands a
+    session between cloud and local; `claude self-hosted-runner` (v2.1.225) turns your own boxes into executors;
+    background sessions surface on the `claude agents` board grouped needs-input / working / completed. Boris
+    Cherny (the creator) runs it as ~5 terminal sessions across 5 git checkouts (tabs 1–5) plus 5–10 web/phone
+    = 10–15 at once — not one session with 15 subagents (VentureBeat / xda, secondhand). Parallelism moves the
+    bottleneck off the context window (06-25 / 07-16) and onto the human's attention, which doesn't parallelize:
+    eight running sessions and you hand-schedule with your eyeballs, the slowest part of the system. The brake
+    Anthropic shipped is the Notification hook firing `agent_needs_input` / `agent_completed` (v2.1.198; matchers
+    also `permission_prompt` / `idle_prompt`; stdin carries session_id / cwd / notification_type; output is
+    discarded except terminal sequences, so a side-effecting beep / banner / push is exactly the point) — it
+    *pulls* your attention to the blocked session instead of you polling. Three tiers, one deciding question (do
+    the workers need to talk to each other mid-flight?): subagent (one session, isolation, dies with parent,
+    cheapest) < agent team (teammates message each other + a shared task list / mailbox, but
+    CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS, one team per session, no /resume, no nested teams — collaboration, not
+    production) < separate sessions (independent, restart-surviving, any machine, addressable — the durable
+    concurrency unit Boris actually runs). Catches: more sessions is not more throughput past your attention
+    ceiling (the docs' own 3–5 / diminishing-returns applies to you); every session pays the fixed 33k preamble
+    ×N + a checkout ×N; background sessions auto-commit and push (v2.1.221/224), so writing goes off-camera —
+    trust the git log, not the "completed" badge (07-08); parallel writers still need worktree isolation (06-23,
+    which leaked repeatedly across v2.1.216/.222/.223/.224); and an incoming cross-session message is treated as
+    untrusted (it can't approve your permission prompts), which is the right default and also why full hands-off
+    orchestration isn't here yet. Deciding quantity = things shipped per unit of your attention, not sessions
+    running.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -564,6 +590,7 @@
     - { label: "Dive · The Kernel Approves Commands Better Than You Do", link: "/reports/deep-dives/2026-07-23-sandbox-is-the-real-brake.html" }
     - { label: "Dive · A Subagent Buys You Context, Not Speed", link: "/reports/deep-dives/2026-07-30-subagents-context-not-speed.html" }
     - { label: "Dive · Your Context Window Is 60% Tool Output", link: "/reports/deep-dives/2026-08-06-posttooluse-output-context-recovery.html" }
+    - { label: "Dive · You Can Run Fifteen Claudes. The One That Can't Scale Is You.", link: "/reports/deep-dives/2026-08-13-run-many-sessions-attention-bottleneck.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

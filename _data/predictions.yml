@@ -836,3 +836,22 @@
   confidence: 70
   due: "2027-Q1"
   status: open
+
+- id: dive-2026-08-13-multi-session
+  made: "Dive · 2026-08-13"
+  made_link: "/reports/deep-dives/2026-08-13-run-many-sessions-attention-bottleneck.html"
+  text: >-
+    Through Q1 2027, Claude Code's durable way to run many Claudes at once stays the
+    separate-session path — independent, restart-surviving, addressable sessions
+    coordinated by a human through cross-session messaging (SendMessage / ListAgents),
+    the `claude agents` control plane, background sessions, and the Notification hook
+    (agent_needs_input / agent_completed) as the attention router — while agent teams
+    stay experimental and opt-in (CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS, off by
+    default) and do NOT become a resumable, default-on, cross-session-shareable
+    production feature. The subagent stays a context-isolation primitive (per the
+    2026-07-30 dive), not the concurrency unit. If agent teams ship as a default-on,
+    resumable production concurrency model, or the subagent becomes the scale-out
+    unit, this was wrong.
+  confidence: 68
+  due: "2027-Q1"
+  status: open

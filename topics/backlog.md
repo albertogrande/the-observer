@@ -173,11 +173,22 @@ Code Watch.*
   so the model never reads (or echoes into a commit) an AWS key or bearer token
   — the one case where losing the original output is the goal (Operator)
   [surfaced by the 08-06 tool-output dive]
-- [how-it-works] Agent teams vs subagents: when sustained parallelism needs
-  workers with their *own* independent contexts (agent teams / background
-  sessions) instead of single-session subagents — the context-isolation vs
-  scale-out-compute line, and what `SendMessage`/`/subtask`/`/fork` actually do
-  (Operator) [surfaced by the 07-30 subagents dive]
+- [how-it-works] Agent teams from the inside: the collaborative tier the 08-13
+  dive named but didn't open — the mailbox (`~/.claude/teams/.../inboxes`), the
+  shared task list with file-locking + dependencies, the plan-approval protocol,
+  tmux/iTerm2 split-pane display, and the experimental limitations (one team per
+  session, no `/resume`, no nested teams) — i.e. *when* the collaboration is
+  worth the token cost over separate sessions (Operator) [the subagent/team/
+  session three-tier line is covered 07-30 + 08-13; this is the team internals]
+- [reference] The self-hosted runner: `claude self-hosted-runner` turning your
+  own machines/containers into executors for Claude Code web/mobile/desktop
+  sessions — what it changes about where work runs and where the code/data lives
+  (Operator) [surfaced by the 08-13 multi-session dive]
+- [practical-guide] Cross-session orchestration: a driver session delegating to
+  worker sessions via `SendMessage`/`ListAgents` across machines, `--teleport`
+  handoffs, and why an incoming session message is treated as *untrusted* (it
+  can't approve your permission prompts) — the ceiling on fully hands-off
+  fan-out (Operator) [surfaced by the 08-13 multi-session dive]
 - [practical-guide] Structured subagent returns: designing the schema a
   subagent hands back (`--output-format json` + `--json-schema`,
   `structured_output`) so an orchestrator can gate on data, not prose — the
