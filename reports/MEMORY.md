@@ -765,10 +765,24 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   no-creativity slice). Deciding quantity = the repo's downstream IP-warranty exposure. devtools/dev-marketing + legal.
   Siblings deskilled-reviewer (07-22), supply-chain-vs-throughput (curl slop 20%/valid<5%); levers coding-subsidy (AI
   writes ~30–80% of code at Google/MS/Anthropic — the volume that makes provenance a live liability).
+  W33 (analyst lens — the software-testing front, NON-AI): the same law decides why the most-tested code on earth hid
+  a corruption bug for 16 years. A test suite is a runnable verifier; the question is what SPACE it searches. SQLite's
+  16-yr WAL-reset race (Tailscale, fixed 3.51.3) survived 100% MC/DC branch coverage because coverage certifies the
+  CODE space (finite #branches) while a data race lives in the SCHEDULE space (#interleavings ≈ product of thread
+  states, explodes) — 100% branches can exercise ~0% of orderings, so the metric and the bug are in different units.
+  Deterministic simulation testing (Antithesis) found it in ~15 MIN because it supplies a cheap faithful invariant
+  ("no committed write is lost") AND controls the scheduler to SEARCH orderings against it = model/effort + verifier +
+  SEARCH, with the search over interleavings not tokens. SQLite team = 0 organic repros (16yr of expert reading) vs
+  15 min of scheduler search: the verifier existed, the search didn't. Deciding quantity here = fraction of reachable
+  SCHEDULES explored (not lines). So the "residual is verification" reading now has a pure-software instance: where a
+  runnable check exists but the space is un-enumerable by reading, a machine that searches it beats unbounded human
+  effort. Prediction: within 4 quarters ≥1 more heavily-tested OSS infra project attributes a long-latent
+  concurrency/durability bug to a DST pass rather than coverage/production-luck (70%).
   → [dive 2026-07-24](./deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.md),
   [dive 2026-07-31](./deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.md),
   [dive 2026-08-09](./deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.md),
-  [dive 2026-08-10](./deep-dives/2026-08-10-provenance-is-the-product.md)
+  [dive 2026-08-10](./deep-dives/2026-08-10-provenance-is-the-product.md),
+  [dive 2026-08-14](./deep-dives/2026-08-14-sqlite-coverage-missed-the-race.md)
 
 ## Predictions ledger
 
@@ -849,6 +863,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | 2026-W32 | Through Q1 2027, the 2026 tech-worker malaise stays a sentiment-and-anecdote phenomenon, not a measured collapse of the occupation: US BLS software-developer employment does not fall >~5% YoY, and no official statistical series or peer-reviewed study attributes the majority of tech layoffs to AI automation (vs the rate cycle + 2021–22 over-hiring correction) — the mood leads the metric | 68% | by 2027-Q1 | OPEN |
 | Dive 2026-08-10 (provenance) | Through end-2027, no major AI coding vendor ships a provenance/authorship guarantee strong enough to satisfy an IP-warranty contribution agreement — one letting a contributor truthfully sign a DCO/CLA on model output (vendor "IP indemnities" stay scoped to the user's third-party-claim defense, not a transferable clean-provenance warranty) — AND the projects that stake a downstream IP warranty on every commit (OpenJDK-class, CLA/OCA-gated) keep AI contributions banned-or-disclosed rather than freely allowed | 72% | 2027-12-31 | OPEN |
 | Dive 2026-08-12 (reasoning-trace) | Through Q1 2027, the major closed frontier providers (Anthropic/OpenAI/Google) do NOT move reasoning-trace handling fully server-side — the flagship reasoning APIs keep returning the encrypted/omitted chain-of-thought to the client (Anthropic `signature`, OpenAI `encrypted_content`) as replayed round-trip state rather than a never-returned server-held trace with per-session-bound, non-portable keys — AND independent researchers demonstrate at least one further cross-session / cross-model reasoning-trace recovery on a shipped flagship in that window; the trace stays client-held and recoverable in the tail because the stateless round-trip is load-bearing | 70% | by 2027-Q1 | OPEN |
+| Dive 2026-08-14 (dst-testing) | Within four quarters, at least one more widely-deployed, heavily-tested OSS infrastructure project (database / queue / consensus or replication library) publicly attributes a long-latent concurrency or durability bug — one that survived years under high line/branch coverage — to a deterministic-simulation / scheduler-exploration testing pass, rather than to a coverage-driven test or a production incident; the technique that caught SQLite's WAL race in 15 min catches a category, not one bug | 70% | ~2027-08-14 | OPEN |
 | Dive 2026-08-13 (multi-session) | Through Q1 2027, Claude Code's durable multi-Claude concurrency stays the *separate-session* path — cross-session messaging (`SendMessage`/`ListAgents`) + the `claude agents` control plane + background sessions + the `Notification` hook (`agent_needs_input`/`agent_completed`) as the human-attention router — while *agent teams stay experimental/opt-in* (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`, off by default) and do NOT become a resumable, default-on, cross-session-shareable feature; the shipped answer to "run many Claudes at once" keeps being independent, addressable, restart-surviving sessions coordinated by a human, not an automated team, and the subagent stays context-isolation (07-30), not the concurrency unit | 68% | by 2027-Q1 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
@@ -1944,3 +1959,31 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   experimental/opt-in through Q1'27 (68%). Advances autonomy-before-brakes (context-budget/orchestration
   sub-thread); siblings subagents (07-30), context-budget (06-25), context-tax (07-16), worktrees (06-23),
   audit-trail (07-08), hooks (07-02), skills (07-09).
+- 2026-08-14 — "SQLite Tests Every Branch. The Bug Hid in the Order They Ran." (Quist) — postmortem of the
+  16-year SQLite WAL-reset corruption bug (Tailscale, HN #3 704pts), turned into a durable testing-methodology
+  argument: coverage measures the CODE space, a data race lives in the SCHEDULE space, and the two are different
+  units. Peg: WAL mode shipped 3.7.0 (2010-07-21), bug present through 3.51.2 (2026-01-09) = ~16 yrs; fixed 3.51.3
+  (2026-03-13, changelog "Fix the WAL-reset database corruption bug"; also 3.53.0; backports 3.50.7/3.44.6; the
+  3.52.0 feature train got pushed forward to 3.53.0). Mechanism: a checkpoint copies WAL frames into the db then
+  RESETS (rewinds) the WAL; a concurrent commit resets it out from under an in-progress checkpoint, which "does not
+  realize" it → writes a stale WAL-index header (backfill count) → later checkpoints SKIP those frames → committed
+  pages never land, index points at an unwritten page, integrity_check fails, no error at write time (silent).
+  Numbers: Tailscale 19 corruptions in ~6mo (Aug'25–Feb'26), no consistent trigger ("a write had vanished into thin
+  air"); SQLite team = 0 organic repros (had to add deliberate trigger code); Antithesis deterministic-simulation
+  found it in ~15 MIN on first run vs 3.51.2 with a generic writes+checkpoints workload + the cheapest invariant
+  ("no committed write is lost"). THESIS: SQLite isn't under-tested (100% MC/DC branch coverage, hundreds× test:code)
+  — coverage counts branches, and #branches is finite while #interleavings ≈ product of thread states (explodes), so
+  100% branches can exercise ~0% of orderings; DST wins because it controls the scheduler + searches orderings against
+  a runnable checker = the verifier-asymmetry law (07-24/08-09) applied to concurrency (verifier = invariant, search =
+  interleavings). Why Tailscale not you: default auto-checkpoint ~1000 pages/4MB, rare, off the write path; they took
+  manual control + checkpointed aggressively → "stepped off the well-trodden operational path" (Chan, via Register),
+  widening a microscopic window (hit rate never→19×). Counter (HN, engaged): "boring tech run in a non-standard way is
+  a risk" / "astounded at the work to make SQLite do things simpler elsewhere" (danpalmer) — fair, but the default path
+  is a survivorship result not a proof (race shipped on it for 16yr too); even the FIX was a race (3.52.0 pulled). Econ:
+  finding a 16-yr bug went weeks-of-forensics → an afternoon + generic workload = DST moves from FoundationDB luxury to
+  table stakes for anything stateful; coverage% was never a safety number for concurrent code. Deciding quantity =
+  fraction of reachable SCHEDULES the suite explores (not lines). devtools/product-engineering, postmortem/what-every-
+  engineer-should-know; NOT AI (reader's "cover the space" slot). Advances verifier-asymmetry (software-testing front);
+  siblings AI-levels (08-09), verifier-asymmetry (07-24). W33 (Quist, generalist Fri). Prediction: within 4 quarters,
+  ≥1 more heavily-tested OSS infra project attributes a long-latent concurrency/durability bug to a deterministic-
+  simulation pass rather than coverage/production-luck (70%).

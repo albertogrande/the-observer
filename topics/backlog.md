@@ -55,6 +55,13 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   batching (not a faster GPU) is how providers amortize the weight read, and why
   it's the opposite of the compute-bound prefill/training regime (Analyst/Builder)
   [surfaced by the 08-04 AirLLM bandwidth-wall dive; sibling to spec-decoding 06-24]
+- [economics] Latency as the last axis with spread: once value-frontier coding models
+  converge on capability and price hits a floor (DeepSeek V4 Pro 80.6 SWE-bench at $0.87/M,
+  Gemini 3.7 Flash, Grok 4.6), tokens/sec becomes the differentiator — and it's a
+  memory-bandwidth problem, which is why the fast providers moved the weights onto the die
+  (Cerebras WSE on-chip SRAM at ~PB/s vs HBM's ~TB/s, Groq LPU). Ties the bandwidth-wall
+  and benchmark-saturation dives together: the buy is on the axis that still resolves
+  (Analyst) [surfaced by the 08-14 Cerebras/GPT-5.6-Sol signal]
 - [x-vs-y] Weight offloading, done right: llama.cpp `--cpu-moe`/mmap vs
   AirLLM-style dense layer-streaming — what actually moves per token across the
   disk→RAM→GPU chain, why MoE is the one architecture where streaming is tolerable
@@ -293,6 +300,18 @@ Code Watch.*
   reliable way for agents to read a page — and what unlabeled `<div>` soup costs
   you in tokens and flake (Builder) [surfaced by the 07-11 browser-runtime dive]
 - [how-it-works] Why your test suite is slow: the real cost model of a CI run (Analyst)
+- [how-it-works] Deterministic simulation testing from first principles: how FoundationDB
+  and Antithesis control the scheduler + the clock to make concurrency reproducible, why a
+  single seed replays an entire run bit-for-bit, what "search the schedule space against an
+  invariant" actually costs, and when it beats fuzzing/coverage — the deeper follow-on to the
+  SQLite piece (Analyst) [surfaced by the 08-14 SQLite WAL-race dive]
+- [what-every-engineer-should-know] What test coverage does and doesn't measure: line vs
+  branch vs MC/DC, why 100% of any of them is silent on the interleaving/state space where
+  concurrency and durability bugs live, and how to think about "reachable-schedule coverage"
+  as the number that matters for stateful systems (Analyst) [surfaced by the 08-14 SQLite dive]
+- [how-it-works] Inside SQLite's WAL and checkpointing: the -wal/-shm files, the WAL-index
+  header and backfill counter, reader end-marks, and the one-writer concurrency contract — a
+  clean "how this load-bearing part of the stack actually works" (Analyst) [surfaced 08-14]
 - [practical-guide] How to size a model-selection eval: the sample-size math for
   telling two close models apart (binomial CI, McNemar on paired items, discordant-pair
   power), how many clean items you actually need to resolve a 2-point gap, and why a

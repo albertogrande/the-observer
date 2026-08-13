@@ -855,3 +855,21 @@
   confidence: 68
   due: "2027-Q1"
   status: open
+
+- id: 2026-08-14-dst-testing
+  made: "Dive · 2026-08-14"
+  made_link: "/reports/deep-dives/2026-08-14-sqlite-coverage-missed-the-race.html"
+  text: >-
+    Within four quarters, at least one more widely-deployed, heavily-tested
+    open-source infrastructure project (a database, a queue, or a consensus /
+    replication library) publicly attributes a long-latent concurrency or
+    durability bug — one that survived years under high line/branch coverage — to
+    a deterministic-simulation / scheduler-exploration testing pass, rather than
+    to a coverage-driven test or a production incident. The technique that caught
+    SQLite's 16-year WAL-reset race in about 15 minutes catches a category, not a
+    single bug. If deterministic simulation stays a FoundationDB-lineage niche and
+    the next wave of these bugs keeps surfacing in production by luck, this was
+    early / wrong.
+  confidence: 70
+  due: "2027-08-14"
+  status: open

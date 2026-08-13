@@ -779,10 +779,28 @@
     error-detection, which is checkable and trainable and has right answers. Prove
     it wrong with a production, brownfield, correctness-critical RCT, stratified by
     skill, showing AI narrowing the junior–senior defect gap as models improve.
+    W33 (analyst lens — the software-testing front, non-AI): the same law explains
+    why the most-tested code on Earth hid a corruption bug for 16 years. A test
+    suite is a runnable verifier; what matters is the SPACE it searches. SQLite's
+    16-year WAL-reset race (Tailscale postmortem; fixed in 3.51.3) survived 100%
+    MC/DC branch coverage because coverage certifies the code space — a finite
+    number of branches — while a data race lives in the schedule space, where the
+    number of interleavings is roughly the product of the threads' states and
+    explodes. So 100% of branches can exercise almost none of the orderings; the
+    metric and the bug are measured in different units. Deterministic simulation
+    testing (Antithesis) found it in about 15 minutes because it pairs the cheapest
+    invariant ("no committed write is lost") with a scheduler it controls and
+    searches orderings against — model/effort + verifier + search, with the search
+    over interleavings instead of tokens. The SQLite team managed zero organic
+    reproductions in 16 years of expert reading; a scheduler search took an
+    afternoon. The verifier existed the whole time; the search didn't. Deciding
+    quantity in this domain: the fraction of reachable schedules the suite actually
+    explores, not the fraction of lines.
   issues:
     - { label: "Dive · A Counterexample Checks in One Pass", link: "/reports/deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.html" }
     - { label: "Dive · Claude Didn't Break Cryptography", link: "/reports/deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.html" }
     - { label: "Dive · AI Levels the Field Where the Errors Are Cheap", link: "/reports/deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.html" }
+    - { label: "Dive · SQLite Tests Every Branch", link: "/reports/deep-dives/2026-08-14-sqlite-coverage-missed-the-race.html" }
 
 - slug: labs-go-vertical-silicon
   title: "Labs go vertical / own the silicon"
