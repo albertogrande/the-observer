@@ -873,3 +873,22 @@
   confidence: 70
   due: "2027-08-14"
   status: open
+
+- id: 2026-08-15-un-benchmarked-behavior
+  made: "Dive · 2026-08-15"
+  made_link: "/reports/deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.html"
+  text: >-
+    Through Q2 2027, no frontier lab (Anthropic, OpenAI, or Google) ships — as a
+    headline capability eval on a flagship model card — a multi-turn
+    clarification / underspecified-task benchmark that scores the model on
+    asking-versus-guessing under ambiguity (calibration plus clarifying-question
+    behavior on genuinely under-specified inputs). Public benchmarking of coding
+    and agentic models stays single-shot, pass/fail, on fixed-answer tasks, so the
+    collaborative "ask before you assume" behavior stays un-measured — and
+    therefore un-optimized-for by the leaderboard — remaining a per-user prompt and
+    eval discipline rather than a scored, advertised model property. If a lab makes
+    an under-specification / clarification benchmark a headline number on a flagship
+    release in this window, this was wrong.
+  confidence: 72
+  due: "2027-Q2"
+  status: open

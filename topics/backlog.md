@@ -82,6 +82,15 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
 - [x-vs-y] RLHF vs RLAIF: where synthetic AI feedback genuinely substitutes for human
   preference (style, helpfulness) and where it collapses (correctness-centric
   comparisons, where LLM judges run marginally above random) (Contrarian/Analyst)
+- [what-every-engineer-should-know] Calibration, and why post-training breaks it: what
+  it means for a model's stated confidence to track its accuracy, the GPT-4 report's own
+  before/after RLHF plot (Fig 8), how to measure your model's calibration on your own
+  prompts, and why a single-shot benchmark can never see it (Analyst/Contrarian)
+  [surfaced by the 08-15 stopped-asking dive]
+- [how-it-works] Homomorphic encryption for private inference, for engineers: what
+  Google's "private AI" actually computes without decrypting, the concrete overhead
+  (latency/throughput cost per operation), and where it's real vs demo-ware — the durable
+  version of the Aug 15 HN story (Analyst) [surfaced by the 08-15 research sweep]
 - [economics] The data flywheel of an AI IDE: what accept/reject/edit telemetry is
   actually worth as training data, why zero-data-retention/Privacy Mode fences the
   highest-value enterprise slice, and whether the flywheel is a moat or a marketing

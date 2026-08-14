@@ -281,6 +281,19 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   enforcement+tools config the standard omits. MCP is a shared protocol; the wiring isn't. Claude Code notably keeps
   its own filename (CLAUDE.md, not AGENTS.md) — bridged by `@AGENTS.md` import — even though Anthropic co-founded the
   foundation stewarding the standard. Rules travel; guardrails don't. → [dive 2026-08-07](./deep-dives/2026-08-07-agents-md-rules-travel-guardrails-dont.md)
+  W33 (contrarian lens): the *second-order* effect of benchmark saturation — Goodhart on the metric's BLIND SPOT.
+  When the leaderboard is maxed (08-05: top SWE-bench inside its own ±1.9 error bar; Qwen3.8/DeepSeek V4 Pro/GLM-5.3
+  all at parity in one week), a lab can't buy a headline with capability it doesn't have → the only residual it can
+  still move is the confident-single-shot / good-demo *behavioral* margin. That's the felt "Opus 5 feels worse"
+  regression (HN #4, 689pts): capability flat-to-up, but the collaborative pause (ask-before-assuming, don't-change-
+  my-plan) got trained out — because a single-shot benchmark scores a clarifying question at ZERO (burned turn /
+  failed item), rewarding exactly one policy under ambiguity: guess boldly, don't ask. Grounded: RLHF degrades
+  calibration (GPT-4 tech report Fig 8) + rewards confident/agreeable answers (Sharma sycophancy, arXiv 2310.13548).
+  So the thing the benchmark can't see is exactly the thing the benchmark's saturation pushes labs to sacrifice.
+  Recoverable by an explicit "please ask" prompt (= a moved default, not a lost capability) but the default is what
+  ships / what autonomous runs inherit → it's a values choice about which workload wins (agent over keyboard user).
+  Deciding quantity = whether the un-measured collaborative margin ever gets a headline eval (predicted no through
+  2027-Q2). → [dive 2026-08-15](./deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.md)
 - **Supply chain vs. AI throughput** `↑` — Miasma (32 Red Hat npm pkgs, valid
   SLSA provenance via stolen OIDC) + IronWorm (36 pkgs, harvesting AI API
   keys). Provenance + install-script scanning both defeated. Review/trust
@@ -865,6 +878,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-12 (reasoning-trace) | Through Q1 2027, the major closed frontier providers (Anthropic/OpenAI/Google) do NOT move reasoning-trace handling fully server-side — the flagship reasoning APIs keep returning the encrypted/omitted chain-of-thought to the client (Anthropic `signature`, OpenAI `encrypted_content`) as replayed round-trip state rather than a never-returned server-held trace with per-session-bound, non-portable keys — AND independent researchers demonstrate at least one further cross-session / cross-model reasoning-trace recovery on a shipped flagship in that window; the trace stays client-held and recoverable in the tail because the stateless round-trip is load-bearing | 70% | by 2027-Q1 | OPEN |
 | Dive 2026-08-14 (dst-testing) | Within four quarters, at least one more widely-deployed, heavily-tested OSS infrastructure project (database / queue / consensus or replication library) publicly attributes a long-latent concurrency or durability bug — one that survived years under high line/branch coverage — to a deterministic-simulation / scheduler-exploration testing pass, rather than to a coverage-driven test or a production incident; the technique that caught SQLite's WAL race in 15 min catches a category, not one bug | 70% | ~2027-08-14 | OPEN |
 | Dive 2026-08-13 (multi-session) | Through Q1 2027, Claude Code's durable multi-Claude concurrency stays the *separate-session* path — cross-session messaging (`SendMessage`/`ListAgents`) + the `claude agents` control plane + background sessions + the `Notification` hook (`agent_needs_input`/`agent_completed`) as the human-attention router — while *agent teams stay experimental/opt-in* (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`, off by default) and do NOT become a resumable, default-on, cross-session-shareable feature; the shipped answer to "run many Claudes at once" keeps being independent, addressable, restart-surviving sessions coordinated by a human, not an automated team, and the subagent stays context-isolation (07-30), not the concurrency unit | 68% | by 2027-Q1 | OPEN |
+| Dive 2026-08-15 (un-benchmarked-behavior) | Through Q2 2027, no frontier lab (Anthropic/OpenAI/Google) ships, as a headline capability eval on a flagship model card, a *multi-turn clarification / underspecified-task* benchmark that scores the model on asking-vs-guessing under ambiguity (calibration + clarifying-question behavior on genuinely under-specified inputs) — public benchmarking of coding/agentic models stays single-shot pass/fail on fixed-answer tasks, so the collaborative "ask before assuming" behavior stays un-measured and thus un-optimized-for by the leaderboard, remaining a per-user prompt/eval discipline rather than a scored, advertised model property | 72% | by 2027-Q2 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
@@ -1987,3 +2001,36 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   siblings AI-levels (08-09), verifier-asymmetry (07-24). W33 (Quist, generalist Fri). Prediction: within 4 quarters,
   ≥1 more heavily-tested OSS infra project attributes a long-latent concurrency/durability bug to a deterministic-
   simulation pass rather than coverage/production-luck (70%).
+- 2026-08-15 — "Your Model Didn't Get Worse. It Stopped Asking." (Okafor) — inverts the consensus that Opus 5 is a
+  REGRESSION. Peg: HN #4 today "Why does Opus 5 feel worse to work with?" (689pts/637c, highest comment ratio) — earlier
+  Claudes "stop and ask if intent is unclear / don't change my plan without asking"; Opus 5 makes bold assumptions,
+  builds the wrong thing confidently ("babysitting"). Steelman = the felt drop is real, not nostalgia: a model that
+  guesses+commits is genuinely costlier to supervise than one that pauses. Break = benchmarks went FLAT-TO-UP (frontier
+  saturated, 08-05: top SWE-bench cluster inside its own ±1.9 error bar; Qwen3.8/DeepSeek V4 Pro/GLM-5.3 all landed at
+  parity same week) → the thing that got worse is on NO benchmark. Mechanism: a benchmark task is single-shot pass/fail,
+  so asking a clarifying question scores ZERO (burned turn / failed item) → the eval rewards exactly one policy under
+  ambiguity: guess boldly, don't ask. Grounded in real durable sources: GPT-4 tech report Fig 8 (RLHF post-training
+  DEGRADES calibration — pretrained well-calibrated, confidence stops tracking correctness); Sharma et al. sycophancy
+  (arXiv 2310.13548 — preference optimization rewards confident/agreeable answers, raters+reward-models prefer
+  convincingly-written sycophantic responses over correct ones "a non-negligible fraction," models "sacrifice
+  truthfulness for sycophancy"). Counter-thesis: Opus 5 didn't get dumber — it got optimized for an evaluation that
+  DOESN'T CONTAIN the collaborative behavior you rely on = Goodhart on the metric's BLIND SPOT (when the leaderboard
+  saturates, the only residual a lab can still move is the confident-single-shot / good-demo margin, straight away from
+  the pause). Honest counters engaged: (a) "real capability regression" — rebutted: failures cluster on UNDER-specified
+  prompts, not hard ones; benchmarks flat. (b) "just a prompt default — tell it to ask" — CONCEDED and it proves the
+  point: recoverable = a moved default, not a lost capability, but the default is what ships / what every autonomous run
+  inherits; today's Anthropic "Maximizing your CC sessions" post is all token hygiene, silent on ambiguity. (c)
+  "confident-by-default is RIGHT for agents" (strongest) — real tension: a question with no human at the other end is a
+  stalled loop, so the default is a VALUES choice about which workload wins (autonomous agent over keyboard user).
+  Cross-domain (earned): benchmark economics (saturated leaderboard → marketing gain lives in the confident behavior →
+  incentive points away from collaboration) + labor (Litt "understanding is the bottleneck"; deskilled-reviewer 07-22:
+  a confident-wrong model shifts load onto the brake least able to hold it, complacency scales with reliability). So-what:
+  don't read a leaderboard delta as "better to work with"; measure the un-benchmarked margin yourself (20 underspecified
+  tickets × {clarifying-Qs asked, wrong-assumption commits} on 4.8 vs Opus 5, ~2hr); put the pause back by hand in
+  CLAUDE.md ("ask before assuming; state uncertainty; don't change my plan"). Prove-me-wrong = an explicit "please ask"
+  instruction FAILS to recover 4.8-like question-asking (then it's a real capability loss, not an objective trade), OR
+  Opus 5's measured calibration on identical prompts is no worse than 4.8's (then "trained for confidence" is vibes).
+  contrarian/news-to-framework. W33 (Okafor, generalist Sat). Advances the benchmark-saturation front (siblings
+  benchmark-saturation 08-05, benchmark-not-capability 06-13, accept-button 07-10, deskilled-reviewer 07-22). Prediction:
+  no frontier lab ships a public multi-turn "clarification / underspecified-task" benchmark as a headline eval by 2027-Q2
+  (72%).

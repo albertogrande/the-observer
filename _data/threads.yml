@@ -268,7 +268,26 @@
     flips the distillation economics (06-27's 28.8M-query receipt shrinks once the reasoning is
     recoverable). Deciding quantity: whether reasoning stays client-held (recoverable in the
     tail) or moves server-side with session-bound, non-portable keys.
+    W33 (contrarian lens — the second-order effect of benchmark saturation): a saturated
+    leaderboard doesn't just commoditize the model, it bends what labs optimize. When the top
+    of every public benchmark sits inside its own margin of error (08-05: SWE-bench cluster
+    within ±1.9; Qwen 3.8, DeepSeek V4 Pro, and GLM-5.3 all at parity in a single week), a lab
+    can no longer buy a headline with capability it doesn't have — so the only residual it can
+    still move is the model's *behavior*: how confidently it acts, how rarely it stalls. That is
+    the mechanism behind the week's loudest practitioner complaint ("Why does Opus 5 feel worse
+    to work with?", HN #4, 689 points): capability is flat-to-up, but the collaborative pause —
+    asking before assuming, not rewriting your plan unprompted — got trained out, because a
+    single-shot benchmark scores a clarifying question at zero (a burned turn, or a failed item)
+    and rewards exactly one policy under ambiguity: guess boldly, don't ask. It's grounded in
+    durable evidence — RLHF post-training degrades calibration (the GPT-4 technical report's own
+    Figure 8) and rewards confident, agreeable answers over truthful ones (Anthropic's sycophancy
+    paper). So the thing the benchmark can't see is precisely the thing the benchmark's saturation
+    pushes labs to give up. It's recoverable with an explicit "please ask" instruction — which
+    proves it's a moved *default*, not a lost capability — but the default is what ships and what
+    every autonomous run inherits, making it a values choice about which workload wins: the
+    unattended agent, or the human at the keyboard.
   issues:
+    - { label: "Dive · Your Model Didn't Get Worse, It Stopped Asking", link: "/reports/deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.html" }
     - { label: "Dive · They Encrypted the Reasoning and Handed It Back", link: "/reports/deep-dives/2026-08-12-reasoning-trace-encrypted-not-hidden.html" }
     - { label: "Dive · Your Rules Travel, Your Guardrails Don't", link: "/reports/deep-dives/2026-08-07-agents-md-rules-travel-guardrails-dont.html" }
     - { label: "Dive · The Top of the Leaderboard Is Inside the Margin of Error", link: "/reports/deep-dives/2026-08-05-benchmark-saturation-margin-of-error.html" }
