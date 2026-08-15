@@ -892,3 +892,21 @@
   confidence: 72
   due: "2027-Q2"
   status: open
+
+- id: 2026-08-16-code-mode-patent
+  made: "Dive · 2026-08-16"
+  made_link: "/reports/deep-dives/2026-08-16-agent-writes-code-to-call-tools.html"
+  text: >-
+    Mistral's US 12,670,045 ("Code implemented tool calls") is not successfully
+    monetized or enforced against a major agent framework through Q4 2027 — no
+    publicly reported paid license, settlement, or injunction. The general
+    executable-tool-calling pattern's prior art (CodeAct, ICML 2024; shipped
+    Cloudflare Code Mode and Anthropic's code-execution-with-MCP, both 2025) makes
+    the broad reading unenforceable, and the narrow pause-ship-resume-replay
+    execution mechanism the claim actually fences is trivially designed around
+    (coroutine suspension instead of replay). If Mistral extracts a reported
+    license fee or wins an injunction/settlement against a major agent framework
+    in this window, this was wrong.
+  confidence: 72
+  due: "2027-12-31"
+  status: open

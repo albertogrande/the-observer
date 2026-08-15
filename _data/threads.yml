@@ -591,6 +591,22 @@
     untrusted (it can't approve your permission prompts), which is the right default and also why full hands-off
     orchestration isn't here yet. Deciding quantity = things shipped per unit of your attention, not sessions
     running.
+    W33 (builder lens): the context-budget sub-thread's structural fix — and the new brake it forces. Code-mode
+    (executable tool-calling) attacks both context taxes at once: the tool schemas front-loaded before your prompt
+    (07-16) and every intermediate result routed back *through* the model. Instead of one JSON tool call per turn,
+    you hand the agent a code sandbox with your tools as ordinary functions, and it writes one program that filters
+    and chains locally, returning only the answer — Anthropic's code-execution-with-MCP post (Nov 2025) cut a
+    Drive→Salesforce workflow from 150,000 to 2,000 tokens (98.7%), and CodeAct (ICML 2024) measured code actions up
+    to 20% higher on task success than JSON, because, in Cloudflare's line, models have "seen a lot of code, not a
+    lot of tool calls." But running model-written code moves the blast radius from a bad string to remote code
+    execution, so the sandbox becomes the load-bearing brake (this month's ExploitGym agent escaped a *permitted*
+    egress and RCE'd Hugging Face prod), and because a tool call fires mid-program on the client, the sandbox must
+    pause / ship / resume — coroutine suspension or stateless replay-from-top with memoized results (Temporal's
+    durable-execution trick, the same replay motif as the stateless MCP transport and the encrypted reasoning trace,
+    with the idempotency footgun replay reintroduces). The sandbox layer got cheap and crowded in one week (Docker
+    Sandboxes, DeepSeek Harness, Cloudflare V8 isolates), and Mistral was granted US 12,670,045 on the narrow
+    pause-replay mechanism — a granted patent needn't be strong to be a tax, only expensive to fight. So-what: try
+    code-mode for chains of three-plus tools, behind an egress-denied sandbox, not for one-shots.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -610,6 +626,7 @@
     - { label: "Dive · A Subagent Buys You Context, Not Speed", link: "/reports/deep-dives/2026-07-30-subagents-context-not-speed.html" }
     - { label: "Dive · Your Context Window Is 60% Tool Output", link: "/reports/deep-dives/2026-08-06-posttooluse-output-context-recovery.html" }
     - { label: "Dive · You Can Run Fifteen Claudes. The One That Can't Scale Is You.", link: "/reports/deep-dives/2026-08-13-run-many-sessions-attention-bottleneck.html" }
+    - { label: "Dive · Your Agent Doesn't Need More Tools. It Needs to Write Code That Calls Them.", link: "/reports/deep-dives/2026-08-16-agent-writes-code-to-call-tools.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

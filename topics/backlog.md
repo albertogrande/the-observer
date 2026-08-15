@@ -237,8 +237,6 @@ Code Watch.*
   actually wires together, and why one got adopted and one got shrugged at (Builder)
 - [how-it-works] The ReAct loop, from the inside: reflection → action →
   observation, the memory it needs, and what the framework actually adds (Builder)
-- [x-vs-y] JSON tool calls vs code actions: why writing actions as code composes
-  better than emitting tool-name-and-args JSON (Analyst)
 - [practical-guide] Writing a skill that triggers reliably — the description is
   the product (Builder)
 - [postmortem] Failure modes of agent loops: runaway turns, context rot, and
@@ -337,6 +335,25 @@ Code Watch.*
   economics only fund it for languages that already have demand — the rescue path
   for the Zig/Nim/Odin tier under AI authorship (Analyst/Contrarian) [surfaced by
   the 07-28 language-corpus dive]
+- [how-it-works] Pause, ship, resume: durable execution for agents — how a
+  code-mode sandbox suspends model-written code at a mid-program tool call, runs
+  it on the client, and resumes (coroutine suspension vs stateless replay-from-top
+  with memoized results), why replay is the Temporal/durable-functions trick, and
+  the idempotency footgun replay reintroduces (a non-memoized side effect fires
+  twice) (Builder) [surfaced by the 08-16 code-mode dive; sibling to idempotency
+  06-26, MCP-stateless 08-01]
+- [what-every-engineer-should-know] The software-patent cloud over AI patterns:
+  how a B1 grant (no pre-grant publication → no public prior-art window) happens,
+  what "prior art" actually has to show to invalidate a claim, why a granted
+  patent that would likely fall in court is still a tax (cost-to-fight, not
+  strength), and how a builder reads a claim to stay off it — pegged to Mistral's
+  US 12,670,045 (Contrarian/Builder) [surfaced by the 08-16 code-mode dive]
+- [practical-guide] The tools-as-filesystem pattern: exposing MCP servers as an
+  importable code API a coding agent discovers on demand (load a schema only when
+  the code reaches for it) instead of front-loading every tool definition — the
+  build, and how it composes with Tool Search / deferred loading to attack the
+  same context tax from two sides (Operator/Builder) [surfaced by the 08-16
+  code-mode dive; sibling to context-tax 07-16, deferred-tool-loading item]
 - [how-it-works] The MCP Tasks extension: how long-running agent work moves from
   a held-open connection to a poll-based, resumable task once the transport goes
   stateless — the durability you now own yourself, and where a plain tool call
@@ -499,6 +516,11 @@ product engineering" pools above.*
 
 ## Used
 
+- [x-vs-y] JSON tool calls vs code actions: why writing actions as code composes
+  better than emitting tool-name-and-args JSON (Analyst) — 2026-08-16 (written as
+  how-it-works/architecture by Vance, pegged to the Mistral "code implemented tool
+  calls" patent + the Docker Sandboxes / DeepSeek Harness sandbox wave),
+  reports/deep-dives/2026-08-16-agent-writes-code-to-call-tools.md
 - [practical-guide] Subagent orchestration that saves wall-clock time, not
   just tokens (Operator) — 2026-07-30 (reframed: subagent = context-isolation
   primitive, not speed; depth + observability),

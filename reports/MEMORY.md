@@ -524,6 +524,19 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   own 3–5); background sessions auto-commit off-camera (07-08, trust git not the badge); parallel writers need
   worktree isolation (06-23); incoming cross-session messages are untrusted (can't approve your prompts).
   Deciding quantity = things-shipped per unit of your attention. → [dive 2026-08-13](./deep-dives/2026-08-13-run-many-sessions-attention-bottleneck.md)
+  W33 (builder lens): the context-budget sub-thread's structural fix + a new brake it forces. Code-mode
+  (executable tool-calling) attacks both context taxes at once — schemas front-loaded (07-16) and every
+  intermediate result routed THROUGH the model: hand the agent a code sandbox + tools-as-functions and it
+  writes ONE program that filters/chains locally, returning only the answer (Anthropic code-execution-with-MCP,
+  Nov 2025: 150k→2k tok, 98.7%; CodeAct ICML 2024: +≤20% task success vs JSON; Cloudflare "seen a lot of code,
+  not a lot of tool calls"). But running model-written code moves the blast radius from a bad string to RCE →
+  the sandbox becomes the load-bearing brake (W31 ExploitGym escaped a *permitted* egress + RCE'd HF prod), and
+  because a tool call fires mid-program on the client, the sandbox must pause/ship/resume — coroutine suspension
+  or stateless replay-from-top (Temporal durable-exec trick = the 08-01 / 08-12 replay motif again, with an
+  idempotency footgun replay reintroduces). News peg: the sandbox layer got cheap+crowded in one week (Docker
+  Sandboxes, DeepSeek Harness, Cloudflare isolates) + Mistral's US 12,670,045 patent on the narrow pause-replay
+  mechanism (prior art = CodeAct/smolagents/Code Mode; a granted patent needn't be strong to be a tax).
+  So-what: try code-mode for ≥3-tool chains behind an egress-denied sandbox, not one-shots. → [dive 2026-08-16](./deep-dives/2026-08-16-agent-writes-code-to-call-tools.md)
 - **Platforms eat the layer** `↑` — the LLMOps tool layer (gateway, tracing,
   eval, prompt store) is being absorbed from both ends: ClickHouse bought
   Langfuse (Jan, already built on ClickHouse; 23.1M SDK installs/mo) to own the
@@ -878,6 +891,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-12 (reasoning-trace) | Through Q1 2027, the major closed frontier providers (Anthropic/OpenAI/Google) do NOT move reasoning-trace handling fully server-side — the flagship reasoning APIs keep returning the encrypted/omitted chain-of-thought to the client (Anthropic `signature`, OpenAI `encrypted_content`) as replayed round-trip state rather than a never-returned server-held trace with per-session-bound, non-portable keys — AND independent researchers demonstrate at least one further cross-session / cross-model reasoning-trace recovery on a shipped flagship in that window; the trace stays client-held and recoverable in the tail because the stateless round-trip is load-bearing | 70% | by 2027-Q1 | OPEN |
 | Dive 2026-08-14 (dst-testing) | Within four quarters, at least one more widely-deployed, heavily-tested OSS infrastructure project (database / queue / consensus or replication library) publicly attributes a long-latent concurrency or durability bug — one that survived years under high line/branch coverage — to a deterministic-simulation / scheduler-exploration testing pass, rather than to a coverage-driven test or a production incident; the technique that caught SQLite's WAL race in 15 min catches a category, not one bug | 70% | ~2027-08-14 | OPEN |
 | Dive 2026-08-13 (multi-session) | Through Q1 2027, Claude Code's durable multi-Claude concurrency stays the *separate-session* path — cross-session messaging (`SendMessage`/`ListAgents`) + the `claude agents` control plane + background sessions + the `Notification` hook (`agent_needs_input`/`agent_completed`) as the human-attention router — while *agent teams stay experimental/opt-in* (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`, off by default) and do NOT become a resumable, default-on, cross-session-shareable feature; the shipped answer to "run many Claudes at once" keeps being independent, addressable, restart-surviving sessions coordinated by a human, not an automated team, and the subagent stays context-isolation (07-30), not the concurrency unit | 68% | by 2027-Q1 | OPEN |
+| Dive 2026-08-16 (code-mode-patent) | Mistral's US 12,670,045 ("Code implemented tool calls") is not successfully monetized or enforced against a major agent framework through Q4 2027 — no publicly reported paid license, settlement, or injunction — because the general executable-tool-calling pattern's prior art (CodeAct ICML 2024; shipped Cloudflare Code Mode + Anthropic code-execution-with-MCP 2025) makes the broad reading unenforceable and the narrow pause-ship-resume-replay mechanism is trivially designed around (coroutine suspension; drop the replay) | 72% | 2027-12-31 | OPEN |
 | Dive 2026-08-15 (un-benchmarked-behavior) | Through Q2 2027, no frontier lab (Anthropic/OpenAI/Google) ships, as a headline capability eval on a flagship model card, a *multi-turn clarification / underspecified-task* benchmark that scores the model on asking-vs-guessing under ambiguity (calibration + clarifying-question behavior on genuinely under-specified inputs) — public benchmarking of coding/agentic models stays single-shot pass/fail on fixed-answer tasks, so the collaborative "ask before assuming" behavior stays un-measured and thus un-optimized-for by the leaderboard, remaining a per-user prompt/eval discipline rather than a scored, advertised model property | 72% | by 2027-Q2 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
@@ -2034,3 +2048,36 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   benchmark-saturation 08-05, benchmark-not-capability 06-13, accept-button 07-10, deskilled-reviewer 07-22). Prediction:
   no frontier lab ships a public multi-turn "clarification / underspecified-task" benchmark as a headline eval by 2027-Q2
   (72%).
+- 2026-08-16 — "Your Agent Doesn't Need More Tools. It Needs to Write Code That Calls Them." (Vance) — code-mode /
+  executable tool-calling as the fix for the slow, context-hungry multi-tool agent, with the Mistral patent (Aug 11
+  HN peg) as the IP twist. Task: 30 MCP tools, one workflow (Salesforce→Drive→Slack), correct-but-expensive. Two
+  structural taxes: (1) all tool schemas sit in context before the prompt (the 07-16 context-tax) + (2) every
+  intermediate result flows back THROUGH the model (10k rows land in context to hand 5 to the next call). Fix = don't
+  emit one JSON tool call/turn; hand the model a code sandbox + tools as functions and let it write ONE program that
+  filters/chains locally, returning only the answer. Numbers: Anthropic "Code execution with MCP" (Nov 4 2025) —
+  150k→2k tokens, 98.7% cut on a Drive→Salesforce example; 10k rows filtered to 5 in the exec env; tools discovered
+  as a filesystem (load a schema only when the code imports it → "hundreds/thousands of tools" tractable). Why it works
+  (durable, not fad): Cloudflare Code Mode — "LLMs have seen a lot of code, not a lot of tool calls" (tool-call = a
+  special-token dialect rare in training; code = native); CodeAct (Wang et al., ICML 2024) measured code actions UP TO
+  20% higher task success vs JSON/Text on API-Bank/M3ToolEval; HF smolagents CodeAgent (composability, object mgmt,
+  generality, training-data representation). Paper is 2yr old; the coding models aged into it. Hard part = the sandbox
+  + the PAUSE: model-written code = RCE blast radius (sandbox is the boundary; W31 ExploitGym escaped a *permitted*
+  egress + RCE'd HF prod), and a tool call happens mid-program on the CLIENT → sandbox must pause/ship/resume (coroutine
+  suspension OR stateless replay-from-top w/ memoized results = Temporal durable-exec trick = the same replay shape as
+  08-01 MCP-stateless + 08-12 encrypted-trace-replay). News peg / why-now: the sandbox layer got cheap+crowded in one
+  week — Docker Sandboxes (Aug 11 HN#2 613pts), DeepSeek Harness (Aug 14), Cloudflare V8 isolates. IP twist: Mistral
+  granted US 12,670,045 "Code implemented tool calls" (filed Mar 4, granted Jun 30, 118 days, B1 = no pre-grant pub →
+  no public prior-art window; inventor Vergnaud). Claim 1 ≠ "AI writes code"; it fences the NARROW pause-ship-resume-
+  substitute mechanism. General pattern = clear prior art (CodeAct 2024, smolagents, Cloudflare Code Mode 2025,
+  Anthropic's own Nov post; CodeActAgent was fine-tuned on Mistral's own model) → only the exec mechanism is
+  arguably-novel, and it's coroutines/durable-exec applied to tool calls (obvious). But a granted patent needn't be
+  strong to be a tax, only expensive to fight. Counters engaged: RCE blast radius (sandbox load-bearing); overkill for
+  one call (code-mode wins on ≥3-tool chains/big intermediate data, not one-shots — smolagents: regularize toward LESS
+  agency); debuggability (a failed program is a stack trace you own); patent uncertainty. do/watch/ignore: DO try
+  code-mode if ≥3 tools or big intermediate data, behind a real sandbox not eval, measure your own task both ways;
+  WATCH the consolidating sandbox layer (egress-denied default) + whether Mistral asserts/licenses; IGNORE the
+  "patents kill open agents" panic (broad claim unenforceable, narrow one designed-around). how-it-works/architecture.
+  W33 (Vance, generalist Sun). Advances autonomy-before-brakes (context-reduction + sandbox brake) + the
+  stateless-replay motif; siblings context-tax (07-16), MCP-stateless (08-01), reasoning-trace (08-12), sandbox
+  (07-23), worktrees (06-23). Prediction: Mistral US 12,670,045 not successfully monetized/enforced vs a major agent
+  framework through Q4 2027 (72%).
