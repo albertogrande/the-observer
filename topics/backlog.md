@@ -45,8 +45,22 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   change the math (Analyst) [surfaced by the 08-08 model-in-silicon dive]
 - [x-vs-y] Open weights vs closed APIs: the real total cost once you price
   inference, ops, and eval (Analyst)
-- [news-to-framework] Why training data is the moat and the liability at once —
-  copyright exposure as the reason no frontier model ships its corpus (Contrarian)
+- [how-it-works] Deduplication and memorization, from the inside: the Carlini
+  log-linear laws (verbatim memorization grows with model capacity × how many
+  times a text is duplicated × prompt-context length), discoverable vs
+  probabilistic extraction, and why corpus dedup cuts compute AND regurgitation
+  (copyright) risk at once — the technical layer under the 08-18 corpus-liability
+  dive (Analyst) [surfaced by the 08-18 dive]
+- [x-vs-y] Licensed-corpus vs scraped-corpus models: whether a "trained only on
+  licensed/owned data" tier (Adobe-Firefly-style clean provenance) can command a
+  real price premium, what it costs in capability, and whether enterprises pay for
+  provenance the way they pay for ZDR (Contrarian/Analyst) [surfaced by the 08-18
+  corpus-liability dive]
+- [economics] The copyright contingency nobody prices: statutory-damages math
+  (per-work $750–$150k × works × willfulness) as an unbounded tail on an AI lab's
+  valuation, how a revenue-multiple IPO buries it, and what an S-1 risk factor
+  discloses-without-bounding — pegged to Bartz's $1.5B (Analyst/Contrarian)
+  [surfaced by the 08-18 corpus-liability dive]
 - [how-it-works] The KV cache: why context length, not parameter count,
   decides what fits in your VRAM — with the linear-growth math (Builder)
 - [how-it-works] Why batch-1 decode is memory-bandwidth-bound: the weights are
@@ -516,6 +530,13 @@ product engineering" pools above.*
 
 ## Used
 
+- [news-to-framework] Why training data is the moat and the liability at once —
+  copyright exposure as the reason no frontier model ships its corpus (Contrarian)
+  — 2026-08-18 (as "The Moat Is Made of the Thing They Can Never Show You" by
+  Okafor, pegged to Anthropic's IPO $190–200B 2028 revenue forecast + Bartz v.
+  Anthropic's $1.5B settlement; the corpus is the moat MADE OF the liability →
+  never disclosed because disclosure is discovery),
+  reports/deep-dives/2026-08-18-training-data-moat-and-liability.md
 - [x-vs-y] JSON tool calls vs code actions: why writing actions as code composes
   better than emitting tool-name-and-args JSON (Analyst) — 2026-08-16 (written as
   how-it-works/architecture by Vance, pegged to the Mistral "code implemented tool

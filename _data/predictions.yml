@@ -910,3 +910,21 @@
   confidence: 72
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-18-corpus-liability
+  made: "Dive · 2026-08-18"
+  made_link: "/reports/deep-dives/2026-08-18-training-data-moat-and-liability.html"
+  text: >-
+    Through end-2027 the training corpus stays the one asset every frontier lab
+    keeps sealed BECAUSE disclosure is discovery: no frontier lab
+    (OpenAI/Anthropic/Google/Meta/xAI) publishes a work-level source manifest for
+    a current top-tier model (and none ships one meeting OSAID's "data
+    information"), AND at least one additional frontier lab beyond Anthropic
+    records a copyright settlement or adverse judgment of ≥$100M tied to
+    training-data *acquisition* (pirated or unlicensed copies, distinct from an
+    output/regurgitation claim). If a lab discloses a full corpus manifest without
+    drawing suits, or no second ≥$100M acquisition-liability event lands, this was
+    wrong.
+  confidence: 65
+  due: "2027-12-31"
+  status: open

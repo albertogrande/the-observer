@@ -880,3 +880,44 @@
   issues:
     - { label: "Dive · Nvidia Keeps 70 Cents of Every Dollar", link: "/reports/deep-dives/2026-06-29-why-ai-labs-build-chips.html" }
     - { label: "Dive · AMD Bought a Chip That Takes Two Months", link: "/reports/deep-dives/2026-08-08-model-in-silicon-shelf-life.html" }
+
+- slug: corpus-liability
+  title: "The training corpus is the moat and the liability"
+  momentum: up
+  summary: >-
+    The consensus "data is the moat" is only half true: the corpus is the moat
+    MADE OF the liability, which is why no frontier lab will open, fully license,
+    or disclose it. Peg (W34): Anthropic's IPO valuation "hinges on" a 2028
+    revenue forecast of $190–200B (Reuters, Aug 15) — a revenue multiple that
+    prices the corpus as a pure asset and buries the exposure. But the exposure
+    already landed once: Bartz v. Anthropic split cleanly (Alsup, Jun 2025) —
+    training on lawfully-acquired books is "exceedingly transformative" fair use,
+    but ACQUIRING ≥5M via LibGen + ≥2M via Pirate Library Mirror was not, and
+    rather than a damages trial Anthropic settled for ~$1.5B (~$3,000/work,
+    ~500,000 works, largest copyright recovery in US history, final approval
+    Jul 2026). The transformation defense protects what you did with the data, not
+    how you got it. Statutory ceiling is $150k/work willful → 482,460 works × $150k
+    ≈ $72B, and 7M+ pirated copies push the theoretical exposure past the company's
+    own value. Technical spine: "the model doesn't store the books" is measurably
+    false — Carlini's memorization work (arXiv 2202.07646) shows verbatim
+    memorization grows log-linear in model capacity, context length, and
+    DUPLICATION; GPT-J 6B memorizes ≥1% of The Pile, and shadow-library dumps are
+    the most-duplicated (therefore most-regurgitated, therefore highest-liability)
+    text there is — which is why labs dedupe as litigation hygiene. So the
+    secrecy is legal, not competitive: a work-level manifest is a plaintiff's
+    class list (disclosure is discovery), which is also why "open source AI" keeps
+    arriving without the data (OSAID's "data information" unmet, 06-16). So-what:
+    read ZDR/"we don't train on your data" as a legal control not a courtesy; the
+    provenance question is the indemnity's actual scope (08-10), not model quality;
+    a lab's silence about its corpus is the shape of the liability.
+  tension: >-
+    Alsup ALSO handed the labs the ruling that matters — training is fair use, so
+    acquisition looks like a one-time, cleanable cost (buy/license going forward
+    and the hole closes). Counter: you can't un-train a shipped model, so the
+    exposure rides with every weight already earning; and "licensed" is a
+    per-medium, per-jurisdiction grind (books ≠ lyrics ≠ news ≠ GPL'd code), so the
+    liability amortizes across a decade of separate fights, not a closing entry.
+  issues:
+    - { label: "Dive · The Moat Is Made of the Thing They Can Never Show You", link: "/reports/deep-dives/2026-08-18-training-data-moat-and-liability.html" }
+    - { label: "Dive · The Open Model You're Running Is a Binary, Not a Source", link: "/reports/deep-dives/2026-06-16-open-weights-is-not-open-source.html" }
+    - { label: "Dive · Provenance Is the Product", link: "/reports/deep-dives/2026-08-10-provenance-is-the-product.html" }
