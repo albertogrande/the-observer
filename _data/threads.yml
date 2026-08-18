@@ -286,7 +286,26 @@
     proves it's a moved *default*, not a lost capability — but the default is what ships and what
     every autonomous run inherits, making it a values choice about which workload wins: the
     unattended agent, or the human at the keyboard.
+    W34 (builder lens — the same law at the code-hosting layer): Cursor shipped Origin, a
+    GitHub-alternative code host inside the editor (HN #4, 404 points) — repos, pull requests,
+    in-editor merge, bidirectional GitHub sync, agents that browse/change/push. Read as a
+    "GitHub killer" it misses the point, because git is already decentralized: you hold a
+    complete copy of the history, so `git remote add` migrates you in seconds and the
+    repository was never the lock-in. What GitHub actually sells is the network and the
+    workflow on top — 180M developers, 630M repositories, ~43M pull requests merged a month
+    (Octoverse 2025), plus Actions and the identity every other tool trusts — the channel,
+    not the artifact (06-09), which is why fifteen years of better-git challengers
+    (GitLab, Gitea/Forgejo, sourcehut, Radicle) chipped the edges and never took the graph.
+    Origin's real bets are repo-where-the-agent-lives and bidirectional sync as the
+    embrace/migration wedge (the day the sync direction defaults to Origin, the lock-in
+    landed). The layer it gestures at but leaves unsolved is agent identity: git's author
+    field is a self-asserted config string (only cryptographic signing is "Verified"; SSH
+    validates the push, not the authorship), so an agent commits either as *you* or as a
+    generic bot — no record of which agent, under whose authority — while review still runs
+    at human speed against machine-speed authoring (07-08). A code host built for agents
+    would fix identity and review; a faster merge button fixes neither.
   issues:
+    - { label: "Dive · The Repo Was Never the Lock-In", link: "/reports/deep-dives/2026-08-19-code-hosting-built-for-agents.html" }
     - { label: "Dive · Your Model Didn't Get Worse, It Stopped Asking", link: "/reports/deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.html" }
     - { label: "Dive · They Encrypted the Reasoning and Handed It Back", link: "/reports/deep-dives/2026-08-12-reasoning-trace-encrypted-not-hidden.html" }
     - { label: "Dive · Your Rules Travel, Your Guardrails Don't", link: "/reports/deep-dives/2026-08-07-agents-md-rules-travel-guardrails-dont.html" }

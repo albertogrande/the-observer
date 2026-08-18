@@ -320,6 +320,19 @@ Code Watch.*
   data structure (roles, names, ARIA states, stable refs) became the cheap,
   reliable way for agents to read a page — and what unlabeled `<div>` soup costs
   you in tokens and flake (Builder) [surfaced by the 07-11 browser-runtime dive]
+- [how-it-works] Commit identity for agents: why git's author/committer field is
+  a self-asserted config string (not authenticated; GitHub matches by email, SSH
+  validates the push not the authorship), what "Verified" actually proves
+  (GPG/SSH/S-MIME signing, sigstore/gitsign keyless), and what a first-class
+  "which agent, under whose authority, reviewed by whom" record would have to
+  add on top of `Co-authored-by:` — the attribution layer under agent-written
+  code (Builder/Analyst) [surfaced by the 08-19 agent-code-hosting dive]
+- [x-vs-y] Bidirectional sync as a migration wedge: the embrace on-ramp pattern
+  (GitLab's GitHub importer, Cursor Origin) — the "system of record vs daily
+  surface" split, how the center of gravity drifts to the tool people actually
+  work in, and the exact tell that the wedge has become the lock-in (the day the
+  sync direction defaults the other way) (Contrarian/Builder) [surfaced by the
+  08-19 agent-code-hosting dive]
 - [how-it-works] Why your test suite is slow: the real cost model of a CI run (Analyst)
 - [how-it-works] Deterministic simulation testing from first principles: how FoundationDB
   and Antithesis control the scheduler + the clock to make concurrency reproducible, why a

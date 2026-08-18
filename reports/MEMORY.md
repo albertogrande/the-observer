@@ -187,6 +187,15 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   open primitive (Firecracker/gVisor/V8 all open), so value = the kit/persistence/integration, not the box.
   Deciding quantity = does the switching layer accrue standalone value (bought/IPO'd) — W33 call bets bought.
   → [2026-W33](./2026-W33.md), [dive 2026-08-17](./deep-dives/2026-08-17-agent-sandbox-isolation-is-the-commodity.md)
+  W34 (builder lens): the same law at the code-hosting layer — Cursor Origin (a GitHub-alternative code host inside the
+  editor, HN#4) reads as a "GitHub killer" but git is already decentralized (you hold a full copy → `git remote add` =
+  migrate in seconds), so the repo was never the moat. GitHub's moat = the network + Actions + identity (Octoverse 2025:
+  180M devs / 630M repos / 43.2M PR merges/mo), i.e. the channel not the artifact (06-09) — which is why 15yr of better-
+  git challengers (GitLab/Gitea/sourcehut/Radicle) never took the graph. Origin's real bets: repo-where-the-agent-lives
+  + bidirectional sync as the embrace/migration wedge (flip the sync direction = lock-in landed). The unsolved layer it
+  gestures at = agent IDENTITY/attribution (git author = self-asserted string, only crypto-signing is "Verified"; agents
+  commit as you or a generic bot) + review that still runs at human speed while authoring goes machine-speed (07-08).
+  → [dive 2026-08-19](./deep-dives/2026-08-19-code-hosting-built-for-agents.md)
   W31 (analyst lens): the readable-output law meets the statute — the EU AI Act's Article 50(2) (in force 2026-08-02;
   synthetic-content marking for pre-existing systems postponed to Dec 2) *mandates* provider marking that is "machine-
   readable + detectable as artificially generated," and its own hedge ("robust and reliable AS FAR AS TECHNICALLY
@@ -935,6 +944,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-15 (un-benchmarked-behavior) | Through Q2 2027, no frontier lab (Anthropic/OpenAI/Google) ships, as a headline capability eval on a flagship model card, a *multi-turn clarification / underspecified-task* benchmark that scores the model on asking-vs-guessing under ambiguity (calibration + clarifying-question behavior on genuinely under-specified inputs) — public benchmarking of coding/agentic models stays single-shot pass/fail on fixed-answer tasks, so the collaborative "ask before assuming" behavior stays un-measured and thus un-optimized-for by the leaderboard, remaining a per-user prompt/eval discipline rather than a scored, advertised model property | 72% | by 2027-Q2 | OPEN |
 | Dive 2026-08-18 (corpus-liability) | Through end-2027 the training corpus stays sealed BECAUSE disclosure is discovery: no frontier lab (OpenAI/Anthropic/Google/Meta/xAI) publishes a work-level source manifest for a current top-tier model (none meeting OSAID "data information"), AND ≥1 additional frontier lab beyond Anthropic records a copyright settlement/adverse judgment ≥$100M tied to training-data *acquisition* (pirated/unlicensed copies, distinct from an output-regurgitation claim); the moat-is-the-liability holds, so the corpus is never opened and the acquisition tail keeps landing as balance-sheet events | 65% | 2027-12-31 | OPEN |
 | 2026-W33 | The model-routing/gateway layer is the contested value sink of commoditization: by 2027-02-16 the reported Stripe–OpenRouter deal closes at ~its terms (>$5B) AND ≥1 more standalone AI router/gateway (Vercel AI Gateway / Portkey / Martian / Requesty, or a hyperscaler buying one) is acquired or raises at >$1B, while no independent pure-play router reaches a standalone $1B+ IPO — the switching layer accrues multi-model spend, so it gets bought, not IPO'd | 66% | ~2027-02-16 | OPEN |
+| Dive 2026-08-19 (code-hosting) | Through end-2027, no major code host (GitHub, GitLab, or Cursor Origin/peer) ships a first-class, verifiable *per-agent* commit identity — a scoped signing credential or equivalent that records *which agent, under whose authority* as a cryptographically verifiable actor distinct from a human token or a generic `app[bot]` — as a documented default; agent-authored commits keep landing under a human's self-asserted name or a single generic bot identity, and honest attribution stays a manual commit-signing + `Co-authored-by:` discipline the user configures | 70% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W33 window — the only near-date row, the W24 export-ban call ~2026-08-14, was already settled RIGHT in W27. Record unchanged.)
@@ -2185,3 +2195,28 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   + distillation (06-27); sibling provenance/indemnity (08-10). W34 (Okafor, generalist Tue). Prediction: corpus stays
   undisclosed (no work-level manifest, none meeting OSAID) AND ≥1 more frontier lab books ≥$100M copyright cost over
   training-data ACQUISITION by end-2027 (65%).
+- 2026-08-19 — "The Repo Was Never the Lock-In. Watch Who Your Agent Commits As." (Vance) — devtools/dev-marketing:
+  code hosting rebuilt for agents, pegged to Cursor Origin (HN#4, 404pts/321c; code host inside the editor,
+  bidirectional GitHub sync with GitHub as source-of-truth, PRs + merge in-editor, agents browse/change/push,
+  Vercel/Depot/Buildkite apps, early beta, enterprise opt-out). Thesis: "GitHub alternative" is a category error —
+  git is already decentralized (you hold a full copy; `git remote add` = migrate in 4s), so GitHub's moat is NOT
+  storage but the network + Actions + identity (Octoverse 2025: 180M devs, 630M repos, ~1B commits/yr, 43.2M PR
+  merges/mo) — the channel, not the weights (06-09). 15yr of challengers (GitLab/Gitea-Forgejo/sourcehut/Radicle)
+  proved a better *git* doesn't win. Origin's real bets = repo-where-the-agent-lives + bidirectional sync as the
+  embrace/migration wedge (flip the sync direction = lock-in landed). The interesting gap it leaves unspecified =
+  AGENT IDENTITY: git's author field is a self-asserted config string (not authenticated; GitHub matches by email;
+  SSH validates the push, not the authorship — only crypto signing = "Verified," GPG/SSH/S-MIME), so an agent commits
+  as YOU (your token → your name on code you didn't write) or a generic `foo[bot]` (no per-run/per-authority
+  identity). When ~80% of merged code is model-written (Anthropic's own claim, flagged), the commit log lies. Second
+  gap = REVIEW: a PR is a human-speed ritual; speeding authoring/merge while leaving review in the same shape WIDENS
+  the machine-speed-gen vs human-speed-review bottleneck (07-08, W33 codebases-banning-AI). Deciding question (2 axes):
+  does the host give agents a real scoped VERIFIABLE identity (not impersonate you) + change review to match
+  machine-speed authoring (not just speed authoring)? Origin does neither today. do/watch/ignore: DO try Origin as a
+  low-risk read/PR surface over existing GitHub (sync keeps GH source-of-truth) + turn on commit signing now + make the
+  agent sign & `Co-authored-by:`; WATCH for a per-agent identity model + review that changes + the sync direction
+  flipping (wedge→lock-in); IGNORE "GitHub killer" (repo was never the lock-in; Actions/graph/identity are — the
+  wiring not the box, 08-07). how-it-works/architecture; devtools/dev-marketing slot for W34. W34 (Vance, generalist
+  Wed). Advances channel/commoditization (GitHub moat = network/identity, not git) + autonomy-before-brakes (review
+  bottleneck + attribution); siblings channel (06-09), worktrees/commit-signing (06-23), audit-trail (07-08),
+  config-wiring-not-box (08-07). Prediction: no major code host ships first-class verifiable per-agent commit identity
+  by end-2027 (70%).

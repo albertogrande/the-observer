@@ -928,3 +928,21 @@
   confidence: 65
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-19-code-hosting
+  made: "Dive · 2026-08-19"
+  made_link: "/reports/deep-dives/2026-08-19-code-hosting-built-for-agents.html"
+  text: >-
+    Through end-2027, no major code host (GitHub, GitLab, or Cursor Origin and
+    peers) ships a first-class, verifiable *per-agent* commit identity as a
+    documented default — a scoped signing credential (or equivalent) that records
+    which agent acted, under whose authority, as a cryptographically verifiable
+    actor distinct from a human's token or a single generic `app[bot]` account.
+    Agent-authored commits keep landing under a human's self-asserted name or one
+    generic bot identity, and honest attribution stays a manual commit-signing +
+    `Co-authored-by:` discipline the user has to configure. If a major host ships
+    verifiable per-agent commit identity on by default in this window, this was
+    wrong.
+  confidence: 70
+  due: "2027-12-31"
+  status: open
