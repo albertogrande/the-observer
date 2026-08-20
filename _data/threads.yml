@@ -851,11 +851,48 @@
     afternoon. The verifier existed the whole time; the search didn't. Deciding
     quantity in this domain: the fraction of reachable schedules the suite actually
     explores, not the fraction of lines.
+    W34 (contrarian lens — the wet-lab front): the same law decides where AI cracks
+    biology. Anthropic's autonomous protein-design campaign (Aug 20) hit 14 of 15
+    targets — 1,320 designs to 354 confirmed binders, hit rates 26.7% (Mythos Preview,
+    multi-target), 22.6% (Opus 4.8) and 35.1% (Mythos, single-target) against a
+    10–15% industry baseline, with minimal human involvement past the prompt. The
+    "AI does biology now" read breaks on the verifier: protein binding is the
+    cheapest oracle in the life sciences — express the candidate and read a
+    dissociation constant on an automated bio-layer-interferometry pipeline
+    (Adaptyv/Twist; under 10 nM counts as a hit; roughly three-week turnaround;
+    thousands in parallel). The model proposes, the assay judges, keep the 354 that
+    bind — a binding measurement is a certificate exactly like a counterexample or a
+    passing test. The same week handed over the contrast, unforced: Moderna and
+    Merck's personalized mRNA cancer vaccine cleared Phase 3 (INTerpath-001; 1,137
+    patients, 2:1; recurrence-free and distant-metastasis-free survival; the first
+    Phase 3 for an individualized neoantigen therapy) — the same field at the
+    opposite verifier price, where the oracle is "does a real person stay
+    cancer-free over years," a trial you cannot parallelize, launched in 2023 on a
+    program years deep, and no model compressed it. Counter-thesis: AI's biology
+    wins track verifier cost × fidelity, not model intelligence — a cheap, fast,
+    faithful oracle (bench assay) yields binder-style leaps; an expensive,
+    un-parallelizable oracle (clinical endpoint) leaves AI helping only at the edges
+    (choosing the 34 neoantigens; Opus 5 reading raw NMR/LC-MS in ~20 minutes,
+    within 0.08 of a hydrogen count and 96.4% vs 96.33% purity). The hype slide is
+    "binds in a dish" → "cures disease," two claims separated by the most expensive
+    verifier in science. Counters engaged: reading raw instrument data is itself a
+    cheap-verifier task (checkable in one pass); the in-silico co-folding step is a
+    cheap approximate verifier the wet lab ratifies (~73% of designs still
+    discarded); "AI will compress the clinical verifier too" (digital twins,
+    surrogate endpoints) swaps a faithful check for a cheap proxy — the Goodhart
+    trap, and recurrence-free survival is already a contested surrogate for overall
+    survival. So-what: before pointing any generate-and-check loop at a problem, ask
+    what the verifier is, what it costs, how fast it returns, and whether it's
+    faithful or gameable — the yield is set by which end the check sits on, not by
+    the model's benchmark score. Prove it wrong with a de-novo AI-designed molecule
+    hitting a Phase 3 endpoint on a model-compressed timeline, or AI binder
+    hit-rates holding at 2–3× the baseline on targets with no cheap binding assay.
   issues:
     - { label: "Dive · A Counterexample Checks in One Pass", link: "/reports/deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.html" }
     - { label: "Dive · Claude Didn't Break Cryptography", link: "/reports/deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.html" }
     - { label: "Dive · AI Levels the Field Where the Errors Are Cheap", link: "/reports/deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.html" }
     - { label: "Dive · SQLite Tests Every Branch", link: "/reports/deep-dives/2026-08-14-sqlite-coverage-missed-the-race.html" }
+    - { label: "Dive · Claude Designed a Working Drug This Week", link: "/reports/deep-dives/2026-08-21-ai-biology-is-a-verifier-story.html" }
 
 - slug: labs-go-vertical-silicon
   title: "Labs go vertical / own the silicon"

@@ -826,11 +826,36 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   runnable check exists but the space is un-enumerable by reading, a machine that searches it beats unbounded human
   effort. Prediction: within 4 quarters ≥1 more heavily-tested OSS infra project attributes a long-latent
   concurrency/durability bug to a DST pass rather than coverage/production-luck (70%).
+  W34 (contrarian lens — the wet-lab front): the law decides where AI cracks BIOLOGY. Anthropic's autonomous
+  protein-design campaign (Aug 20) hit 14/15 targets — 1,320 designs → 354 confirmed binders, hit rates 26.7%
+  (Mythos Preview multi-target) / 22.6% (Opus 4.8) / 35.1% (Mythos single-target) vs a 10–15% industry baseline,
+  minimal human involvement past the prompt. Consensus "AI does biology now" broken: protein binding is the
+  CHEAPEST verifier in the life sciences — express the candidate, read a K_D on an automated BLI pipeline
+  (Adaptyv/Twist; <10 nM = hit; 0.1 nM–10 µM range; ~3-wk turnaround; massively parallel) → the model is a
+  proposal engine, the assay is the judge, keep the 354 that bind. Same certificate shape as a counterexample /
+  passing test (07-24). Cross-domain earned (SAME WEEK, unforced): Moderna/Merck's mRNA cancer vaccine cleared
+  Phase 3 (INTerpath-001, NCT05933577, 1,137 pts, 2:1, RFS + DMFS; first Phase 3 for an individualized neoantigen/
+  mRNA therapy; Phase 2b HR 0.51 recurrence / 0.411 metastasis) = the SAME field at the opposite verifier price —
+  the oracle is "does a human stay cancer-free over years," a Phase 3 you can't parallelize (launched 2023, program
+  years deep, no model compressed it). Counter-thesis: AI's biology wins track verifier cost × fidelity, NOT model
+  intelligence — cheap/fast/faithful oracle (bench assay) → protein-binder leaps; expensive/slow/un-parallelizable
+  oracle (clinical endpoint) → AI helps at the edges (pick the 34 neoantigens, read raw NMR/LC-MS — Opus 5, ~20 min,
+  0.08 ¹H / 96.4% purity) but can't buy down the check. The hype slide is "binds in a dish" → "cures disease" (the
+  two are separated by the most expensive verifier in science). Honest counters engaged: NMR/LC-MS reading is ALSO
+  a cheap-verifier task (answer checkable in one pass); in-silico co-folding is a cheap APPROXIMATE verifier the wet
+  lab ratifies (still discarded ~73%); "AI compresses the clinical verifier too" (digital twins / surrogate
+  endpoints) = swapping a faithful check for a cheap proxy = the Goodhart trap (RFS is already a surrogate for OS).
+  So-what: before pointing a generate-and-check loop at anything, ask what the verifier is / costs / how fast /
+  faithful-or-gameable — yield is set by which end the check sits on, not the benchmark score. Prove-me-wrong = a
+  de-novo AI-designed molecule reaching a Phase 3 endpoint on a MODEL-compressed timeline, OR AI binder hit-rates
+  holding at 2–3× baseline on targets with NO cheap binding assay (IDPs, membrane receptors in native context).
+  contrarian/news-to-framework. Levers commoditization + autonomy-before-brakes.
   → [dive 2026-07-24](./deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.md),
   [dive 2026-07-31](./deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.md),
   [dive 2026-08-09](./deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.md),
   [dive 2026-08-10](./deep-dives/2026-08-10-provenance-is-the-product.md),
-  [dive 2026-08-14](./deep-dives/2026-08-14-sqlite-coverage-missed-the-race.md)
+  [dive 2026-08-14](./deep-dives/2026-08-14-sqlite-coverage-missed-the-race.md),
+  [dive 2026-08-21](./deep-dives/2026-08-21-ai-biology-is-a-verifier-story.md)
 - **The corpus is the moat and the liability** `↑` — W34 (contrarian lens): inverts "data is the moat."
   The corpus is the moat MADE OF the liability, which is why no frontier lab will open/fully-license/disclose it.
   Peg: Anthropic IPO "hinges on" a 2028 revenue forecast of $190–200B (Reuters, Aug 15; vs ~$9B run-rate end-2025,
@@ -945,6 +970,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-18 (corpus-liability) | Through end-2027 the training corpus stays sealed BECAUSE disclosure is discovery: no frontier lab (OpenAI/Anthropic/Google/Meta/xAI) publishes a work-level source manifest for a current top-tier model (none meeting OSAID "data information"), AND ≥1 additional frontier lab beyond Anthropic records a copyright settlement/adverse judgment ≥$100M tied to training-data *acquisition* (pirated/unlicensed copies, distinct from an output-regurgitation claim); the moat-is-the-liability holds, so the corpus is never opened and the acquisition tail keeps landing as balance-sheet events | 65% | 2027-12-31 | OPEN |
 | 2026-W33 | The model-routing/gateway layer is the contested value sink of commoditization: by 2027-02-16 the reported Stripe–OpenRouter deal closes at ~its terms (>$5B) AND ≥1 more standalone AI router/gateway (Vercel AI Gateway / Portkey / Martian / Requesty, or a hyperscaler buying one) is acquired or raises at >$1B, while no independent pure-play router reaches a standalone $1B+ IPO — the switching layer accrues multi-model spend, so it gets bought, not IPO'd | 66% | ~2027-02-16 | OPEN |
 | Dive 2026-08-19 (code-hosting) | Through end-2027, no major code host (GitHub, GitLab, or Cursor Origin/peer) ships a first-class, verifiable *per-agent* commit identity — a scoped signing credential or equivalent that records *which agent, under whose authority* as a cryptographically verifiable actor distinct from a human token or a generic `app[bot]` — as a documented default; agent-authored commits keep landing under a human's self-asserted name or a single generic bot identity, and honest attribution stays a manual commit-signing + `Co-authored-by:` discipline the user configures | 70% | 2027-12-31 | OPEN |
+| Dive 2026-08-21 (biology-verifier) | Through end-2027 the verifier-cost line holds in biology: NO de-novo, AI-designed molecule reaches a Phase 3 clinical endpoint on a *model-compressed* timeline (compression traceable to the model, not to trial logistics/enrollment) — AND published autonomous AI protein/binder-design campaigns keep concentrating their large hit-rate multiples (~2–3× human baseline) on targets with a *cheap in-vitro binding assay* (BLI/affinity-measurable), not on assay-poor targets (intrinsically disordered proteins, membrane receptors in native context); AI's biology wins keep tracking verifier cost × fidelity, so the leaps stay at the cheap-oracle end while the clinical (expensive-verifier) timeline stays human-paced | 70% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W33 window — the only near-date row, the W24 export-ban call ~2026-08-14, was already settled RIGHT in W27. Record unchanged.)
@@ -2220,3 +2246,26 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   bottleneck + attribution); siblings channel (06-09), worktrees/commit-signing (06-23), audit-trail (07-08),
   config-wiring-not-box (08-07). Prediction: no major code host ships first-class verifiable per-agent commit identity
   by end-2027 (70%).
+- 2026-08-21 — "Claude Designed a Working Drug This Week. It Also Couldn't Have Run the Trial." (Okafor) — inverts
+  "AI is doing real biology now" pegged to Anthropic's autonomous protein-design campaign (Aug 20; 1,320 designs →
+  354 binders, 14/15 targets; hit rates 26.7% Mythos-multi / 22.6% Opus-4.8 / 35.1% Mythos-single vs 10–15% baseline;
+  minimal human involvement past the prompt; Adaptyv/Twist made+measured, high-affinity = K_D<10nM). Break: protein
+  binding is the CHEAPEST verifier in the life sciences — express + read a K_D on an automated BLI pipeline (~3-wk
+  turnaround, massively parallel) → model = proposal engine, assay = judge, keep the 354 that bind = the verifier-
+  asymmetry law (07-24) in wet lab; binding is a certificate like a counterexample. Cross-domain earned (SAME WEEK,
+  unforced): Moderna/Merck mRNA cancer vaccine cleared Phase 3 (INTerpath-001, NCT05933577, 1,137 pts 2:1, RFS+DMFS;
+  first Phase 3 for individualized neoantigen/mRNA therapy; Phase 2b HR 0.51/0.411; 34 neoantigens/patient) = SAME
+  field, opposite verifier price — the oracle is "human stays cancer-free over years," un-parallelizable, launched
+  2023, no model compressed it. Counter-thesis: AI's biology wins track verifier cost × fidelity NOT model
+  intelligence — cheap/fast/faithful oracle → binder leaps; expensive/slow oracle → AI helps at the edges (pick the
+  34 neoantigens; Opus 5 reads raw NMR/LC-MS in ~20min, 0.08 ¹H / 96.4% purity) but can't buy down the check; the
+  hype slide is "binds in a dish" → "cures disease" (separated by the most expensive verifier in science). Counters
+  engaged: NMR/LC-MS reading is ALSO cheap-verifier (checkable in one pass); in-silico co-folding = cheap approximate
+  verifier the wet lab ratifies (~73% discarded); "AI compresses the clinical verifier" (digital twins / surrogate
+  endpoints) = swapping faithful for cheap-proxy = Goodhart (RFS already a surrogate for OS). So-what: before any
+  generate-and-check loop ask what the verifier is / costs / how fast / faithful-or-gameable — yield set by which
+  end the check sits on, not the benchmark. Prove-me-wrong = a de-novo AI molecule hitting a Phase 3 endpoint on a
+  MODEL-compressed timeline, OR AI binder hit-rates holding 2–3× on assay-poor targets (IDPs, native-context
+  membrane receptors). contrarian/news-to-framework; NON-Claude-Code AI-science story. W34 (Okafor, generalist Fri).
+  Advances verifier-asymmetry (wet-lab front); siblings verifier-asymmetry (07-24), ai-levels (08-09), cryptanalysis
+  (07-31), sqlite-dst (08-14). Prediction: biology-verifier line holds through end-2027 (70%).

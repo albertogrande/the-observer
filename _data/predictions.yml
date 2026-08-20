@@ -946,3 +946,24 @@
   confidence: 70
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-21-biology-verifier
+  made: "Dive · 2026-08-21"
+  made_link: "/reports/deep-dives/2026-08-21-ai-biology-is-a-verifier-story.html"
+  text: >-
+    Through end-2027 the verifier-cost line holds in biology. No de-novo,
+    AI-designed molecule reaches a Phase 3 clinical endpoint on a model-compressed
+    timeline (compression traceable to the model, not to trial logistics or
+    enrollment) — AND published autonomous AI protein/binder-design campaigns keep
+    concentrating their large hit-rate multiples (~2–3× the human baseline) on
+    targets with a cheap in-vitro binding assay (affinity-measurable by bio-layer
+    interferometry or equivalent), not on assay-poor targets such as intrinsically
+    disordered proteins or membrane receptors in native context. AI's biology wins
+    keep tracking verifier cost × fidelity, so the leaps stay at the cheap-oracle
+    end while the clinical (expensive-verifier) timeline stays human-paced. If a
+    de-novo AI-designed molecule hits a Phase 3 endpoint on a model-compressed
+    timeline, or binder hit-rates hold at 2–3× baseline on assay-poor targets, this
+    was wrong.
+  confidence: 70
+  due: "2027-12-31"
+  status: open

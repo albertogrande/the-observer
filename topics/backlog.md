@@ -32,6 +32,19 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   kernel as a trusted core, why a kernel-checked proof is sound but "sound" ≠
   "the theorem you meant," and where autoformalization silently mis-states the
   goal (Analyst) [surfaced by the 07-24 verifier-asymmetry dive]
+- [how-it-works] How de-novo protein binder design actually works: the
+  model + verifier + wet-lab loop — where to bind, structure/sequence/co-folding
+  generation (RFdiffusion / ProteinMPNN / AlphaFold-class co-folding), in-silico
+  filtering, then a bio-layer-interferometry K_D screen (Adaptyv/Twist) as the
+  faithful physical verifier — and why binding is the cheapest oracle in the life
+  sciences, which is what made Anthropic's 14/15 campaign possible (Analyst)
+  [surfaced by the 08-21 biology-verifier dive]
+- [news-to-framework] The verifier-cost map of AI-for-science: which scientific
+  problems carry a cheap faithful oracle (protein binding, theorem-checking,
+  weather backtesting) vs which don't (clinical efficacy, in-vivo toxicity,
+  long-horizon safety), why surrogate endpoints (RFS for OS) are proxy verifiers
+  that can Goodhart, and how to predict where AI leaps vs helps-at-the-edges before
+  the campaign runs (Contrarian/Analyst) [surfaced by the 08-21 biology-verifier dive]
 - [how-it-works] What a tool call costs: tokens, latency, and round-trips in
   an agent loop (Builder)
 - [how-it-works] The memory wall, from first principles: why batch-1 LLM decode
