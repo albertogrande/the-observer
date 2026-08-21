@@ -346,6 +346,24 @@ Code Watch.*
   work in, and the exact tell that the wedge has become the lock-in (the day the
   sync direction defaults the other way) (Contrarian/Builder) [surfaced by the
   08-19 agent-code-hosting dive]
+- [how-it-works] Sandboxing build-time code execution: how the Rust "sandboxed
+  build script" project goal actually fences a `build.rs` (seccomp/namespaces/
+  no-network vs a coarse container), why proc-macros are the harder case
+  (dtolnay's Watt runs them as WebAssembly so a macro can only shuffle tokens),
+  and the general design of "let the ecosystem run untrusted code at build time
+  without giving it your machine" — the durable follow-on to the 08-22
+  build-time-attack dive (Builder/Analyst) [surfaced by the 08-22 arrayref dive]
+- [x-vs-y] The three package-manager trust models compared: npm (postinstall +
+  v12's script-off default), Python (setup.py / PEP 517 build isolation +
+  wheels-avoid-execution), and Cargo (build.rs + proc-macros, no sandbox yet) —
+  where each executes author code, what "install a wheel, don't build it" buys,
+  and why "compiled = safer" is exactly backwards for supply-chain risk
+  (Analyst/Contrarian) [surfaced by the 08-22 build-time-attack dive]
+- [practical-guide] cargo-vet / cargo-audit / cargo-deny in a real repo: the
+  audit-before-it-enters workflow, wiring the RustSec advisory DB into CI so a
+  known-bad version fails the build instead of running it, and honestly costing
+  the friction of human dependency audits vs the class of attack it stops
+  (Builder/Operator) [surfaced by the 08-22 build-time-attack dive]
 - [how-it-works] Why your test suite is slow: the real cost model of a CI run (Analyst)
 - [how-it-works] Deterministic simulation testing from first principles: how FoundationDB
   and Antithesis control the scheduler + the clock to make concurrency reproducible, why a

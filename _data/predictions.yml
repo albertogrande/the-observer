@@ -967,3 +967,20 @@
   confidence: 70
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-22-build-time-execution
+  made: "Dive · 2026-08-22"
+  made_link: "/reports/deep-dives/2026-08-22-build-time-is-the-attack-surface.html"
+  text: >-
+    Through end-2027, sandboxed build scripts are NOT on by default in stable
+    Cargo. The Rust "sandboxed build script" work ships (if at all) only as an
+    opt-in feature, with the default `cargo build` still executing `build.rs`
+    and procedural macros with the invoking user's full privileges and no
+    isolation. So protection against a build-time supply-chain dropper — the
+    `arrayref` / `proc-macro1` class — stays a per-project discipline
+    (cargo-vet/audit, sandboxed CI, gated `cargo add`) rather than a default
+    toolchain guarantee. If stable Cargo makes build-script sandboxing the
+    default, this was wrong.
+  confidence: 68
+  due: "2027-12-31"
+  status: open

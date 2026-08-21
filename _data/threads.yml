@@ -360,6 +360,25 @@
     Code's telemetry redacts code+prompts+paths by default while Grok's did not. You can't tell
     from the marketing page — you proxy it (`HTTPS_PROXY` + `NODE_EXTRA_CA_CERTS`) or read the
     source. License ≠ safety (Grok open yet captured; Claude Code closed yet redacts).
+    W34 (builder lens): the vector moved one step earlier — to build time, in the ecosystem
+    that markets safety. The `arrayref` crate (Aug 20; ~245M all-time downloads, present in
+    roughly three-quarters of Rust environments) shipped a 0.3.10 release that added a
+    dependency on a typosquat, `proc-macro1` (of `proc-macro2`), whose `build.rs` downloaded
+    and ran a detached remote binary at compile time — TLS with certificate verification off,
+    a base64-obfuscated C2 address, a PowerShell dropper launched via WScript on Windows to
+    escape Cargo's job object. The maintainer's credentials were compromised; the attacker used
+    an account one keystroke off the real `proc-macro2` author's, and Wiz flagged overlap with
+    known DPRK campaigns. Three crates were pulled inside 86–107 minutes with near-zero actual
+    impact — but the *class* is live (RustSec RUSTSEC-2026-0260, the Rust Blog, Semgrep,
+    safedep, Wiz). The mechanism is the universal package-manager hole: a build script and a
+    procedural macro both execute the author's code with your privileges, unsandboxed, before
+    a binary exists — the same door as npm's postinstall and Python's setup.py. Memory safety
+    is a property of the program you run, not the code that runs to build it. And agents now
+    add dependencies at copy-paste speed, so the payload fires at the first `cargo build` —
+    long before human review. The fix exists but is off by default: a sandboxed-build-script
+    Rust project goal (unstable), dtolnay's years-old Watt (proc-macros as sandboxed WASM),
+    and cargo-vet/audit. So-what: move the first build of any new dependency off the machine
+    holding your credentials, and gate `cargo add`/`build`/`update` like a `curl | sh`.
   tension: >-
     Defenses ship at institution speed, attacks at copy-paste speed; the
     exploited OIDC ref-binding hole remains unfixed (npm v12 closes install
@@ -369,6 +388,7 @@
     - { label: "Dive · The Trust Stack", link: "/reports/deep-dives/2026-06-10-trust-stack-human-speed.html" }
     - { label: "Dive · The AI Ran the Ransomware", link: "/reports/deep-dives/2026-07-07-autonomous-ransomware-known-cve.html" }
     - { label: "Dive · It Uploaded the Files You Told It Not to Open", link: "/reports/deep-dives/2026-07-17-what-your-coding-agent-sends.html" }
+    - { label: "Dive · The Danger Was `cargo build`", link: "/reports/deep-dives/2026-08-22-build-time-is-the-attack-surface.html" }
 
 - slug: autonomy-before-brakes
   title: "Autonomy before its brakes"

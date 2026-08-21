@@ -349,10 +349,28 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   MCP); Claude Code telemetry redacts code+prompts+paths by default (docs), Grok's didn't. Can't
   tell from the marketing page → proxy it (`HTTPS_PROXY`+`NODE_EXTRA_CA_CERTS`) or read the source;
   license ≠ safety. Cross-levers channel-war (open-the-CLI = trust move).
+  W34 (builder lens): the vector moved one step earlier than install/runtime — to BUILD time, in the ecosystem
+  that markets safety. arrayref 0.3.10 (Aug 20; ~245M all-time downloads, in ¾ of Rust environments) added a dep
+  on typosquat `proc-macro1` (of `proc-macro2`) whose `build.rs` downloaded+ran a detached binary at compile time
+  (23.254.165.112, TLS cert-verify off, /tmp/rust-setup | %TEMP% PowerShell via WScript to escape Cargo's job
+  object); maintainer creds compromised, attacker acct `dtolney`≈`dtolnay`, Wiz flags DPRK overlap; 3 crates
+  (arrayref/internment/append-only-vec) pulled in 86–107min, ~zero actual impact but the CLASS is live (RustSec
+  RUSTSEC-2026-0260 + Rust Blog + Semgrep + safedep + Wiz). Mechanism = the universal package-manager hole: build.rs
+  + proc-macros (compiled to a dylib, loaded into rustc, "same resources as the compiler") execute author code at
+  compile time with your privileges, no sandbox — same door as npm postinstall (06-10 npm worms) / python setup.py.
+  Memory-safety ≠ supply-chain-safety (attack touched no unsafe). Breaks the "read source before running binary"
+  model (there is no binary yet) + `--offline` (runs from cache). AI extension (earned): agents `cargo add`+`cargo
+  build` at copy-paste speed → payload fires at first build, turn 3, before human review (80% merged code, review
+  bottleneck 07-08). Fix exists-but-off: sandboxed-build-script Project Goal (unstable Cargo feature, opt-in→
+  default-by-Edition), dtolnay's Watt (proc-macros as sandboxed WASM, years old), cargo-vet/audit/deny. So-what:
+  move first-build-of-new-dep off the machine holding your creds → detached-payload-with-my-keys becomes failed-
+  build-in-a-box; gate `cargo add`/`build`/`update` like `curl|sh`. Deciding quantity = whether build-script
+  sandboxing ships on-by-default before the class gets weaponized at scale.
   → [2026-W23](./2026-W23.md),
   [dive 2026-06-10](./deep-dives/2026-06-10-trust-stack-human-speed.md),
   [dive 2026-07-07](./deep-dives/2026-07-07-autonomous-ransomware-known-cve.md),
-  [dive 2026-07-17](./deep-dives/2026-07-17-what-your-coding-agent-sends.md)
+  [dive 2026-07-17](./deep-dives/2026-07-17-what-your-coding-agent-sends.md),
+  [dive 2026-08-22](./deep-dives/2026-08-22-build-time-is-the-attack-surface.md)
 - **Autonomy before its brakes** `↑` — Agents shipped proactive-by-default
   (Fable 5 "relentlessly proactive," Claude Code nested sub-agents 5-deep +
   doubled 5h limits, FablePool) before the cost-control/consent/observability
@@ -971,6 +989,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | 2026-W33 | The model-routing/gateway layer is the contested value sink of commoditization: by 2027-02-16 the reported Stripe–OpenRouter deal closes at ~its terms (>$5B) AND ≥1 more standalone AI router/gateway (Vercel AI Gateway / Portkey / Martian / Requesty, or a hyperscaler buying one) is acquired or raises at >$1B, while no independent pure-play router reaches a standalone $1B+ IPO — the switching layer accrues multi-model spend, so it gets bought, not IPO'd | 66% | ~2027-02-16 | OPEN |
 | Dive 2026-08-19 (code-hosting) | Through end-2027, no major code host (GitHub, GitLab, or Cursor Origin/peer) ships a first-class, verifiable *per-agent* commit identity — a scoped signing credential or equivalent that records *which agent, under whose authority* as a cryptographically verifiable actor distinct from a human token or a generic `app[bot]` — as a documented default; agent-authored commits keep landing under a human's self-asserted name or a single generic bot identity, and honest attribution stays a manual commit-signing + `Co-authored-by:` discipline the user configures | 70% | 2027-12-31 | OPEN |
 | Dive 2026-08-21 (biology-verifier) | Through end-2027 the verifier-cost line holds in biology: NO de-novo, AI-designed molecule reaches a Phase 3 clinical endpoint on a *model-compressed* timeline (compression traceable to the model, not to trial logistics/enrollment) — AND published autonomous AI protein/binder-design campaigns keep concentrating their large hit-rate multiples (~2–3× human baseline) on targets with a *cheap in-vitro binding assay* (BLI/affinity-measurable), not on assay-poor targets (intrinsically disordered proteins, membrane receptors in native context); AI's biology wins keep tracking verifier cost × fidelity, so the leaps stay at the cheap-oracle end while the clinical (expensive-verifier) timeline stays human-paced | 70% | 2027-12-31 | OPEN |
+| Dive 2026-08-22 (build-time-execution) | Through end-2027, sandboxed build scripts are NOT on-by-default in stable Cargo — the Rust "sandboxed build script" work ships (if at all) only as an opt-in unstable/stable feature, with the default `cargo build` still executing `build.rs` and proc-macros with the invoking user's full privileges and no isolation; so protection against a build-time supply-chain dropper (the arrayref/`proc-macro1` class) stays a per-project discipline (cargo-vet/audit, sandboxed CI, gated `cargo add`) rather than a default toolchain guarantee | 68% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W33 window — the only near-date row, the W24 export-ban call ~2026-08-14, was already settled RIGHT in W27. Record unchanged.)
@@ -2269,3 +2288,29 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   membrane receptors). contrarian/news-to-framework; NON-Claude-Code AI-science story. W34 (Okafor, generalist Fri).
   Advances verifier-asymmetry (wet-lab front); siblings verifier-asymmetry (07-24), ai-levels (08-09), cryptanalysis
   (07-31), sqlite-dst (08-14). Prediction: biology-verifier line holds through end-2027 (70%).
+- 2026-08-22 — "The Dangerous Command Was `cargo build`, Not `cargo run`" (Vance) — the supply-chain vector moved
+  to BUILD time, in the ecosystem that sells safety. Pegged to arrayref 0.3.10 (Aug 20; ~245M all-time downloads /
+  in ¾ of Rust environments) adding a dep on typosquat `proc-macro1` (of proc-macro2) whose `build.rs` downloads+
+  runs a detached remote binary at compile time (23.254.165.112, TLS cert-verify off, /tmp/rust-setup | %TEMP%
+  PowerShell via WScript to escape Cargo's job object; base64-obfuscated addr; HTTP/TLS build-deps = the tell).
+  Maintainer creds compromised, attacker acct `dtolney`≈`dtolnay` (proc-macro2/syn/quote author), Wiz flags DPRK
+  overlap; arrayref/internment/append-only-vec pulled in 86–107min, ~zero actual impact — but the CLASS is live
+  (RustSec RUSTSEC-2026-0260 + Rust Blog + Semgrep + safedep + Wiz + TheHackerNews). Thesis: the danger is `build`
+  not `run` — build.rs runs author code with your privileges, no sandbox (Cargo docs: "just before building the
+  package"; OUT_DIR is a guideline not a boundary), and proc-macros are the twin surface (compiled to a dylib,
+  loaded into rustc, "same resources as the compiler" — every #[derive] is arbitrary compile-time code). Breaks 3
+  instincts: read-source-before-binary (no binary yet), `--offline` (runs from cache), CI-not-my-laptop (first
+  build to check-it-compiles is on your machine with your creds). Not a Rust bug — universal package-manager hole
+  (npm postinstall 06-10, python setup.py); memory-safety ≠ supply-chain-safety (no unsafe touched). AI extension
+  (earned, unforced): agents `cargo add`+`cargo build` at copy-paste speed → payload fires at first build before
+  human review (80% merged code, review bottleneck 07-08). Fix exists-but-off: sandboxed-build-script Rust Project
+  Goal (unstable Cargo feature, opt-in→default-by-Edition), dtolnay's Watt (proc-macros as sandboxed WASM, years
+  old, unused), cargo-vet/audit/deny. do/watch/ignore: DO move first-build-of-new-dep off the creds-holding
+  machine (container/CI, no egress/secrets) + gate cargo add/build/update like `curl|sh` + skim build.rs/proc-macro
+  deps + pin Cargo.lock + wire cargo-audit; WATCH build-script sandboxing stabilizing + typosquats of foundational
+  crates (proc-macro2/serde/syn) + whether the harness gates dep changes as first-class actions; IGNORE
+  "Rust-is-memory-safe-so-safe" + the rotating IOCs. how-it-works/what-every-engineer-should-know; supply-chain
+  build-time front (fresh angle). W34 (Vance, generalist Sat). Advances supply-chain-vs-AI-throughput (build-time
+  surface) + autonomy-before-brakes (agent-adds-dep, review bottleneck); siblings trust-stack (06-10),
+  agent-egress (07-17), sandbox-as-brake (07-23), audit-trail (07-08). Prediction: sandboxed build scripts NOT
+  on-by-default in stable Cargo by end-2027 (68%).
