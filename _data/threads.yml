@@ -304,7 +304,27 @@
     generic bot — no record of which agent, under whose authority — while review still runs
     at human speed against machine-speed authoring (07-08). A code host built for agents
     would fix identity and review; a faster merge button fixes neither.
+    W34 (analyst lens — the local off-ramp priced shut from both ends): 06-17 and 08-04
+    set the walls — running a model at home escapes the channel only if it fits your VRAM,
+    and only if the bytes-per-token move fast enough. This week the *price* of that memory
+    moved, and one force set it. AI datacenter demand for High-Bandwidth Memory (projected
+    +70% year-over-year in 2026) makes the three makers of ~94% of the world's DRAM steer
+    wafers to HBM, which eats roughly 3× the wafer area per gigabyte — Micron's Sumit
+    Sadana put the trade at 100 bits of HBM3E costing about 300 bits of DDR supply (3:1,
+    worsening toward 4:1 with HBM4). So consumer DDR5 rose about 485% in a year (a 128GB
+    kit ~$570 → $3,399; shortage forecast to 2028, possibly past 2030), while the *same*
+    batching economics that make HBM valuable push API tokens to the floor (DeepSeek
+    V4-Flash $0.14/$0.28; a capable coding tier under $1 per million tokens). The rent-vs-own
+    decision broke: the capex line on a self-host build (memory) roughly doubled at the exact
+    moment the meter it competes with hit zero, and the model on the box depreciates in
+    months — so break-even blew past the hardware's useful life. Owning now wins only where
+    the meter legally or physically can't reach (air-gap, compliance, high-utilization
+    overnight batch), not as savings. Same law as the whole thread: memory is the scarce
+    substrate under both renting and owning inference, and the datacenter is the highest
+    bidder, so it sets both prices. Deciding quantity: break-even token volume (utilization
+    × months-the-model-stays-current × the floor price) against the doubled capex.
   issues:
+    - { label: "Dive · Every Gigabyte of AI Memory Costs You Three of Your Own", link: "/reports/deep-dives/2026-08-23-memory-supercycle-self-hosting-tax.html" }
     - { label: "Dive · The Repo Was Never the Lock-In", link: "/reports/deep-dives/2026-08-19-code-hosting-built-for-agents.html" }
     - { label: "Dive · Your Model Didn't Get Worse, It Stopped Asking", link: "/reports/deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.html" }
     - { label: "Dive · They Encrypted the Reasoning and Handed It Back", link: "/reports/deep-dives/2026-08-12-reasoning-trace-encrypted-not-hidden.html" }

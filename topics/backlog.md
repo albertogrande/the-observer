@@ -521,6 +521,18 @@ Code Watch.*
   (commitments-not-yet-commenced, unconsolidated VIEs, guarantees) that carry more of
   a hyperscaler's real AI leverage than its headline balance sheet (Contrarian)
   [surfaced by the 07-25 off-balance-sheet dive]
+- [economics] The memory supercycle from the fab up: why HBM's 3:1 (→4:1 at HBM4/4E)
+  wafer trade against DDR5 lets AI capex set the price of consumer/prosumer RAM, how
+  the DRAM cycle has always worked (glut → margin allocation → shortage), and how to
+  read a shortage forecast (RDIMM bit-supply growth vs demand, HBM allocation %)
+  before you buy — the deeper standalone follow-on to the 08-23 self-hosting-tax dive
+  (Analyst) [surfaced by the 08-23 memory-supercycle dive]
+- [x-vs-y] Rent vs own inference, the general rule: the break-even token-volume
+  formula (utilization × months-the-model-stays-current × floor price, against capex
+  + power), and why model *depreciation* — not the hardware — is the term that decides
+  it, so owning wins only where the meter legally/physically can't reach (Analyst)
+  [surfaced by the 08-23 memory-supercycle dive; sibling to local-coding 06-17,
+  bandwidth-wall 08-04]
 
 ## Live — politics & policy (technical lens)
 

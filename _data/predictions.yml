@@ -984,3 +984,21 @@
   confidence: 68
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-23-memory-supercycle
+  made: "Dive · 2026-08-23"
+  made_link: "/reports/deep-dives/2026-08-23-memory-supercycle-self-hosting-tax.html"
+  text: >-
+    Through end-2027 the AI-driven DRAM shortage does not clear for the
+    self-hoster: a 128GB DDR5-6400 kit street price stays at or above roughly
+    $1,700 (more than 3× its ~$570 mid-2025 level), and consumer/RDIMM DDR5
+    bit-supply growth keeps lagging demand — no return to 2024–25 price levels —
+    as Samsung, SK hynix, and Micron keep steering wafer capacity to HBM. So
+    buying a local box to run a competitive model still does not beat floor-tier
+    API rent on cost for a typical individual; owning stays a control/compliance
+    choice, not a savings one. If DDR5 falls back to its pre-shortage band or
+    self-hosting becomes the cheaper route for an ordinary workload, this was
+    wrong.
+  confidence: 68
+  due: "2027-12-31"
+  status: open

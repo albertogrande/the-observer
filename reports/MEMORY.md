@@ -196,6 +196,22 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   gestures at = agent IDENTITY/attribution (git author = self-asserted string, only crypto-signing is "Verified"; agents
   commit as you or a generic bot) + review that still runs at human speed while authoring goes machine-speed (07-08).
   → [dive 2026-08-19](./deep-dives/2026-08-19-code-hosting-built-for-agents.md)
+  W34 (analyst lens): the user's local off-ramp (W25: escapes the channel only if it fits your VRAM) got priced
+  shut from both ends by ONE force — the AI memory market. Datacenter HBM demand (+70% YoY 2026, TrendForce) makes
+  the big three (94% of DRAM) steer wafers to HBM: Micron's Sadana (KeyBanc) — 100 bits HBM3E ≈ 300 bits DDR
+  sacrificed (3:1, →~4:1 at HBM4/4E). So consumer DDR5 5×'d (128GB kit ~$570→$3,399, +485%; shortage forecast to
+  2028, SK hynix warns maybe past 2030) while the SAME batching economics that make HBM valuable push API tokens to
+  the floor (V4-Flash $0.14/$0.28; a capable coding tier <$1/Mtok). Rent-vs-own broke: capex on the memory line
+  ~doubled as the meter it competes with fell to ~zero, and the model on your box depreciates in months → break-even
+  blew past the hardware's useful life (illustrative: payback on a serious build ~16→~30 months at heavy use, longer
+  than the weights stay current). Owning now wins only where the meter legally/physically can't reach
+  (air-gap/compliance/high-util overnight batch), NOT as savings. The DDR5 route is bandwidth-bound anyway (08-04:
+  ~0.5–0.7 tok/s dense 70B); the route that works is MoE + GPU VRAM = the same market. Deciding quantity = break-even
+  token volume (utilization × months-model-stays-current × floor price) vs the doubled capex. Same law as the whole
+  thread: memory is the scarce substrate under both rent and own, and the datacenter is the highest bidder, so it
+  sets both prices. Cross-domain earned (economy): a commodity supercycle, fabs flowing to margin; trade friction
+  (US–Canada tariffs) a second-order squeeze, not forced politics.
+  → [dive 2026-08-23](./deep-dives/2026-08-23-memory-supercycle-self-hosting-tax.md)
   W31 (analyst lens): the readable-output law meets the statute — the EU AI Act's Article 50(2) (in force 2026-08-02;
   synthetic-content marking for pre-existing systems postponed to Dec 2) *mandates* provider marking that is "machine-
   readable + detectable as artificially generated," and its own hedge ("robust and reliable AS FAR AS TECHNICALLY
@@ -990,6 +1006,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-19 (code-hosting) | Through end-2027, no major code host (GitHub, GitLab, or Cursor Origin/peer) ships a first-class, verifiable *per-agent* commit identity — a scoped signing credential or equivalent that records *which agent, under whose authority* as a cryptographically verifiable actor distinct from a human token or a generic `app[bot]` — as a documented default; agent-authored commits keep landing under a human's self-asserted name or a single generic bot identity, and honest attribution stays a manual commit-signing + `Co-authored-by:` discipline the user configures | 70% | 2027-12-31 | OPEN |
 | Dive 2026-08-21 (biology-verifier) | Through end-2027 the verifier-cost line holds in biology: NO de-novo, AI-designed molecule reaches a Phase 3 clinical endpoint on a *model-compressed* timeline (compression traceable to the model, not to trial logistics/enrollment) — AND published autonomous AI protein/binder-design campaigns keep concentrating their large hit-rate multiples (~2–3× human baseline) on targets with a *cheap in-vitro binding assay* (BLI/affinity-measurable), not on assay-poor targets (intrinsically disordered proteins, membrane receptors in native context); AI's biology wins keep tracking verifier cost × fidelity, so the leaps stay at the cheap-oracle end while the clinical (expensive-verifier) timeline stays human-paced | 70% | 2027-12-31 | OPEN |
 | Dive 2026-08-22 (build-time-execution) | Through end-2027, sandboxed build scripts are NOT on-by-default in stable Cargo — the Rust "sandboxed build script" work ships (if at all) only as an opt-in unstable/stable feature, with the default `cargo build` still executing `build.rs` and proc-macros with the invoking user's full privileges and no isolation; so protection against a build-time supply-chain dropper (the arrayref/`proc-macro1` class) stays a per-project discipline (cargo-vet/audit, sandboxed CI, gated `cargo add`) rather than a default toolchain guarantee | 68% | 2027-12-31 | OPEN |
+| Dive 2026-08-23 (memory-supercycle) | Through end-2027 the AI-driven DRAM shortage does not clear for the self-hoster: a 128GB DDR5-6400 kit street price stays ≥ ~$1,700 (>3× its ~$570 mid-2025 level), AND RDIMM/consumer-DDR5 bit-supply growth keeps lagging demand (no return to 2024–25 price levels) as the big three keep steering wafer capacity to HBM — so buying a local box to run a competitive model still does not beat floor-tier API rent on cost for a typical individual; owning stays a control/compliance choice, not a savings one | 68% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W33 window — the only near-date row, the W24 export-ban call ~2026-08-14, was already settled RIGHT in W27. Record unchanged.)
@@ -2314,3 +2331,26 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   surface) + autonomy-before-brakes (agent-adds-dep, review bottleneck); siblings trust-stack (06-10),
   agent-egress (07-17), sandbox-as-brake (07-23), audit-trail (07-08). Prediction: sandboxed build scripts NOT
   on-by-default in stable Cargo by end-2027 (68%).
+- 2026-08-23 — "Every Gigabyte of AI Memory Costs You Three of Your Own" (Quist) — the AI memory supercycle prices
+  the rent-vs-own inference decision on BOTH sides from one cause. Peg = DDR5 up ~485% in 12mo (128GB-6400 kit
+  ~$570→$3,399, up to 10× the lowest-ever tracked; Tom's Hardware Aug 18; 64GB kit <$200→>$1,100; a $72 kit→$392).
+  Mechanism: big three = 94% of DRAM, steering wafers to HBM (3× wafer area/GB); Micron's Sadana (KeyBanc) — 100 bits
+  HBM3E ≈ 300 bits DDR sacrificed (3:1, →~4:1 HBM4/4E); HBM demand +70% YoY 2026 (TrendForce); SK hynix ~30%→40% of
+  DRAM capacity to HBM; shortage forecast to 2028, maybe past 2030; RDIMM bit-supply +15–20% 2027 lags demand. One
+  cause, two bills, both → rent: (a) batching amortizes the weight read → datacenter serving cheap → API floor
+  (V4-Flash $0.14/$0.28, capable coding <$1/Mtok; W33 open-weight flood); (b) the same wafers make your DDR5/VRAM
+  expensive. Own side: competitive weights ~150GB (06-17); DDR5 route bandwidth-bound to ~0.5–0.7 tok/s dense
+  (08-04) so the working route is MoE+GPU VRAM = same market; illustrative build ~$3,500→~$6,500 (memory line = most
+  of the jump), payback ~16→~30 months at heavy use, longer than a model stays current (models turn over in months).
+  Counter engaged: "capex is one-time, tokens recur" — broke because capex doubled + meter hit floor + asset
+  depreciates + shortage outlasts the wait; "prices will fall" — not before 2028 per suppliers; honest exception =
+  air-gap/compliance/high-util batch (compliance cost, not arbitrage). Cross-domain earned = economy (commodity
+  supercycle, fabs to margin); US–Canada tariffs a one-line second-order squeeze, not forced politics. So-what:
+  rent the model; buy a local box for control, not savings; size MoE+VRAM by bandwidth. Deciding quantity =
+  break-even token volume (utilization × months-model-current × floor price) vs the doubled capex. Prove-me-wrong =
+  RDIMM bit-supply catching demand / HBM allocation topping out / shortage-end pulled toward next year.
+  economics/how-it-works; NON-Claude-Code hardware-economics story (fresh front). W34 (Quist, generalist Sun).
+  Advances channel-war/off-ramps (local off-ramp priced shut; memory = the substrate under rent AND own); siblings
+  bandwidth-wall (08-04), local-coding (06-17), MoE (06-21), spec-decoding (06-24), price-cut-weapon (06-28).
+  Prediction: 128GB DDR5-6400 kit street price stays ≥ ~$1,700 (>3× its ~$570 2025 low) at end-2027 — shortage does
+  NOT clear — so self-hosting still doesn't beat floor-tier API rent for a typical individual (68%).
