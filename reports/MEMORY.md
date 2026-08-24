@@ -1042,6 +1042,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-23 (memory-supercycle) | Through end-2027 the AI-driven DRAM shortage does not clear for the self-hoster: a 128GB DDR5-6400 kit street price stays ≥ ~$1,700 (>3× its ~$570 mid-2025 level), AND RDIMM/consumer-DDR5 bit-supply growth keeps lagging demand (no return to 2024–25 price levels) as the big three keep steering wafer capacity to HBM — so buying a local box to run a competitive model still does not beat floor-tier API rent on cost for a typical individual; owning stays a control/compliance choice, not a savings one | 68% | 2027-12-31 | OPEN |
 | 2026-W34 | Anthropic makes a low-preamble output the *default* in at least one first-party surface by 2026-11-23 — Claude Code's default output style flips to a Concise-style, OR the API/system prompt trims narration by default — rather than leaving de-verbosing to opt-in modes and third-party wrappers (Vomit/nobuzz/Claudish); the verbosity backlash was large enough (three de-verbose tools in three days + Codex-switching) to force a default change, not just an opt-in toggle | 60% | 2026-11-23 | OPEN |
 | Dive 2026-08-24 (mojo-cuda) | Through end-2027, Qualcomm/Modular's MAX+Mojo does NOT become a cross-vendor inference standard — no *independent* (non-Qualcomm) hardware vendor adopts MAX as its default/recommended inference stack, AND no measurable at-scale migration of production CUDA workloads to Mojo/MAX occurs; CUDA's lock-in holds and open-sourcing the language changes the adoption funnel, not the outcome, because a portability layer owned by one chip vendor stays that vendor's house tool absent a second adopter | 70% | 2027-12-31 | OPEN |
+| Dive 2026-08-25 (switch-model-state) | Through end-2027, no major AI coding editor/harness (VS Code Copilot, Cursor, Claude Code, or peer) ships *cross-model warm-state carryover* — a mid-session model switch that preserves a reusable cache prefix OR a portable reasoning trace across two *different* models — as a documented feature; a mid-conversation model change keeps moving only the plaintext transcript, and the cache/reasoning-trace/tokenizer/prompt-tuning reset stays the silent cost, because the KV cache is bound to one set of weights and the thinking-block signature is cryptographically bound to the producing model (Anthropic: "thinking blocks are tied to the model that produced them") | 80% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
@@ -2409,3 +2410,29 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   tool, 2 = CUDA has a software problem); MAX/Cloud stays the paid chokepoint, open source moves the funnel not the meter.
   devtools/dev-marketing. Levers labs-go-vertical-silicon + channel-war; sibling channel (06-09), silicon (06-29),
   price-cut-weapon (06-28, same commoditize-complement lens). Prediction: MAX/Mojo NOT a cross-vendor standard by end-2027 (70%).
+- 2026-08-25 — "You Can Switch Models Between Turns. The State Doesn't Come With Them." (Vance) — devtools/dev-marketing:
+  editor-native mid-session model switching, pegged to VS Code 1.133 (Aug 12; model picker now shows Anthropic + Copilot
+  provider groups together, "the model you select is used for the next turn," Anthropic bills API key / Copilot bills
+  subscription, no agent-host reconfig) + the economic pull (OpenAI cut GPT-5.6 Sol >20% Aug 21 through Nov 21, in $5→$4/
+  out $30→$20). Thesis: a mid-turn model switch LOOKS like changing a channel but moves ONLY the plaintext transcript;
+  the four things that made the previous model fast/cheap/steered are silently left behind. (1) WARM CACHE is per-model
+  (read 0.1× / write 1.25× base input, hierarchy tools→system→messages, 5-min default TTL) → switch = full cache-creation
+  event on the new model, flip-every-turn = pay the 1.25× write repeatedly, collect the 0.1× read rarely; save 20% sticker
+  while paying 12× on the large part of the bill. (2) REASONING TRACE is model-bound — thinking blocks carry an encrypted
+  `signature`, "thinking blocks are tied to the model that produced them"; on a switch you must STRIP prior thinking blocks,
+  else "other models silently ignore them rather than rejecting the request, but ignored blocks still add input tokens" →
+  new model inherits the conclusion not the scratch work, AND a naive harness bills you for discarded reasoning (ties 08-12).
+  (3) TOKENIZER re-counts — same bytes, different token count/price per provider (Claude newer tokenizer ~1.7× code / ~30%
+  prose vs o200k; 07-14) so carried context is re-priced on arrival, sticker discount and tokenizer can point opposite.
+  (4) PROMPT TUNING doesn't transfer — syntactic portability free, semantic not (06-22); tool-calling reliability +
+  instruction-following differ at identical schema; turn runs on guidance tuned for the model you left. Sharp edge: even
+  changing EFFORT (not model) re-renders prompt → invalidates cache; `thinking:{type:enabled}` now 400s on 4.7+ models →
+  hardcoded thinking config across a swap can hard-error. do/watch/ignore: DO switch at TASK BOUNDARIES (the moment you'd
+  `/clear`), hold one model for the life of a cacheable prefix, strip prior thinking blocks + audit the bill; WATCH whether
+  editors price the STATE cost not just the per-token gap + anyone claiming cross-model warm state (can't exist: cache =
+  one weight set, trace = cryptographically model-bound); IGNORE flipping every turn to chase a 20% sticker cut (per-token
+  rate is the small term on a warm long session). how-it-works/practical-guide; discharges W35 devtools/dev-marketing slot.
+  W35 (Vance, generalist Tue). Advances channel-war/portability (the switch moves words not state) + meter (hidden bill
+  terms: cache write, discarded-reasoning tokens, tokenizer recount); siblings portability (06-22), caching (06-18),
+  tokenizer (07-14), reasoning-trace (08-12). Prediction: no editor/harness ships cross-model warm-state carryover by
+  end-2027 (80%).

@@ -329,6 +329,14 @@ Code Watch.*
   which scopes, which auth) is still per-harness even though MCP is a shared protocol,
   and what a repo-committed, harness-agnostic MCP config would have to specify to
   travel (Builder/Operator) [surfaced by the 08-07 agent-config-portability dive]
+- [practical-guide] The model-switch checklist: what a harness must do on a
+  mid-session provider/model swap to not silently overcharge you — strip prior
+  model-bound `thinking`/`redacted_thinking` blocks (else you pay input tokens
+  for ignored reasoning), accept a cold cache prefix on the new model, re-tune
+  the system prompt's altitude, and gate the swap on a fixture — the operational
+  companion to the 08-25 switch-model-not-state dive (Builder/Operator) [surfaced
+  by the 08-25 mid-session-switch dive; siblings portability 06-22, caching 06-18,
+  reasoning-trace 08-12]
 - [how-it-works] The accessibility tree as an agent API: how a screen-reader
   data structure (roles, names, ARIA states, stable refs) became the cheap,
   reliable way for agents to read a page — and what unlabeled `<div>` soup costs

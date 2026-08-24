@@ -323,7 +323,25 @@
     substrate under both renting and owning inference, and the datacenter is the highest
     bidder, so it sets both prices. Deciding quantity: break-even token volume (utilization
     × months-the-model-stays-current × the floor price) against the doubled capex.
+    W35 (builder lens — portability's frictionless version leaves the state behind): the
+    channel hedge got its most seamless form yet — VS Code 1.133 (Aug 12) put Anthropic and
+    Copilot models in one picker, so you switch providers *between turns* with no agent-host
+    reconfig, and OpenAI's >20% GPT-5.6 Sol cut (Aug 21, through Nov 21) makes flipping to the
+    cheaper model turn-by-turn tempting. But the W25 buyer's-counter-move lands harder here: a
+    mid-turn switch moves only the plaintext transcript. The warm cache is per-model (read 0.1×
+    / write 1.25× base input) so the new model starts on a full cache-creation event; the
+    reasoning trace is model-bound — "thinking blocks are tied to the model that produced
+    them," so on a switch you must strip them, and a naive harness that forwards them pays input
+    tokens for reasoning the new model silently ignores (08-12's client-held-trace footgun,
+    now a billing line); the tokenizer re-counts the same bytes at a different price (07-14);
+    and the system prompt was tuned for the model you left (semantic portability doesn't
+    transfer, 06-22). So the frictionless switch is real but only syntactic — it hands the new
+    model your words, not your state. The saving on the per-token sticker is the small term;
+    the cache write, the discarded reasoning, and the re-tokenized context are the large ones.
+    Deciding quantity: whether the switch happens at a task boundary (nothing warm to lose) or
+    mid-thread every turn (pay the reset repeatedly).
   issues:
+    - { label: "Dive · You Can Switch Models, Not the State", link: "/reports/deep-dives/2026-08-25-switch-model-not-state.html" }
     - { label: "Dive · Every Gigabyte of AI Memory Costs You Three of Your Own", link: "/reports/deep-dives/2026-08-23-memory-supercycle-self-hosting-tax.html" }
     - { label: "Dive · The Repo Was Never the Lock-In", link: "/reports/deep-dives/2026-08-19-code-hosting-built-for-agents.html" }
     - { label: "Dive · Your Model Didn't Get Worse, It Stopped Asking", link: "/reports/deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.html" }

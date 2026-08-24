@@ -1002,3 +1002,22 @@
   confidence: 68
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-25-switch-model-state
+  made: "Dive · 2026-08-25"
+  made_link: "/reports/deep-dives/2026-08-25-switch-model-not-state.html"
+  text: >-
+    Through end-2027, no major AI coding editor or harness (VS Code Copilot,
+    Cursor, Claude Code, or a peer) ships cross-model warm-state carryover — a
+    mid-session model switch that preserves a reusable cache prefix OR a portable
+    reasoning trace across two different models — as a documented feature. A
+    mid-conversation model change keeps moving only the plaintext transcript, and
+    the cache / reasoning-trace / tokenizer / prompt-tuning reset stays the silent
+    cost, because the KV cache is bound to one set of weights and the thinking-block
+    signature is cryptographically bound to the producing model ("thinking blocks
+    are tied to the model that produced them"). If an editor or harness ships a
+    switch that carries a warm cache or a usable reasoning trace across models, this
+    was wrong.
+  confidence: 80
+  due: "2027-12-31"
+  status: open
