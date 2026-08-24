@@ -761,6 +761,20 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   bets the model is FINISHED, which only fits the small/stable cheapest-adequate tier (07-20). AMD (flexible-GPU vendor)
   buying the anti-GPU = betting a slice of inference ossifies. Bear (from 06-29) sharpened: inflexibility isn't a 3-yr
   architecture bet here, it's a per-model shelf-life bet measured in weeks.
+  W34 (the software-side attack on the same moat): Qualcomm bought Modular (~$3.9B all-stock, up to 19.2M QCOM shares,
+  closed Jul 29) and three weeks later open-sourced Mojo (Apache 2.0 + LLVM exceptions, ModCon ~Aug 18) — a *chipmaker*
+  commoditizing the AI *software* layer to break the moat this thread keeps naming: Nvidia's edge is CUDA + the rewrite
+  cost, not the GPU. MAX = hardware-agnostic inference ("JVM of AI inference") targeting NVIDIA/AMD/Trainium/TPU + Qualcomm's
+  own Cloud-AI-100/Dragonfly; commoditize-your-complement (Spolsky Strategy Letter V 2002 / Gwern) run at the chip level —
+  give the whole stack away to sell silicon (Modular's own confession: Mojo is "the foundation of our commercial
+  infrastructure, MAX and Modular Cloud"). Honest bounds: open-source is necessary-not-sufficient — Swift/Kotlin/TypeScript
+  won on a *platform owner forcing adoption* (Apple mandated Swift on iOS; Google blessed Kotlin), and Qualcomm has a
+  hardware mandate but doesn't own developers the way Apple owns iOS; CUDA is a decade deep (OpenCL/SYCL/ROCm all failed the
+  same escape); Mojo quietly *dropped* its "Python superset" claim → the incremental on-ramp is weaker than the 2023 pitch;
+  the "35,000×-faster-than-Python" number is apples-to-oranges (~17× same-size). Lattner's SECOND run at this (Swift-for-
+  TensorFlow died at Google on distribution, not tech). Deciding quantity = # of *non-Qualcomm* hardware vendors shipping
+  MAX as default (0 = house tool; 2 = CUDA finally has a software problem). Levers channel-war (the moat is the software
+  people know) + commoditization. → [dive 2026-08-24](./deep-dives/2026-08-24-qualcomm-mojo-commoditize-cuda.md)
   → [dive 2026-06-29](./deep-dives/2026-06-29-why-ai-labs-build-chips.md), [2026-W29](./2026-W29.md),
   [dive 2026-08-08](./deep-dives/2026-08-08-model-in-silicon-shelf-life.md)
 - **Consumer-AI business model / the ad in the answer** `↑` (new W30) — the free tier is a bill nobody's
@@ -917,6 +931,25 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   → [dive 2026-08-18](./deep-dives/2026-08-18-training-data-moat-and-liability.md),
   [dive 2026-06-16](./deep-dives/2026-06-16-open-weights-is-not-open-source.md),
   [dive 2026-08-10](./deep-dives/2026-08-10-provenance-is-the-product.md)
+- **The commodity's last moat: trust & feel** `↑` (new W34) — when capability commoditizes (channel + coding-subsidy
+  threads) and the benchmark stops resolving models (08-05), the buyer picks on the un-measured margin: how a model FEELS
+  to work with, and whether the vendor is trusted. Opened W33 (Microsoft sells *against* model quality; "Opus 5 feels worse"
+  = ask-before-assuming trained out because a single-shot bench scores a clarifying question at zero, 08-15). W34 (the trust
+  crack, aimed at Anthropic specifically because its whole position is the premium/trust one): three de-verbose tools in
+  three days — Vomit (303pts, Aug 20, pipes Claude 5 through a 2nd LLM to strip preamble), nobuzz/"Claudette" (352pts, Aug
+  21, "stop talking like a BuzzFeed article"), Claudish translator (Aug 22) — plus a Codex-switching diary (routine task ~2hr
+  on Opus 5 vs ~20min on Codex; "passive-aggressive sulky know-it-all"), "I'm becoming AI-blind" (487pts; author: Claude
+  "painfully worse at writing in the last six months"), and an unfalsifiable "Anthropic is A/B-testing REDUCED effort" rumor
+  (single tweet, argofowl; method = *asking Claude* its effort level; Anthropic's Thariq confirmed an effort-value-*mapping*
+  A/B exists but "the effort you selected is the effort you're getting"). Anthropic confirmed the verbosity by shipping the
+  fix (Concise output style, v2.1.237, Aug 19) and confirmed text watermarking (semantic green-list, Aug 14; the Aug 20 quiz
+  found it imperceptible, ~3/10 = below chance; Gruber: anything "other than my needs" shaping the text is "patently
+  offensive"). Thesis: the evidence Claude actually got WORSE is thin/disputed — but the trust deficit is real, because when
+  users can't verify and their prior is "probably nerfed," belief is the asset that leaked. In a tie, feel + trust is the
+  product — the one thing you can't benchmark, patch in a point release, or spend without noticing. Deciding quantity = your
+  own fixture set's cost-per-solved-task across versions (the only instrument that separates vibe from regression). Levers
+  commoditization/channel + un-benchmarked-behavior (08-15) + W32 mood. new-thread (W34).
+  → [2026-W34](./2026-W34.md), [dive 2026-08-15](./deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.md)
 
 ## Predictions ledger
 
@@ -1007,9 +1040,11 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-21 (biology-verifier) | Through end-2027 the verifier-cost line holds in biology: NO de-novo, AI-designed molecule reaches a Phase 3 clinical endpoint on a *model-compressed* timeline (compression traceable to the model, not to trial logistics/enrollment) — AND published autonomous AI protein/binder-design campaigns keep concentrating their large hit-rate multiples (~2–3× human baseline) on targets with a *cheap in-vitro binding assay* (BLI/affinity-measurable), not on assay-poor targets (intrinsically disordered proteins, membrane receptors in native context); AI's biology wins keep tracking verifier cost × fidelity, so the leaps stay at the cheap-oracle end while the clinical (expensive-verifier) timeline stays human-paced | 70% | 2027-12-31 | OPEN |
 | Dive 2026-08-22 (build-time-execution) | Through end-2027, sandboxed build scripts are NOT on-by-default in stable Cargo — the Rust "sandboxed build script" work ships (if at all) only as an opt-in unstable/stable feature, with the default `cargo build` still executing `build.rs` and proc-macros with the invoking user's full privileges and no isolation; so protection against a build-time supply-chain dropper (the arrayref/`proc-macro1` class) stays a per-project discipline (cargo-vet/audit, sandboxed CI, gated `cargo add`) rather than a default toolchain guarantee | 68% | 2027-12-31 | OPEN |
 | Dive 2026-08-23 (memory-supercycle) | Through end-2027 the AI-driven DRAM shortage does not clear for the self-hoster: a 128GB DDR5-6400 kit street price stays ≥ ~$1,700 (>3× its ~$570 mid-2025 level), AND RDIMM/consumer-DDR5 bit-supply growth keeps lagging demand (no return to 2024–25 price levels) as the big three keep steering wafer capacity to HBM — so buying a local box to run a competitive model still does not beat floor-tier API rent on cost for a typical individual; owning stays a control/compliance choice, not a savings one | 68% | 2027-12-31 | OPEN |
+| 2026-W34 | Anthropic makes a low-preamble output the *default* in at least one first-party surface by 2026-11-23 — Claude Code's default output style flips to a Concise-style, OR the API/system prompt trims narration by default — rather than leaving de-verbosing to opt-in modes and third-party wrappers (Vomit/nobuzz/Claudish); the verbosity backlash was large enough (three de-verbose tools in three days + Codex-switching) to force a default change, not just an opt-in toggle | 60% | 2026-11-23 | OPEN |
+| Dive 2026-08-24 (mojo-cuda) | Through end-2027, Qualcomm/Modular's MAX+Mojo does NOT become a cross-vendor inference standard — no *independent* (non-Qualcomm) hardware vendor adopts MAX as its default/recommended inference stack, AND no measurable at-scale migration of production CUDA workloads to Mojo/MAX occurs; CUDA's lock-in holds and open-sourcing the language changes the adoption funnel, not the outcome, because a portability layer owned by one chip vendor stays that vendor's house tool absent a second adopter | 70% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
-(No prediction came due in the W33 window — the only near-date row, the W24 export-ban call ~2026-08-14, was already settled RIGHT in W27. Record unchanged.)
+(No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
 (W27 settled two: W24 export-ban call RIGHT — fully rescinded Jul 1, Brier 0.12;
 W23 Copilot-walkback call WRONG — no walkback, GitHub tightened, Brier 0.49. The
@@ -1122,6 +1157,15 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   ethics lead exit; DeepSeek warns of a coming price increase (tension vs 06-28 floor call); Mojo 1.0;
   Lovable $400M C. Prediction: router layer is the value sink — Stripe–OpenRouter closes + ≥1 more router
   bought/raised >$1B, no router IPO, by 2027-02-16 (66%)
+- 2026-W34 — "You Can't Prove Claude Got Worse. That's the Problem." — the practitioner trust crack: three
+  de-verbose tools in three days (Vomit/nobuzz/Claudish), a Codex-switching diary, "I'm becoming AI-blind,"
+  an unfalsifiable "Anthropic A/B-tested reduced effort" rumor (Anthropic: mapping-only, "effort you selected is
+  what you're getting"), Concise output style (v2.1.237), confirmed text watermarking (imperceptible). Thesis:
+  the evidence Claude got worse is thin; the trust deficit is real, and in a commoditized tie (W33) feel + trust
+  is the product. Opens the trust-&-feel thread. Also: Stripe–OpenRouter official (10M+ devs, 400+ models, 10T+
+  tok/day); Cursor Origin + GitHub's 8h outage same day (Aug 17); Claude protein binders 14/15 + Moderna/Merck
+  mRNA Phase 3 (verifier asymmetry); Anthropic IPO $190–200B 2028 rev; Nvidia guarantee $250B→<$120B; OpenAI Astra
+  paused (Critical cyber); DRAM +500%; MCP roadmap (agent identity). Prediction: low-preamble default by 11-23 (60%)
 
 ### Deep dives
 - 2026-06-11 — "The Meter Is the Confession" — AI coding pricing; metering as
@@ -2354,3 +2398,14 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   bandwidth-wall (08-04), local-coding (06-17), MoE (06-21), spec-decoding (06-24), price-cut-weapon (06-28).
   Prediction: 128GB DDR5-6400 kit street price stays ≥ ~$1,700 (>3× its ~$570 2025 low) at end-2027 — shortage does
   NOT clear — so self-hosting still doesn't beat floor-tier API rent for a typical individual (68%).
+- 2026-08-24 — "A Chip Company Paid $3.9B for a Language, Then Gave It Away. Read the Target." (house, Monday long
+  dive) — Qualcomm bought Modular (~$3.9B all-stock, closed Jul 29) and open-sourced Mojo (Apache 2.0, ModCon ~Aug 18)
+  three weeks later. Thesis: a *chipmaker* commoditizing the AI *software* layer to break the moat that is CUDA + rewrite
+  cost, not the GPU — commoditize-your-complement (Spolsky/Gwern) at the chip level, give the stack away to sell silicon
+  (MAX = "JVM of AI inference," targets NVIDIA/AMD/Trainium/TPU + Qualcomm Cloud-AI-100/Dragonfly). Strategy right, odds
+  long: open-source is necessary-not-sufficient (Swift/Kotlin/TS won on a platform owner FORCING adoption; Qualcomm has a
+  hardware mandate but doesn't own developers), CUDA a decade deep, Mojo dropped its "Python superset" claim, Lattner's 2nd
+  run (Swift-for-TF died at Google on distribution). So-what: watch a SECOND non-Qualcomm vendor shipping MAX (0 = house
+  tool, 2 = CUDA has a software problem); MAX/Cloud stays the paid chokepoint, open source moves the funnel not the meter.
+  devtools/dev-marketing. Levers labs-go-vertical-silicon + channel-war; sibling channel (06-09), silicon (06-29),
+  price-cut-weapon (06-28, same commoditize-complement lens). Prediction: MAX/Mojo NOT a cross-vendor standard by end-2027 (70%).
