@@ -1021,3 +1021,21 @@
   confidence: 80
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-26-leaderboard-top-inside-error
+  made: "Dive · 2026-08-26"
+  made_link: "/reports/deep-dives/2026-08-26-two-point-lead-eval-sample-size.html"
+  text: >-
+    Through 2027-06-30, the top of the public SWE-bench Verified leaderboard stays
+    statistically unresolved at the benchmark's own sample size: the gap between the
+    #1 and #3 models remains inside the ±~4-point 95% confidence interval implied by
+    N=500 (no clean, replicated ≥5-point separation at the very top), AND no major
+    public coding-model leaderboard adds per-score confidence intervals or error bars
+    as a default column. The headline percentage keeps being reported without its
+    sampling uncertainty, and near saturation the reported deltas stay below the noise
+    floor. If a top-of-leaderboard result shows a replicated ≥5-point separation with
+    non-overlapping intervals, or a major leaderboard starts publishing per-score
+    error bars by default, this was wrong.
+  confidence: 68
+  due: "2027-06-30"
+  status: open

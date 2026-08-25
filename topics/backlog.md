@@ -385,15 +385,21 @@ Code Watch.*
 - [how-it-works] Inside SQLite's WAL and checkpointing: the -wal/-shm files, the WAL-index
   header and backfill counter, reader end-marks, and the one-writer concurrency contract — a
   clean "how this load-bearing part of the stack actually works" (Analyst) [surfaced 08-14]
-- [practical-guide] How to size a model-selection eval: the sample-size math for
-  telling two close models apart (binomial CI, McNemar on paired items, discordant-pair
-  power), how many clean items you actually need to resolve a 2-point gap, and why a
-  private post-cutoff expert-curated set beats any public leaderboard near the ceiling
-  (Analyst/Builder) [surfaced by the 08-05 benchmark-saturation dive]
 - [how-it-works] The successor-benchmark landscape after saturation: SWE-bench Pro,
   FrontierMath Open Problems, formal-conjecture / Lean-verified evals — what "unsaturable
   + machine-checkable + contamination-proof" costs to build and who is paying for it
   (Analyst) [surfaced by the 08-05 benchmark-saturation dive]
+- [how-it-works] Clustered standard errors in an eval, from the inside: why related
+  items (same repo, same passage, variants of one bug) aren't independent, how clustering
+  on the unit of randomization can inflate the true SE ~3× over the naive one (Miller/
+  Anthropic), and how to detect the hidden cluster structure in a benchmark you didn't
+  build — a "500-item" set that's really 120 scenarios × 4 is a 120-item set (Analyst)
+  [surfaced by the 08-26 eval-sample-size dive]
+- [practical-guide] Resampling to kill eval noise: run each item several times and score
+  the per-question average (chain-of-thought models) vs use next-token probabilities as
+  the score (deterministic models) — the variance-reduction math, the compute cost, and
+  why a single agentic run's seed-of-the-day swing (SWE-agent SD 0.49 over six re-runs)
+  is bigger than most leaderboard gaps (Analyst/Operator) [surfaced by the 08-26 dive]
 - [x-vs-y] Monorepo vs polyrepo once AI agents are the main committer (Contrarian)
 - [how-it-works] Teaching a model a low-resource language: how MultiPL-T and
   synthetic-function-demonstration pipelines translate high-resource training
@@ -594,6 +600,15 @@ product engineering" pools above.*
 
 ## Used
 
+- [practical-guide] How to size a model-selection eval: the sample-size math for
+  telling two close models apart (binomial CI, McNemar on paired items, discordant-pair
+  power), how many clean items to resolve a 2-point gap, and why a private post-cutoff
+  set beats a saturated public leaderboard (Analyst/Builder) — 2026-08-26 (as "A
+  Two-Point Lead Needs Four Thousand Questions to Be Real" by Quist, how-it-works/
+  what-every-engineer-should-know; SWE-bench Verified N=500 → single-score 95% CI ±4pt,
+  a 2pt gap is a coin flip, ~4,000 paired items needed to resolve it; pegged to Miller/
+  Anthropic's error-bars study + SWE-agent run-to-run variance),
+  reports/deep-dives/2026-08-26-two-point-lead-eval-sample-size.md
 - [news-to-framework] Why training data is the moat and the liability at once —
   copyright exposure as the reason no frontier model ships its corpus (Contrarian)
   — 2026-08-18 (as "The Moat Is Made of the Thing They Can Never Show You" by

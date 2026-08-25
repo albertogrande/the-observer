@@ -340,7 +340,26 @@
     the cache write, the discarded reasoning, and the re-tokenized context are the large ones.
     Deciding quantity: whether the switch happens at a task boundary (nothing warm to lose) or
     mid-thread every turn (pay the reset repeatedly).
+    W35 (analyst lens — the sampling floor under saturation): 08-05 named the discriminating
+    power D = gap ÷ (confidence interval + label error) and put the top SWE-bench cluster inside
+    ±1.9; this puts the arithmetic under it. On the 500-task Verified set the binomial 95%
+    interval on a single 70% score is ±4.0 points (SE = sqrt(p(1−p)/N) = 2.0), so a two-point
+    leaderboard gap is a coin flip: unpaired z ≈ 0.7, and even the paired test (frontier models
+    correlate 0.3–0.7 per Anthropic's error-bars study, buying a ~2× variance cut for free) only
+    reaches z ≈ 1.0. Worse, a single model can't reproduce itself — SWE-agent/GPT-4 over six
+    identical re-runs on SWE-bench Lite scored 17.3–18.6 (SD 0.49, one paper), so the gap between
+    rank #1 and #3 is routinely inside one model's own re-run jitter. To actually confirm a true
+    δ at 80% power you need N ≈ 7.84·σ²_d/δ² paired items: ~650 for a 5-point gap, ~4,000 for
+    2 points, ~16,000 for 1 point (double all if unpaired) — the benchmark everyone quotes is
+    8× too small to resolve the deltas it's used to sell. The fix is the verifier-asymmetry move
+    at the eval layer: pair, resample, cluster the standard errors, run McNemar on the discordant
+    pairs (the only items carrying signal), power the set to the gap you care about, and go
+    private + post-cutoff. This is also the technical floor under the trust crack (W34, 08-15):
+    nobody can prove a model got better or worse because the public evidence — a two-point delta,
+    an afternoon's vibe — is a sample far below the size the claim needs. Deciding quantity is the
+    count of discordant items and how many you sampled, not the headline percentage.
   issues:
+    - { label: "Dive · A Two-Point Lead Needs Four Thousand Questions", link: "/reports/deep-dives/2026-08-26-two-point-lead-eval-sample-size.html" }
     - { label: "Dive · You Can Switch Models, Not the State", link: "/reports/deep-dives/2026-08-25-switch-model-not-state.html" }
     - { label: "Dive · Every Gigabyte of AI Memory Costs You Three of Your Own", link: "/reports/deep-dives/2026-08-23-memory-supercycle-self-hosting-tax.html" }
     - { label: "Dive · The Repo Was Never the Lock-In", link: "/reports/deep-dives/2026-08-19-code-hosting-built-for-agents.html" }

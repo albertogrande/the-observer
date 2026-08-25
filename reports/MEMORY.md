@@ -1043,6 +1043,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | 2026-W34 | Anthropic makes a low-preamble output the *default* in at least one first-party surface by 2026-11-23 — Claude Code's default output style flips to a Concise-style, OR the API/system prompt trims narration by default — rather than leaving de-verbosing to opt-in modes and third-party wrappers (Vomit/nobuzz/Claudish); the verbosity backlash was large enough (three de-verbose tools in three days + Codex-switching) to force a default change, not just an opt-in toggle | 60% | 2026-11-23 | OPEN |
 | Dive 2026-08-24 (mojo-cuda) | Through end-2027, Qualcomm/Modular's MAX+Mojo does NOT become a cross-vendor inference standard — no *independent* (non-Qualcomm) hardware vendor adopts MAX as its default/recommended inference stack, AND no measurable at-scale migration of production CUDA workloads to Mojo/MAX occurs; CUDA's lock-in holds and open-sourcing the language changes the adoption funnel, not the outcome, because a portability layer owned by one chip vendor stays that vendor's house tool absent a second adopter | 70% | 2027-12-31 | OPEN |
 | Dive 2026-08-25 (switch-model-state) | Through end-2027, no major AI coding editor/harness (VS Code Copilot, Cursor, Claude Code, or peer) ships *cross-model warm-state carryover* — a mid-session model switch that preserves a reusable cache prefix OR a portable reasoning trace across two *different* models — as a documented feature; a mid-conversation model change keeps moving only the plaintext transcript, and the cache/reasoning-trace/tokenizer/prompt-tuning reset stays the silent cost, because the KV cache is bound to one set of weights and the thinking-block signature is cryptographically bound to the producing model (Anthropic: "thinking blocks are tied to the model that produced them") | 80% | 2027-12-31 | OPEN |
+| Dive 2026-08-26 (eval-sample-size) | Through 2027-06-30, the public SWE-bench Verified leaderboard top stays statistically unresolved at N=500: #1-vs-#3 gap remains inside the ±~4pt 95% CI (no clean replicated ≥5pt separation at the very top) AND no major public coding-model leaderboard adds per-score confidence intervals/error bars as a default column — reported deltas stay below the sampling noise floor | 68% | 2027-06-30 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
@@ -2436,3 +2437,19 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   terms: cache write, discarded-reasoning tokens, tokenizer recount); siblings portability (06-22), caching (06-18),
   tokenizer (07-14), reasoning-trace (08-12). Prediction: no editor/harness ships cross-model warm-state carryover by
   end-2027 (80%).
+- 2026-08-26 — "A Two-Point Lead Needs Four Thousand Questions to Be Real" (Quist) — the sampling statistics under
+  benchmark saturation: at SWE-bench Verified's N=500, a single 70% score carries a ±4.0pt 95% CI (SE=sqrt(p(1−p)/N)=2.0),
+  so a two-point leaderboard gap is a coin flip (unpaired z≈0.7; paired at ρ=0.5 z≈1.0 — frontier models correlate 0.3–0.7,
+  Miller/Anthropic error-bars study, buying ~2× variance cut free). A single model can't reproduce itself (SWE-agent/GPT-4
+  ×6 on SWE-bench Lite: 17.3–18.6, SD 0.49, one paper) → the #1-vs-#3 gap is inside one model's own re-run jitter; plus
+  Epoch's 5–10% label-error floor. Sample size to confirm δ at 80% power: N≈7.84·σ²_d/δ² → ~650 (5pt), ~4,000 (2pt),
+  ~16,000 (1pt) paired items, double if unpaired — Verified is 8× too small for the deltas it sells. Fix = verifier-asymmetry
+  at the eval layer: pair, resample, cluster SEs (Miller: 3× naive), McNemar on discordant pairs (only signal-carrying items),
+  power the set, go private+post-cutoff. Thesis: near saturation a benchmark stops being a measurement instrument (a coin with
+  a faint bias 500 flips can't find); deciding quantity = discordant pairs sampled, not the headline %. Technical floor under
+  the trust crack (W34/08-15: nobody can prove a model got better/worse because the public evidence is below the noise floor).
+  how-it-works/what-every-engineer-should-know; NON-news evergreen, fulfills the "size a model-selection eval" backlog item.
+  W35 (Quist, generalist Wed). Advances channel-war/commoditization (benchmark-saturation front) + verifier-asymmetry (eval-design
+  front); siblings benchmark-saturation (08-05), reading-a-benchmark (06-13), stopped-asking (08-15), verifier-asymmetry (07-24).
+  Prediction: SWE-bench Verified leaderboard top stays statistically unresolved at N=500 + no leaderboard adds default per-score
+  error bars by 2027-06-30 (68%).
