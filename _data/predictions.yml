@@ -1039,3 +1039,19 @@
   confidence: 68
   due: "2027-06-30"
   status: open
+
+- id: 2026-08-27-interactive-hard-cost-cap
+  made: "Dive · 2026-08-27"
+  made_link: "/reports/deep-dives/2026-08-27-itemize-the-agent-bill.html"
+  text: >-
+    Claude Code ships a run-level interactive hard dollar cap — a per-session spend
+    ceiling the user sets that stops the interactive session when it is hit — as a
+    documented feature by 2027-Q2. This is beyond both the plan-level seat/workspace
+    spend limit (a ceiling on the plan, not the run) and the current print-mode-only
+    --max-budget-usd flag. The new cost instrumentation (per-subagent and per-loop
+    /usage attribution, and halt-on-cap for background agents post-v2.1.217) extends
+    from headless runs into an interactive brake. If no such run-level interactive
+    dollar cap ships by 2027-06-30, this was wrong.
+  confidence: 55
+  due: "2027-06-30"
+  status: open

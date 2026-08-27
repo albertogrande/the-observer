@@ -703,6 +703,22 @@
     Sandboxes, DeepSeek Harness, Cloudflare V8 isolates), and Mistral was granted US 12,670,045 on the narrow
     pause-replay mechanism — a granted patent needn't be strong to be a tax, only expensive to fight. So-what: try
     code-mode for chains of three-plus tools, behind an egress-denied sandbox, not for one-shots.
+    W35 (operator lens): the cost brake finally itemizes. One story across two releases — depth-3 nested subagents
+    (reinstated v2.1.219, Jul 24; CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH, concurrency 20 via
+    CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS) are the most expensive workflow and the plan/execute/verify tree is only now
+    cresting in adoption, and this fortnight (Aug 21–25) shipped the instrument to run it un-blind. /usage now splits recent spend by skill / subagent / plugin / MCP server, flags a
+    behavior at ≥10% of usage (long context, cache misses), and — new v2.1.242 — carries a Loops row per heaviest
+    /loop (run count, per-run tokens, last run), so a forgotten scheduled task that bills your full context every
+    interval finally has a line item. The durable read: in a healthy session cache-READS dwarf fresh input (the docs'
+    own $0.55 example is 1.2k input vs 940k cache-read), so the bill is driven by cache MISSES — every break past the
+    cache lifetime reprocesses everything — not by what you typed, and /usage now names them. The cap that bites is
+    --max-budget-usd: print-mode only, but post-v2.1.217 it both denies new spawns AND halts already-running
+    background subagents (a real ceiling, not an alert), best paired with --max-turns. Honest bounds: the figures are
+    LOCAL estimates at LIST rates (miss other devices/claude.ai/promo/contract; the v2.1.243 modelPricing setting
+    feeds real rates) → an attribution-and-trend tool, not accounting; and the interactive session still has NO
+    run-level hard dollar stop — only the plan seat/workspace limit — which keeps the 06-12 autonomy hard-ceiling
+    prediction (45%) live. So-what: bound the tree (spawn-depth/concurrency env vars), cap the unattended run
+    (--max-budget-usd + --max-turns), and read the /usage breakdown after a fan-out instead of the total.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -723,6 +739,7 @@
     - { label: "Dive · Your Context Window Is 60% Tool Output", link: "/reports/deep-dives/2026-08-06-posttooluse-output-context-recovery.html" }
     - { label: "Dive · You Can Run Fifteen Claudes. The One That Can't Scale Is You.", link: "/reports/deep-dives/2026-08-13-run-many-sessions-attention-bottleneck.html" }
     - { label: "Dive · Your Agent Doesn't Need More Tools. It Needs to Write Code That Calls Them.", link: "/reports/deep-dives/2026-08-16-agent-writes-code-to-call-tools.html" }
+    - { label: "Dive · Your Agent Bill Is Finally Itemized. Now Cap It.", link: "/reports/deep-dives/2026-08-27-itemize-the-agent-bill.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

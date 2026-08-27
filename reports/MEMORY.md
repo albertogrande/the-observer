@@ -1044,6 +1044,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-24 (mojo-cuda) | Through end-2027, Qualcomm/Modular's MAX+Mojo does NOT become a cross-vendor inference standard — no *independent* (non-Qualcomm) hardware vendor adopts MAX as its default/recommended inference stack, AND no measurable at-scale migration of production CUDA workloads to Mojo/MAX occurs; CUDA's lock-in holds and open-sourcing the language changes the adoption funnel, not the outcome, because a portability layer owned by one chip vendor stays that vendor's house tool absent a second adopter | 70% | 2027-12-31 | OPEN |
 | Dive 2026-08-25 (switch-model-state) | Through end-2027, no major AI coding editor/harness (VS Code Copilot, Cursor, Claude Code, or peer) ships *cross-model warm-state carryover* — a mid-session model switch that preserves a reusable cache prefix OR a portable reasoning trace across two *different* models — as a documented feature; a mid-conversation model change keeps moving only the plaintext transcript, and the cache/reasoning-trace/tokenizer/prompt-tuning reset stays the silent cost, because the KV cache is bound to one set of weights and the thinking-block signature is cryptographically bound to the producing model (Anthropic: "thinking blocks are tied to the model that produced them") | 80% | 2027-12-31 | OPEN |
 | Dive 2026-08-26 (eval-sample-size) | Through 2027-06-30, the public SWE-bench Verified leaderboard top stays statistically unresolved at N=500: #1-vs-#3 gap remains inside the ±~4pt 95% CI (no clean replicated ≥5pt separation at the very top) AND no major public coding-model leaderboard adds per-score confidence intervals/error bars as a default column — reported deltas stay below the sampling noise floor | 68% | 2027-06-30 | OPEN |
+| Dive 2026-08-27 (agent-bill) | Claude Code ships a run-level interactive hard dollar cap — a per-session spend ceiling the user sets that stops the *interactive* session when hit (not the plan-level seat/workspace limit, and beyond today's print-mode-only `--max-budget-usd`) — as a documented feature by 2027-Q2; the cost instrumentation (per-subagent/per-loop `/usage` attribution, halt-on-cap for background agents) extends to an interactive brake | 55% | 2027-06-30 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
@@ -2453,3 +2454,18 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   front); siblings benchmark-saturation (08-05), reading-a-benchmark (06-13), stopped-asking (08-15), verifier-asymmetry (07-24).
   Prediction: SWE-bench Verified leaderboard top stays statistically unresolved at N=500 + no leaderboard adds default per-score
   error bars by 2027-06-30 (68%).
+- 2026-08-27 — "Your Agent Bill Is Finally Itemized. Now Cap It." (Sandoval, Claude Code edition) — one story across two
+  releases: depth-3 nested subagents (reinstated v2.1.219, Jul 24; CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH, concurrency 20 via
+  CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS) are the most expensive workflow and the plan/execute/verify tree is only now cresting in
+  adoption (PrajwalTomar "CRACKED" thread trending this week), and this fortnight (Aug 21–25) shipped the instrument to run it
+  un-blind. `/usage` now itemizes recent spend by skill/subagent/plugin/MCP-server, flags a behavior at ≥10%
+  (long context, cache misses), and — new v2.1.242 — a Loops row per heaviest /loop (run count, per-run tokens, last run). The
+  durable insight: in a healthy session cache-READS dwarf input (docs' $0.55 example = 1.2k input vs 940k cache-read) → the bill
+  is driven by cache MISSES, not what you typed, and /usage now names them. `--max-budget-usd` (print-mode only) caps a headless
+  run AND, post-v2.1.217, halts already-running background subagents (real cap, not alert); pair with --max-turns. Honest bounds:
+  figures are LOCAL estimates at LIST rates (miss other devices/claude.ai/promo/contract; modelPricing setting v2.1.243 feeds real
+  rates) → attribution+trend tool, not accounting; interactive mode still has NO hard dollar stop (only plan seat/workspace limit).
+  practical-guide; NEWS-pegged Claude Code edition. Advances autonomy-brakes/cost-control thread; extends subagents-context-not-speed
+  (07-30) + fan-out-budget (06-13) with the new instrumentation; sibling context-tax (07-16), context-budget (06-25). W35 (Sandoval,
+  Thu). Prediction: interactive per-session dollar cap (run-level, not plan seat limit) ships by 2027-Q2 (55%) — step past the
+  print-mode --max-budget-usd, relevant to the standing Dive 2026-06-12 autonomy hard-ceiling call (45%).

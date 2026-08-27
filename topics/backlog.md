@@ -313,6 +313,19 @@ Code Watch.*
   portability event; keeping per-model "altitude" variants (more rules for the weaker model,
   fewer for the frontier) and gating the swap on an eval fixture (Builder) [surfaced by the
   07-26 context-scaffolding dive; sibling to tool-schema 07-05, portability 06-22]
+- [practical-guide] The cache-miss tax in a long session: why cache-READS dominate a
+  healthy Claude Code session's token count (the docs' own $0.55 example: 1.2k input vs
+  940k cache-read), how the cache lifetime (1hr on a subscription, 5min on credits/API)
+  turns any idle break into a full-context reprocess, and how to read the `/usage`
+  behavior flag that now names it at ≥10% of usage — plus the habits (don't idle across
+  the lifetime, choose the TTL, resume-from-summary) that keep the prefix warm (Operator)
+  [surfaced by the 08-27 itemize-the-bill dive; sibling to caching 06-18, context-tax 07-16]
+- [reference] OTEL cost export for a Claude Code fleet: `CLAUDE_CODE_ENABLE_TELEMETRY=1`,
+  the per-user token/cost metrics and tool-decision events it streams, and why it's the
+  only real-time per-user attribution path once you're on Bedrock / Google / Foundry
+  (where the Anthropic analytics dashboards go dark) — vs the local, list-rate estimates
+  `/usage` shows on one machine (Operator/Builder) [surfaced by the 08-27 dive; sibling to
+  audit-trail 07-08]
 
 ## Live — devtools & systems
 
