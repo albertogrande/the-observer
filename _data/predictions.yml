@@ -1055,3 +1055,20 @@
   confidence: 55
   due: "2027-06-30"
   status: open
+
+- id: 2026-08-28-hf-free-unauthenticated-pull
+  made: "Dive · 2026-08-28"
+  made_link: "/reports/deep-dives/2026-08-28-your-build-depends-on-huggingface.html"
+  text: >-
+    Through end-2026, Hugging Face keeps the free unauthenticated pull of public
+    models — no login wall and no hard anonymous per-IP rate limit on
+    hf_hub_download / from_pretrained of public repositories — whether or not the
+    reported ~$12.9B Nvidia acquisition closes. The openness that is the Hub's whole
+    value survives a change of ownership on this timescale (the npm→Microsoft path,
+    not the Docker-Hub-2020 metering path), so the builder exposure stays a latent
+    single-vendor dependency to hedge rather than a live breakage. If the free
+    anonymous pull of public models gets a login wall or a hard per-IP rate limit
+    before 2026-12-31, this was wrong.
+  confidence: 70
+  due: "2026-12-31"
+  status: open

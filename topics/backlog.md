@@ -329,6 +329,23 @@ Code Watch.*
 
 ## Live — devtools & systems
 
+- [practical-guide] Run your own model mirror: standing up an `HF_ENDPOINT`
+  pull-through cache / proxy (Pulp, Artifactory-style, or an S3-backed mirror) so
+  your builds don't depend on huggingface.co's uptime, pricing, or ownership — plus
+  revision-pinning + integrity verification as supply-chain hygiene for weights, the
+  same way you'd vendor an npm or container registry (Builder) [surfaced by the
+  08-28 huggingface-dependency dive]
+- [how-it-works] Content negotiation for agents: `Accept: text/markdown` and the
+  emerging convention of serving a stripped markdown view to agentic clients
+  (acceptmarkdown.com, HN Aug-28) — the HTTP-primitive successor to llms.txt/MCP for
+  docs-as-distribution; what it standardizes and what it can't (Builder) [surfaced
+  08-28; sibling docs-for-agents 07-04]
+- [practical-guide] AI-assisted fuzzing: wiring a model into a fuzz harness (write
+  the harness + triage the crash) as the canonical cheap-verifier task — a crash is
+  a machine-checkable witness — pegged to the vibecoded-fuzzer FFmpeg CVE (HN Aug-28)
+  and OSS-Fuzz's LLM harness-generation results; the builder's hands-on version of
+  the verifier-asymmetry law (Builder) [surfaced 08-28; sibling verifier-asymmetry
+  07-24, 08-21]
 - [architecture] The agent control plane: where governed tool access and egress
   actually get enforced for *deployed* agents once you can't trust the agent
   (Cloudflare OS "Gatekeepers," Microsoft's Foundry router, identity-for-agents) —

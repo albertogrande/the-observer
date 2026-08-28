@@ -332,6 +332,21 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   ships / what autonomous runs inherit → it's a values choice about which workload wins (agent over keyboard user).
   Deciding quantity = whether the un-measured collaborative margin ever gets a headline eval (predicted no through
   2027-Q2). → [dive 2026-08-15](./deep-dives/2026-08-15-model-didnt-get-worse-stopped-asking.md)
+  W35 (builder lens): the DISTRIBUTION-HUB off-ramp, and the silicon vendor reaching for it — Nvidia reportedly agreed
+  to buy Hugging Face for ~$12.9B (24/7 Wall St.; UNCONFIRMED, no signed contract, ~86× the ~$150M revenue; escalated
+  from a rejected $500M minority stake late-2025 that leadership opposed to avoid one dominant investor). HF is the
+  default artifact store for open weights: >5M repos (2.96M models / 1M datasets / 1.44M Spaces, HF Spring-2026 blog),
+  and downloads are brutally concentrated (1.5% of repos = 99.2% of pulls) → your real dependency is a few hundred hot
+  repos reached through one hostname baked into `from_pretrained`'s default. Neutrality is a concrete technical property
+  (the `optimum` backends: TensorRT-LLM next to optimum-amd/-intel/AWS-Neuron); a chip owner's incentive runs opposite
+  to portability, but the bite isn't deletion — it's default ranking / gating / telemetry / whether the free
+  unauthenticated pull survives (the Docker Hub 2020 tell: 100 pulls/6h, CI broke industry-wide; counter-precedent
+  npm→MS stayed open). Builder law: treat the model registry like any single-vendor dependency — outcome unforecastable,
+  exposure cheap to cut. Fix = pin `revision=<commit-sha>` (main is mutable; supply-chain fix regardless), know the
+  one-line origin switch `HF_ENDPOINT` (mirror/self-hosted proxy, read at import), `HF_HUB_OFFLINE=1` for CI/air-gap,
+  `HF_HUB_DISABLE_TELEMETRY`. Cross-links Labs-go-vertical (silicon → distribution) + Supply-chain threads; natural
+  extension (open-weights neutral ground vs the export fight, court ruled Anthropic blacklisting illegal 08-27) kept
+  light per reader (no forced politics). → [dive 2026-08-28](./deep-dives/2026-08-28-your-build-depends-on-huggingface.md)
 - **Supply chain vs. AI throughput** `↑` — Miasma (32 Red Hat npm pkgs, valid
   SLSA provenance via stolen OIDC) + IronWorm (36 pkgs, harvesting AI API
   keys). Provenance + install-script scanning both defeated. Review/trust
@@ -1045,6 +1060,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-25 (switch-model-state) | Through end-2027, no major AI coding editor/harness (VS Code Copilot, Cursor, Claude Code, or peer) ships *cross-model warm-state carryover* — a mid-session model switch that preserves a reusable cache prefix OR a portable reasoning trace across two *different* models — as a documented feature; a mid-conversation model change keeps moving only the plaintext transcript, and the cache/reasoning-trace/tokenizer/prompt-tuning reset stays the silent cost, because the KV cache is bound to one set of weights and the thinking-block signature is cryptographically bound to the producing model (Anthropic: "thinking blocks are tied to the model that produced them") | 80% | 2027-12-31 | OPEN |
 | Dive 2026-08-26 (eval-sample-size) | Through 2027-06-30, the public SWE-bench Verified leaderboard top stays statistically unresolved at N=500: #1-vs-#3 gap remains inside the ±~4pt 95% CI (no clean replicated ≥5pt separation at the very top) AND no major public coding-model leaderboard adds per-score confidence intervals/error bars as a default column — reported deltas stay below the sampling noise floor | 68% | 2027-06-30 | OPEN |
 | Dive 2026-08-27 (agent-bill) | Claude Code ships a run-level interactive hard dollar cap — a per-session spend ceiling the user sets that stops the *interactive* session when hit (not the plan-level seat/workspace limit, and beyond today's print-mode-only `--max-budget-usd`) — as a documented feature by 2027-Q2; the cost instrumentation (per-subagent/per-loop `/usage` attribution, halt-on-cap for background agents) extends to an interactive brake | 55% | 2027-06-30 | OPEN |
+| Dive 2026-08-28 (hf-registry-dependency) | Through end-2026, Hugging Face keeps the free *unauthenticated* pull of public models — no login wall and no hard anonymous per-IP rate limit on `hf_hub_download`/`from_pretrained` of public repos — whether or not the reported Nvidia acquisition closes; the openness that is the Hub's value survives a change of ownership on this timescale (the npm→Microsoft path, not the Docker-Hub-2020 metering path), so the builder exposure stays a latent single-vendor dependency to hedge rather than a live breakage | 70% | 2026-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
@@ -2469,3 +2485,21 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   (07-30) + fan-out-budget (06-13) with the new instrumentation; sibling context-tax (07-16), context-budget (06-25). W35 (Sandoval,
   Thu). Prediction: interactive per-session dollar cap (run-level, not plan seat limit) ships by 2027-Q2 (55%) — step past the
   print-mode --max-budget-usd, relevant to the standing Dive 2026-06-12 autonomy hard-ceiling call (45%).
+- 2026-08-28 — "Your Build Has a Hard Dependency on huggingface.co. A Chip Vendor Is Buying It." (Vance) — the open-model
+  supply chain as a single point of control, pegged to Nvidia's reported ~$12.9B agreement to buy Hugging Face (24/7 Wall St.;
+  UNCONFIRMED — no signed contract, structure/regulatory undisclosed; ~86× the ~$150M revenue; escalated from a rejected $500M
+  minority stake late-2025 that leadership opposed to avoid one dominant investor; Nvidia an investor since the 2023 $4.5B round).
+  Subject not the deal but the dependency it reveals: every `from_pretrained`/`hf_hub_download`/CI pull defaults to huggingface.co,
+  the artifact store for open weights — >5M repos (2.96M models/1M datasets/1.44M Spaces, HF Spring-2026 blog) with downloads
+  brutally concentrated (1.5% of repos = 99.2% of pulls; 85.6% of models <200 lifetime) → real exposure is a few hundred hot repos
+  on one hostname. Neutrality = a technical property (`optimum` backends TensorRT-LLM vs optimum-amd/-intel/AWS-Neuron); chip-owner
+  incentive runs opposite to portability, but the bite is soft levers (default ranking/gating/telemetry/whether the free
+  unauthenticated pull survives), not deletion. Precedent: Docker Hub Nov-2020 rate limits (100 pulls/6h anon) broke CI worldwide;
+  counter npm→MS stayed open → outcome unforecastable, so make the build not care. Builder fix (copy-paste): pin `revision=<sha>`
+  (main is mutable — supply-chain fix regardless of ownership), `HF_ENDPOINT` one-line origin switch to mirror/self-hosted proxy
+  (read at import), `HF_HUB_OFFLINE=1` for CI/air-gap, `HF_HUB_DISABLE_TELEMETRY`/`DO_NOT_TRACK`. Natural cross-domain (silicon→
+  distribution vertical integration; open-weights neutral ground vs export fight, court ruled Anthropic blacklisting illegal 08-27)
+  kept light per reader — no forced politics. how-it-works/practical-guide; devtools/ML-supply-chain. Advances channel-war/off-ramps
+  (new distribution-hub node) + labs-go-vertical-silicon; siblings channel (06-09), export-control (06-15), docs-as-distribution
+  (07-04), silicon-margin (06-29). W35 (Vance, generalist Fri). Prediction: Hugging Face keeps the free unauthenticated model pull
+  (no login wall / hard rate limit on anonymous downloads of public models) through 2026 whether or not the deal closes (70%).

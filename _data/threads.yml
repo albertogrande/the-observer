@@ -358,7 +358,30 @@
     nobody can prove a model got better or worse because the public evidence — a two-point delta,
     an afternoon's vibe — is a sample far below the size the claim needs. Deciding quantity is the
     count of discordant items and how many you sampled, not the headline percentage.
+    W35 (builder lens — the distribution-hub off-ramp, and the silicon vendor reaching for it):
+    the off-ramps so far were the terminal, the environment, the rail, and the install base; this
+    is the *artifact store*. Nvidia reportedly agreed to buy Hugging Face for ~$12.9B (24/7 Wall
+    St. — unconfirmed, no signed contract, ~86× the ~$150M revenue; it escalated from a rejected
+    $500M minority stake late in 2025 that leadership opposed to avoid one dominant investor).
+    Hugging Face is the default place open weights live — over five million repositories (2.96M
+    models, 1M datasets, 1.44M Spaces per its own Spring-2026 report) — and downloads are brutally
+    concentrated: 1.5% of repos carry 99.2% of pulls, so the real dependency is a few hundred hot
+    repos reached through one hostname baked into `from_pretrained`'s default. Neutrality here is a
+    concrete technical property (the `optimum` backends run TensorRT-LLM next to optimum-amd,
+    optimum-intel, and AWS Neuron); a chip owner's incentive runs opposite to portability, but the
+    bite isn't deletion — it's the soft levers (default ranking, gating, telemetry, and whether the
+    free unauthenticated pull survives). The precedent is Docker Hub's November 2020 rate limits
+    (100 pulls per six hours, anonymous), which broke CI worldwide without deleting anything; the
+    counter-precedent is npm under Microsoft, which stayed open. Outcome unforecastable, exposure
+    cheap to cut — so the builder move is to treat the model registry like any single-vendor
+    dependency: pin `revision=<commit-sha>` (the default `main` is mutable — a supply-chain fix
+    regardless of ownership), keep the one-line origin switch ready (`HF_ENDPOINT` to a mirror or
+    self-hosted proxy, read at import), make CI air-gap-capable (`HF_HUB_OFFLINE=1`), and disable
+    the telemetry now flowing toward a chip vendor. This is the same channel law one layer up from
+    the model: control of distribution is worth paying for, and someone just bid $12.9B for a slice
+    every open-model build routes through.
   issues:
+    - { label: "Dive · Your Build Depends on huggingface.co", link: "/reports/deep-dives/2026-08-28-your-build-depends-on-huggingface.html" }
     - { label: "Dive · A Two-Point Lead Needs Four Thousand Questions", link: "/reports/deep-dives/2026-08-26-two-point-lead-eval-sample-size.html" }
     - { label: "Dive · You Can Switch Models, Not the State", link: "/reports/deep-dives/2026-08-25-switch-model-not-state.html" }
     - { label: "Dive · Every Gigabyte of AI Memory Costs You Three of Your Own", link: "/reports/deep-dives/2026-08-23-memory-supercycle-self-hosting-tax.html" }
@@ -1021,6 +1044,16 @@
     that freezes a model is a bet the model is finished, which only fits the
     small/stable cheapest-adequate tier. The tell is that AMD, a flexible-GPU
     vendor, bought the anti-GPU.
+    W35 (builder lens): the vertical move went the *other* direction — up the stack
+    into distribution, not down into silicon. Nvidia reportedly agreed to buy Hugging
+    Face for ~$12.9B (unconfirmed), extending from the compute it already owns (the
+    ~70% margin) into the default artifact store for open weights (>5M repos, 1.5% of
+    which carry 99.2% of downloads). Owning both the shovels and the marketplace where
+    the maps are handed out is a different position than owning either alone — and it
+    sits on the same neutral ground the open-weights export fight is being waged over
+    (a court ruled the Anthropic blacklisting illegal the same week). For the builder
+    the takeaway is defensive, not strategic: treat the registry like a single-vendor
+    dependency and keep the `HF_ENDPOINT`/`revision`-pin escape hatch ready.
   tension: >-
     The perf-per-watt headline numbers are self-reported with no independent
     benchmarks, and first-gen custom silicon has a long history of slipping dates
@@ -1030,6 +1063,7 @@
   issues:
     - { label: "Dive · Nvidia Keeps 70 Cents of Every Dollar", link: "/reports/deep-dives/2026-06-29-why-ai-labs-build-chips.html" }
     - { label: "Dive · AMD Bought a Chip That Takes Two Months", link: "/reports/deep-dives/2026-08-08-model-in-silicon-shelf-life.html" }
+    - { label: "Dive · Your Build Depends on huggingface.co", link: "/reports/deep-dives/2026-08-28-your-build-depends-on-huggingface.html" }
 
 - slug: corpus-liability
   title: "The training corpus is the moat and the liability"
