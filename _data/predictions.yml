@@ -1072,3 +1072,20 @@
   confidence: 70
   due: "2026-12-31"
   status: open
+
+- id: 2026-08-29-pim-stays-a-demo
+  made: "Dive · 2026-08-29"
+  made_link: "/reports/deep-dives/2026-08-29-processing-in-memory-decode-wall.html"
+  text: >-
+    Through end-2027, processing-in-memory stays a demo, not a default: no
+    mainstream open-source inference runtime (llama.cpp, vLLM, MLX, or a peer)
+    merges a processing-in-memory backend that a normal user can enable on a stock
+    quantized model AND reproduces at least ~1.5× real decode tokens/sec on a
+    shipping PIM part. Samsung's measured 3.01× on LPDDR5X-PIM stays a
+    vendor/Hot-Chips result, and the software attacks on the same batch-1 bandwidth
+    wall — mixture-of-experts, speculative decoding, and batching, none of which
+    need new silicon — remain the working answer. If such a runtime backend ships
+    and reproduces the speedup before 2027-12-31, this was wrong.
+  confidence: 70
+  due: "2027-12-31"
+  status: open

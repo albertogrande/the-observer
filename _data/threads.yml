@@ -1054,6 +1054,19 @@
     (a court ruled the Anthropic blacklisting illegal the same week). For the builder
     the takeaway is defensive, not strategic: treat the registry like a single-vendor
     dependency and keep the `HF_ENDPOINT`/`revision`-pin escape hatch ready.
+    W35 (analyst lens): the memory makers moved on the same wall from the other side.
+    At Hot Chips 2026 Samsung showed LPDDR5X-PIM — a multiplier built into each DRAM
+    bank, so batch-1 decode (arithmetic intensity ≈1 op/byte, ~0.34% of an H100's
+    roofline) runs on bank-internal bandwidth (614 GB/s) instead of the pins (76.8
+    GB/s, 8×) — and measured 3.01× tokens/sec on Llama-3.1-8B. Where Taalas (08-08)
+    deletes the memory wall by freezing the weights into mask-ROM, PIM attacks it by
+    moving the compute into the RAM; both are bets that the value has migrated into the
+    memory (52%→63% of AI-chip component spend). The honest bound is the same shape as
+    the rest of the thread: PIM only wins the batch-1 GEMV regime datacenters engineer
+    away with batching, so it is an edge/local play, and it stays stranded until a JEDEC
+    standard (LPDDR6-PIM, near-complete) and an open-source runtime backend target it.
+    Deciding quantity = the fraction of inference served batch-1 on-device vs batched in
+    a datacenter.
   tension: >-
     The perf-per-watt headline numbers are self-reported with no independent
     benchmarks, and first-gen custom silicon has a long history of slipping dates
@@ -1064,6 +1077,7 @@
     - { label: "Dive · Nvidia Keeps 70 Cents of Every Dollar", link: "/reports/deep-dives/2026-06-29-why-ai-labs-build-chips.html" }
     - { label: "Dive · AMD Bought a Chip That Takes Two Months", link: "/reports/deep-dives/2026-08-08-model-in-silicon-shelf-life.html" }
     - { label: "Dive · Your Build Depends on huggingface.co", link: "/reports/deep-dives/2026-08-28-your-build-depends-on-huggingface.html" }
+    - { label: "Dive · Samsung Moved the Multiplier Into the RAM", link: "/reports/deep-dives/2026-08-29-processing-in-memory-decode-wall.html" }
 
 - slug: corpus-liability
   title: "The training corpus is the moat and the liability"

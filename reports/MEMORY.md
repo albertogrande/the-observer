@@ -1061,6 +1061,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-26 (eval-sample-size) | Through 2027-06-30, the public SWE-bench Verified leaderboard top stays statistically unresolved at N=500: #1-vs-#3 gap remains inside the ±~4pt 95% CI (no clean replicated ≥5pt separation at the very top) AND no major public coding-model leaderboard adds per-score confidence intervals/error bars as a default column — reported deltas stay below the sampling noise floor | 68% | 2027-06-30 | OPEN |
 | Dive 2026-08-27 (agent-bill) | Claude Code ships a run-level interactive hard dollar cap — a per-session spend ceiling the user sets that stops the *interactive* session when hit (not the plan-level seat/workspace limit, and beyond today's print-mode-only `--max-budget-usd`) — as a documented feature by 2027-Q2; the cost instrumentation (per-subagent/per-loop `/usage` attribution, halt-on-cap for background agents) extends to an interactive brake | 55% | 2027-06-30 | OPEN |
 | Dive 2026-08-28 (hf-registry-dependency) | Through end-2026, Hugging Face keeps the free *unauthenticated* pull of public models — no login wall and no hard anonymous per-IP rate limit on `hf_hub_download`/`from_pretrained` of public repos — whether or not the reported Nvidia acquisition closes; the openness that is the Hub's value survives a change of ownership on this timescale (the npm→Microsoft path, not the Docker-Hub-2020 metering path), so the builder exposure stays a latent single-vendor dependency to hedge rather than a live breakage | 70% | 2026-12-31 | OPEN |
+| Dive 2026-08-29 (processing-in-memory) | Through end-2027, processing-in-memory stays a demo, not a default: no mainstream open-source inference runtime (llama.cpp / vLLM / MLX or peer) merges a PIM backend that a normal user can enable on a stock quantized model AND reproduces ≥~1.5× real decode tokens/sec on a shipping PIM part — so PIM's measured 3.01× stays a vendor/Hot-Chips result, and MoE + speculative decoding + batching (software, no new silicon) remain the working attack on the batch-1 bandwidth wall | 70% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
@@ -2503,3 +2504,23 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   (new distribution-hub node) + labs-go-vertical-silicon; siblings channel (06-09), export-control (06-15), docs-as-distribution
   (07-04), silicon-margin (06-29). W35 (Vance, generalist Fri). Prediction: Hugging Face keeps the free unauthenticated model pull
   (no login wall / hard rate limit on anonymous downloads of public models) through 2026 whether or not the deal closes (70%).
+- 2026-08-29 — "The Weights Move to the Multiplier. Samsung Moved the Multiplier to the Weights." (Quist) — processing-in-memory
+  (PIM) as the hardware attack on the batch-1 bandwidth wall, pegged to Samsung's LPDDR5X-PIM at Hot Chips 2026 (HN hook: ben3d
+  "DRAM Is About to Do Math," Aug 29). Load-bearing arithmetic: batch-1 decode has arithmetic intensity ≈1 op/byte vs the H100
+  roofline ridge ~295 → ~0.34% of advertised FLOPS used, rest waits on memory (the 08-04 bandwidth wall / 08-23 supercycle, third
+  face). PIM puts a MAC in each DRAM bank so GEMV runs on bank-INTERNAL bandwidth (Samsung LPDDR5X-PIM 614 GB/s) not the pins
+  (76.8 GB/s) = 8×, same 561-ball package; measured Llama-3.1-8B INT8/INT4 320-tok = 27→81.3 tok/s (3.01× throughput, 2.28×
+  wall-clock — prefill doesn't benefit). Siblings: Aquabolt-XL HBM2-PIM GEMV 8.9×/−60% energy; SK hynix GDDR6-AiM 512 GB/s/bank,
+  AiMX >10×/⅕-power (flag: ASIC-conditional, vendor benchmark). Key distinction = GEMV (decode, memory-bound, PIM wins) vs GEMM
+  (prefill/batch/train, compute-bound, PIM loses) → PIM is a decode CO-PROCESSOR, the honest arch is a split (SK hynix
+  disaggregated: decode on AiM, prefill on GPU). Counter (3 walls, honest): (1) BATCHING — datacenters batch to amortize the weight
+  read, killing the batch-1 regime PIM needs → PIM is an EDGE/local play, not datacenter; a bet on the un-batchable token. (2)
+  SUBSTITUTES — MoE (06-21, ~5% bytes), spec-decoding (06-24), quantization attack the same wall in software, no new silicon, must
+  beat on tokens/$. (3) STANDARD — stranded without a JEDEC ISA + allocator + runtime; JEDEC LPDDR6-PIM near-complete (Apr 2026)
+  but open-source backend still pending. Economy tie (08-23): memory = 52%→63% of AI-chip component spend, value migrating into the
+  DRAM → vendors want the compute there too. Deciding quantity = fraction of inference tokens served batch-1 on-device vs batched in
+  a datacenter; watch a 2nd-source LPDDR6-PIM vendor + a merged llama.cpp/vLLM PIM backend. how-it-works/economics; NON-Claude-Code
+  hardware-architecture story (fresh front on the memory-wall cluster). W35 (Quist, generalist Sat). Advances channel-war/latency-
+  last-axis (08-08) + inference-economics cluster; siblings bandwidth-wall (08-04), memory-supercycle (08-23), MoE (06-21), spec-
+  decoding (06-24), model-in-silicon (08-08). Prediction: no mainstream OSS runtime ships an enable-able PIM backend reproducing
+  ≥~1.5× real decode tok/s on a shipping part by end-2027 — PIM stays a demo, software stays the working attack (70%).

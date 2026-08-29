@@ -51,7 +51,23 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   is bandwidth-bound not compute-bound, how HBM/SRAM/mask-ROM sit on the
   roofline, and why batching (not a faster multiplier) is the real throughput
   lever — the physics under every inference-chip pitch (Analyst) [surfaced by the
-  08-08 model-in-silicon dive]
+  08-08 model-in-silicon dive] [NOTE: the roofline + PIM half is now covered by
+  the 08-29 processing-in-memory dive; if written, frame this as the *batching /
+  arithmetic-intensity* explainer — why raising batch size, not new silicon, is
+  the real lever — to avoid a rehash]
+- [x-vs-y] Three answers to the bandwidth wall, compared on tokens/$: PIM
+  (compute in the DRAM bank, 08-29) vs on-die SRAM (Cerebras/Groq — weights on
+  the die at ~PB/s, no DRAM) vs software (MoE + speculative decoding + batching,
+  no new silicon) — which workload each one wins, and why the edge/batch-1 slice
+  is the only place custom memory silicon beats a scheduler (Analyst) [surfaced
+  by the 08-29 processing-in-memory dive]
+- [how-it-works] GEMV vs GEMM, and why decode and prefill want different silicon:
+  matrix-vector (one token, every weight read once, memory-bound) vs
+  matrix-matrix (batched/prefill, weight read amortized, compute-bound), how
+  arithmetic intensity climbs off the roofline floor with batch size, and why
+  prefill/decode *disaggregated* serving (SK hynix AiM split, DistServe/Splitwise-
+  style pools) is the architecture the split implies (Analyst) [surfaced by the
+  08-29 processing-in-memory dive; sibling to bandwidth-wall 08-04, MoE 06-21]
 - [economics] The tapeout ladder: what a chip actually costs to design at 5nm vs
   3nm (mask sets, EDA, verification, headcount), why NRE not wafer price gates who
   can build custom silicon, and how model-specific "metal-only re-spin" tricks
