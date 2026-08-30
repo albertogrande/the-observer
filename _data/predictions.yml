@@ -1089,3 +1089,21 @@
   confidence: 70
   due: "2027-12-31"
   status: open
+
+- id: 2026-08-30-supplier-revocation-recurs
+  made: "Dive · 2026-08-30"
+  made_link: "/reports/deep-dives/2026-08-30-model-commodity-access-favor.html"
+  text: >-
+    At least one more comparably-sized AI developer tool loses first-party
+    model/API access for counterparty or business reasons — an acquisition, a
+    competitive-conflict or terms-of-service discretion clause, a policy or
+    pricing change — rather than for usage or non-payment, by end-2027. The
+    OpenAI→Cursor cutoff (wind-down by Nov 12 after SpaceX's acquisition) is not
+    a Musk-feud one-off but the first clean instance of supplier-revocation risk
+    relocating to the application layer as model capability commoditizes: the
+    token is fungible, but the right to call a specific supplier's endpoint is a
+    terminable contract. If no such cutoff recurs before 2027-12-31, Cursor was a
+    billionaire-spat exception and this was wrong.
+  confidence: 70
+  due: "2027-12-31"
+  status: open

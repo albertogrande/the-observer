@@ -1062,6 +1062,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-27 (agent-bill) | Claude Code ships a run-level interactive hard dollar cap — a per-session spend ceiling the user sets that stops the *interactive* session when hit (not the plan-level seat/workspace limit, and beyond today's print-mode-only `--max-budget-usd`) — as a documented feature by 2027-Q2; the cost instrumentation (per-subagent/per-loop `/usage` attribution, halt-on-cap for background agents) extends to an interactive brake | 55% | 2027-06-30 | OPEN |
 | Dive 2026-08-28 (hf-registry-dependency) | Through end-2026, Hugging Face keeps the free *unauthenticated* pull of public models — no login wall and no hard anonymous per-IP rate limit on `hf_hub_download`/`from_pretrained` of public repos — whether or not the reported Nvidia acquisition closes; the openness that is the Hub's value survives a change of ownership on this timescale (the npm→Microsoft path, not the Docker-Hub-2020 metering path), so the builder exposure stays a latent single-vendor dependency to hedge rather than a live breakage | 70% | 2026-12-31 | OPEN |
 | Dive 2026-08-29 (processing-in-memory) | Through end-2027, processing-in-memory stays a demo, not a default: no mainstream open-source inference runtime (llama.cpp / vLLM / MLX or peer) merges a PIM backend that a normal user can enable on a stock quantized model AND reproduces ≥~1.5× real decode tokens/sec on a shipping PIM part — so PIM's measured 3.01× stays a vendor/Hot-Chips result, and MoE + speculative decoding + batching (software, no new silicon) remain the working attack on the batch-1 bandwidth wall | 70% | 2027-12-31 | OPEN |
+| Dive 2026-08-30 (supplier-revocation) | At least one more comparably-sized AI developer tool loses first-party model/API access for counterparty or business reasons — an acquisition, a competitive-conflict/ToS discretion clause, a policy or pricing change — rather than for usage or non-payment, by end-2027; the OpenAI→Cursor cutoff is not a Musk-feud one-off but the first clean instance of supplier-revocation risk relocating to the application layer as capability commoditizes | 70% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
@@ -2524,3 +2525,42 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   last-axis (08-08) + inference-economics cluster; siblings bandwidth-wall (08-04), memory-supercycle (08-23), MoE (06-21), spec-
   decoding (06-24), model-in-silicon (08-08). Prediction: no mainstream OSS runtime ships an enable-able PIM backend reproducing
   ≥~1.5× real decode tok/s on a shipping part by end-2027 — PIM stays a demo, software stays the working attack (70%).
+- 2026-08-30 — "The Model Is a Commodity. The Right to Call It Isn't." (Okafor) — inverts the two easy reads of OpenAI
+  cutting Cursor's model access (Aug 29, wind-down by Nov 12, citing Musk's OTHER cos' ToS violations; SpaceX closed
+  the ~$60B Anysphere/Cursor buy Aug 14): read (a) "billionaire feud, ignore it"; read (b) the load-bearing engineer
+  consensus "models are commoditized (Stripe/OpenRouter >$7B, 400+ models, base-URL swap) so tool/model choice is
+  low-stakes — just swap." Steelman both (token IS fungible; API shape standardized; Cursor IS model-agnostic → on
+  paper losing a supplier is a config change). Break: Cursor did everything the portability gospel says and STILL gets
+  a hard cutoff it can't fix, because the trigger is an acquisition, not a behavior → commoditization didn't remove
+  supplier risk, it RELOCATED it. Mechanism: commoditization made the token fungible AND concentrated *serving* into a
+  few suppliers, each of whom can revoke for reasons orthogonal to price/quality/usage; the scarce non-portable asset
+  was never the weights (rent equivalents this afternoon) but a specific counterparty's willingness to keep serving
+  YOU — a business/political variable. Durable precedents (real, checkable): Twitter Jan 2023 (3rd-party clients
+  suspended within a day; dev agreement rewritten to ban "a substitute or similar service"; Tweetbot dead after 12yr,
+  Twitterrific + ~24 clients; ~hours notice); Reddit 2023 ($0.24/1k calls = $12k/50M req; Apollo 7B req/mo → ~$20M/yr
+  vs ~$500k rev; ~30 days notice; dead Jun 30). Pattern = platform opens to grow → incentives shift (owner/pricing/
+  conflict/policy) → the interface that felt like infra was a terminable contract; builder's behavior didn't change,
+  supplier's math did. Why commoditization makes it WORSE: scarce-capability lock-in was VISIBLE and priced; now the
+  lock-in feeling evaporates while serving concentrates, so the un-substitutable thing is the supplier's contract —
+  exactly what an acquisition/feud/ToS clause voids. "Swap the base URL" is load-bearing and wrong: syntactic
+  portability free, semantic not (06-22) — prompt re-tune, tool-calling reliability varies at identical schema (08-25),
+  warm cache lost, tokenizer re-counts → Cursor must re-tune+re-eval a whole product's prompt/tool surface on a new
+  provider, prove no regression for 1M+ daily devs, in ~10 weeks (a migration with someone else's deadline, not a
+  config change). Counter-thesis: model commoditization relocates supplier risk from a SOLVED capability question ("is
+  the model good enough") to an UNSOLVED governance one ("will this counterparty keep serving me + can I cut over inside
+  the notice window they choose"); the only hedge that pays is a 2nd provider WIRED and continuously EVAL'D on your real
+  workload (portability = eval discipline, 06-22) — now proven by a real revocation at the APPLICATION layer, not a
+  hypothetical. Honest counters engaged: (a) "just Musk, normal customers never get cut" — the feud is the trigger not
+  the mechanism; Apollo/Tweetbot devs weren't feuding, cut when platform math changed; every major provider ToS reserves
+  broad suspension discretion. (b) "Cursor just moves to Anthropic/house models, no big deal" — concede + proves it:
+  Cursor CAN because it's big w/ alternatives wired; a one-provider small shop has no runway, its 10 weeks spent
+  discovering prompts don't port; cost was the eval not the URL. (c) "multi-provider = LCD tax you may never need" (the
+  06-22 tension) — real, but tax is small + tail now DEMONSTRATED; go tiered not total (wire a fallback only for the
+  can't-go-dark slice). So-what: map single-supplier chokepoints you don't control; keep 1 alternate provider wired +
+  eval'd on the real workload (a cutover DRILL not a checkbox — you're measuring whether prompts/tool-calls survive the
+  move); read "multi-model support" as marketing until the drill passes; read your provider's ToS suspension/notice
+  clause (Cursor's 10 weeks vs Tweetbot's 10 hours). contrarian/news-to-framework. W35 (Okafor, generalist Sun).
+  Advances channel-war/portability from a NEW front (counterparty/supplier-revocation risk, distinct from the technical-
+  portability work) + repricing/commoditization; siblings portability-is-eval-discipline (06-22), switch-model-state
+  (08-25), channel (06-09), commoditization (W33). Prediction: ≥1 more comparably-sized AI dev tool loses model access
+  for counterparty/business reasons (not usage/payment) by end-2027 (70%).

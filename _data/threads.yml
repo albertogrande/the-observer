@@ -380,7 +380,30 @@
     the telemetry now flowing toward a chip vendor. This is the same channel law one layer up from
     the model: control of distribution is worth paying for, and someone just bid $12.9B for a slice
     every open-model build routes through.
+    W35 (contrarian lens — the risk relocated, not removed): the whole thread says the artifact
+    commoditizes — weights open, outputs distillable, price at the floor, the token fungible. This
+    is the second-order cost nobody priced. OpenAI told SpaceX it will wind down Cursor's model
+    access by Nov 12 (citing terms-of-service violations by Musk's other companies), weeks after
+    SpaceX closed its ~$60B Anysphere/Cursor buy. Cursor did everything the portability gospel says
+    — model-agnostic, multi-provider, standard API shape — and still got a hard cutoff it can't fix,
+    because the trigger is an acquisition, not a behavior. So commoditization didn't remove supplier
+    risk; it relocated it: making the token fungible concentrated the serving of that token into a
+    few suppliers, each of whom can revoke access for reasons orthogonal to price, quality, or usage.
+    The scarce, non-portable asset was never the weights (rent equivalents this afternoon) — it's a
+    specific counterparty's willingness to keep serving you, a business/political variable. The
+    durable precedents are exact: Twitter Jan 2023 (dev agreement rewritten overnight to ban "a
+    substitute or similar service"; Tweetbot dead after 12 years; ~hours' notice) and Reddit 2023
+    ($0.24 per 1,000 calls; Apollo's 7B requests/month → ~$20M/year; ~30 days; dead Jun 30). Each
+    platform was "open" until the supplier's incentives moved. And "just swap the base URL" is the
+    W25 syntactic-vs-semantic point at the application layer: prompts re-tune, tool-calling
+    reliability differs, the warm cache is gone (06-22, 08-25), so a 75-day notice to re-tune and
+    re-eval a whole product's prompt/tool surface on a new provider is a migration with someone
+    else's deadline, not a config change. The hedge that pays is the same one — a second provider
+    wired and continuously eval'd, tiered to the can't-go-dark slice — now proven by a real
+    revocation, not a hypothetical. Deciding quantity: your notice window × whether a second
+    provider is already wired-and-eval'd or merely listed on a slide.
   issues:
+    - { label: "Dive · The Model Is a Commodity, the Right to Call It Isn't", link: "/reports/deep-dives/2026-08-30-model-commodity-access-favor.html" }
     - { label: "Dive · Your Build Depends on huggingface.co", link: "/reports/deep-dives/2026-08-28-your-build-depends-on-huggingface.html" }
     - { label: "Dive · A Two-Point Lead Needs Four Thousand Questions", link: "/reports/deep-dives/2026-08-26-two-point-lead-eval-sample-size.html" }
     - { label: "Dive · You Can Switch Models, Not the State", link: "/reports/deep-dives/2026-08-25-switch-model-not-state.html" }
