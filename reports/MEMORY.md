@@ -790,6 +790,24 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   TensorFlow died at Google on distribution, not tech). Deciding quantity = # of *non-Qualcomm* hardware vendors shipping
   MAX as default (0 = house tool; 2 = CUDA finally has a software problem). Levers channel-war (the moat is the software
   people know) + commoditization. → [dive 2026-08-24](./deep-dives/2026-08-24-qualcomm-mojo-commoditize-cuda.md)
+  W35 (editor lens — the vertical fold, both directions in one week): the thread's two-sided consummation. Nvidia
+  (silicon, ~70% inference margin) reportedly agreed to buy Hugging Face ~$12.9B (~86× ~$150M rev; The Information
+  "agreed" vs BI "in talks" — UNCONFIRMED, could fall through) = chip vendor reaching UP for the distribution channel
+  (the default `from_pretrained` origin; top-50 entities ~80% of pulls; neutrality literally coded as `optimum`'s
+  cross-silicon backends optimum-nvidia/-amd/-intel/-neuron). SAME week OpenAI (model lab) took its inference ASIC
+  Jalapeño (Broadcom, co-designed since Jun 06-29) to Hot Chips claiming ~1.5–1.9× perf/watt vs Blackwell = model lab
+  reaching DOWN to escape Nvidia's margin. SemiAnalysis: unfair (Jalapeño HBM4 vs shipping Blackwell; fair compare =
+  Vera Rubin, margin narrows) → treat as vendor claim. Both = flight from the commoditized model MIDDLE (Chinese open
+  weights ~61% of routed tokens; GLM-5.3/Qwen3.8-Flash-Next/Tencent Hy4 open in 5 days; "Small Models Have Arrived"
+  French-Owen). The Monday dive took the ANTITRUST question the 08-28 builder daily left open: Nvidia–Arm redux (FTC +
+  EU + CMA killed the ~$40B Arm deal Feb 2022 via review pressure, ~$1.25B breakup; dominant chip vendor buys neutral
+  cross-industry input; a straight $12.9B buy can't dodge HSR like Nvidia's acqui-hires) → the deal probably doesn't
+  close intact; real lesson = the open ecosystem built a single chokepoint (99% of pulls, one hostname) and called it
+  neutral; HF_ENDPOINT/ModelScope/pinned-SHA exit ramps exist but imperfect (some tools hardcode the URL). Commoditize-
+  your-complement (Spolsky 2002/Gwern; Stability = commoditized-image-gen-captured-nothing counter). Deciding quantity =
+  whether a direct chip-vendor acquisition of the neutral registry clears review intact.
+  → [2026-W35](./2026-W35.md), [dive 2026-08-31](./deep-dives/2026-08-31-nvidia-hf-deal-doesnt-close.md),
+  [dive 2026-08-28](./deep-dives/2026-08-28-your-build-depends-on-huggingface.md)
   → [dive 2026-06-29](./deep-dives/2026-06-29-why-ai-labs-build-chips.md), [2026-W29](./2026-W29.md),
   [dive 2026-08-08](./deep-dives/2026-08-08-model-in-silicon-shelf-life.md)
 - **Consumer-AI business model / the ad in the answer** `↑` (new W30) — the free tier is a bill nobody's
@@ -1063,9 +1081,11 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-28 (hf-registry-dependency) | Through end-2026, Hugging Face keeps the free *unauthenticated* pull of public models — no login wall and no hard anonymous per-IP rate limit on `hf_hub_download`/`from_pretrained` of public repos — whether or not the reported Nvidia acquisition closes; the openness that is the Hub's value survives a change of ownership on this timescale (the npm→Microsoft path, not the Docker-Hub-2020 metering path), so the builder exposure stays a latent single-vendor dependency to hedge rather than a live breakage | 70% | 2026-12-31 | OPEN |
 | Dive 2026-08-29 (processing-in-memory) | Through end-2027, processing-in-memory stays a demo, not a default: no mainstream open-source inference runtime (llama.cpp / vLLM / MLX or peer) merges a PIM backend that a normal user can enable on a stock quantized model AND reproduces ≥~1.5× real decode tokens/sec on a shipping PIM part — so PIM's measured 3.01× stays a vendor/Hot-Chips result, and MoE + speculative decoding + batching (software, no new silicon) remain the working attack on the batch-1 bandwidth wall | 70% | 2027-12-31 | OPEN |
 | Dive 2026-08-30 (supplier-revocation) | At least one more comparably-sized AI developer tool loses first-party model/API access for counterparty or business reasons — an acquisition, a competitive-conflict/ToS discretion clause, a policy or pricing change — rather than for usage or non-payment, by end-2027; the OpenAI→Cursor cutoff is not a Musk-feud one-off but the first clean instance of supplier-revocation risk relocating to the application layer as capability commoditizes | 70% | 2027-12-31 | OPEN |
+| 2026-W35 | By end of Q1 2027 at least one more silicon/infrastructure vendor (Nvidia/AMD/Broadcom/a hyperscaler) acquires or takes a controlling stake in a model-*distribution* or developer-*surface* layer (hub / router / coding tool / agent runtime) beyond the reported Nvidia–Hugging Face deal — the vertical fold continues, value keeps fleeing the commoditized model into the layers around it and ownership follows | 65% | 2027-Q1 | OPEN |
+| Dive 2026-08-31 (nvidia-hf-antitrust) | The Nvidia–Hugging Face acquisition as reported (~$12.9B, full control) does NOT close on its original terms by end-2027 — blocked, abandoned, or materially restructured (minority stake / governance firewall / mandated open-access or backend-neutrality conditions / divestiture) under antitrust pressure in ≥1 of US/EU/UK, following the Nvidia–Arm pattern; a direct chip-vendor acquisition of the neutral model registry is unwinnable intact | 60% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
-(No prediction came due in the W34 window either — the nearest, the W30 framework-shape leg, had its shape-leg settled RIGHT in W31 and its year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W34 verbosity-default 60%; dive 08-24 Mojo/MAX-not-a-standard 70%.)
+(No prediction came due in the W35 window either — the nearest, the W25 first-party multi-provider-fallback call, is due ~2026-09-20; the W30 year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W35 edge-layer-acquisition 65%; dive 08-31 Nvidia/HF-doesn't-close 60%.)
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
 (W27 settled two: W24 export-ban call RIGHT — fully rescinded Jul 1, Brier 0.12;
 W23 Copilot-walkback call WRONG — no walkback, GitHub tightened, Brier 0.49. The
@@ -1187,6 +1207,16 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   tok/day); Cursor Origin + GitHub's 8h outage same day (Aug 17); Claude protein binders 14/15 + Moderna/Merck
   mRNA Phase 3 (verifier asymmetry); Anthropic IPO $190–200B 2028 rev; Nvidia guarantee $250B→<$120B; OpenAI Astra
   paused (Critical cyber); DRAM +500%; MCP roadmap (agent identity). Prediction: low-preamble default by 11-23 (60%)
+- 2026-W35 — "Nvidia Reached Up. OpenAI Reached Down. Nobody Wants the Middle." — the vertical fold in both
+  directions in one week: Nvidia (silicon) reportedly buys Hugging Face ~$12.9B (chip vendor reaching UP for
+  distribution) while OpenAI (model lab) takes its Jalapeño inference ASIC to Hot Chips claiming ~1.5–1.9× perf/watt
+  vs Blackwell (reaching DOWN for silicon; SemiAnalysis: unfair HBM4 compare). Both flee the commoditized model
+  middle — Chinese open weights ~61% of routed tokens (GLM-5.3/Qwen3.8-Flash-Next/Tencent Hy4 open in 5 days;
+  "Small Models Have Arrived"). OpenAI→Cursor cutoff = the middle's exposure (supplier revocation). Also: judge
+  rules Pentagon's Anthropic blacklisting unlawful (Judge Lin, 1st/5th Am); 315K reasoning blocks decoded via shared
+  key (patched); AWS buys DuckLabs (not DuckDB); MTurk shuts Sep 30; Stripe–Advent drop $50B PayPal; Anthropic Model
+  Hardware Standard; CC /cost + --max-budget-usd + restricted mode + PreModelSwitch hooks + symlink fix; Agentic
+  Coding Trends AI in ~60% of work / 0–20% fully delegable. Prediction: another edge-layer acquisition by Q1'27 (65%)
 
 ### Deep dives
 - 2026-06-11 — "The Meter Is the Confession" — AI coding pricing; metering as
@@ -2564,3 +2594,24 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   portability work) + repricing/commoditization; siblings portability-is-eval-discipline (06-22), switch-model-state
   (08-25), channel (06-09), commoditization (W33). Prediction: ≥1 more comparably-sized AI dev tool loses model access
   for counterparty/business reasons (not usage/payment) by end-2027 (70%).
+- 2026-08-31 — "Nvidia Can't Quietly Own the Model Hub" (house, the week's second piece) — the ANTITRUST/strategic
+  question the 08-28 builder daily left open: does Nvidia actually get to keep Hugging Face? Thesis (two parts):
+  (1) the reported ~$12.9B deal probably doesn't close intact, and (2) the outcome barely matters — the deal already
+  showed the open-model world it built a single chokepoint and called it neutral. Spine = Nvidia–Arm redux: FTC sued
+  Dec 2021 (vertical foreclosure theory) + EU + UK CMA in parallel → Nvidia abandoned the ~$40B Arm deal Feb 2022,
+  ~$1.25B breakup, no court ever ruled (the REVIEW was the wall). Same fact pattern: dominant chip firm buys a neutral
+  cross-industry input rivals (AMD/Intel/AWS/Google/every open-weight lab) can't avoid; a straight acquisition triggers
+  HSR + EU/UK review, unlike Nvidia's recent quasi-mergers/acqui-hires. HF as chokepoint: 2016 chatbot → BERT/`transformers`
+  → default `from_pretrained` origin; small fraction of repos = vast majority of pulls; neutrality coded as `optimum`'s
+  cross-silicon backends (the lever an owner tilts: default backend/search rank/badge/telemetry/free-pull). Why buy vs
+  invest: commoditize-your-complement (Spolsky 2002/Gwern) explains funding it, NOT paying 86× rev for control you
+  promise never to use; the rejected late-2025 $500M/$7B stake (declined to avoid one dominant investor) is the tell.
+  Steelman engaged: HF≠Arm (models abundant/downloadable → weak foreclosure; Google/DoubleClick waved through; benign-
+  owner keeps-it-open incentive; permissive env) → rebutted (you pay 86× for the DEFAULT not the files; review-is-the-
+  cost regardless; behavioral remedies distrusted). So-what: in every branch (drags/dies/remedies/clean) the move is
+  identical — stop treating one hostname as neutral infra (pin SHAs, HF_ENDPOINT, mirrors/ModelScope, self-host cache);
+  Docker Hub 2020 (metered, broke CI) vs npm/GitHub→MS (stayed open) = the outcome is uncertain, which is the argument
+  for not depending on it. What-would-change-my-mind = closes clean <12mo w/ no remedy + non-Nvidia optimum backends
+  stay first-class. AI/tech/economy/devtools + antitrust. Advances labs-go-vertical + channel-war threads; siblings
+  hf-registry-dependency (08-28, the builder half), why-labs-build-chips (06-29), channel (06-09), mojo-cuda (08-24).
+  Prediction: deal doesn't close on original terms by end-2027 (60%).
