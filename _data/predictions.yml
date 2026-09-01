@@ -1107,3 +1107,23 @@
   confidence: 70
   due: "2027-12-31"
   status: open
+
+- id: 2026-09-01-dnr-vocabulary-gap-holds
+  made: "Dive · 2026-09-01"
+  made_link: "/reports/deep-dives/2026-09-01-chrome-declarativenetrequest-ceiling.html"
+  text: >-
+    Through end-2027, the binding constraint on Chrome content blocking stays the
+    declarativeNetRequest expressiveness gap, not its rule budget: Chrome does NOT
+    add a declarativeNetRequest primitive that lets an extension filter on
+    response-body or response-header content, nor a sanctioned per-site "top
+    context" dynamic-filtering rule. Google may raise the static-rule caps (30,000
+    guaranteed / 300,000 global) — that number is soft — but the operations the
+    declarative model structurally cannot express (dynamic/per-site filtering,
+    response-content filtering, CNAME uncloaking, response-body rewrite) remain off
+    the table, so uBlock Origin Lite stays a genuine "lite" version rather than
+    reaching parity with the Manifest V2 engine. If Chrome ships either a
+    response-content filtering rule or a per-site dynamic-filtering primitive
+    before 2027-12-31, this was wrong.
+  confidence: 70
+  due: "2027-12-31"
+  status: open

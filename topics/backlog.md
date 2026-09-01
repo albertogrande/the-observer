@@ -345,6 +345,21 @@ Code Watch.*
 
 ## Live — devtools & systems
 
+- [how-it-works] Declarative vs imperative extension APIs, the general pattern:
+  why moving a capability from "run my callback" (blocking webRequest, arbitrary
+  logic, sees everything) to "match my rules" (declarativeNetRequest, a fixed
+  grammar the host evaluates) trades expressiveness for safety+speed+privacy in
+  every host — browsers, MCP tool schemas, permission systems — and how to tell
+  which class of feature survives the move and which is structurally lost (the
+  no-top-context, no-response-body operations) (Analyst/Builder) [surfaced by the
+  09-01 declarativeNetRequest-ceiling dive]
+- [x-vs-y] The three browsers' content-filtering models compared, on capability
+  not politics: Chrome MV3 declarativeNetRequest (30k/300k rule budget, no dynamic
+  filtering) vs Firefox (kept blocking webRequest, full uBO) vs Safari Content
+  Blocker (a much older declarative-rules-only model with its own per-extension
+  rule cap — verify the current number) — Safari has
+  run the MV3 experiment since 2015, so its content-blocker ecosystem is the
+  natural forecast for where Chrome's lands (Analyst) [surfaced by the 09-01 dive]
 - [practical-guide] Run your own model mirror: standing up an `HF_ENDPOINT`
   pull-through cache / proxy (Pulp, Artifactory-style, or an S3-backed mirror) so
   your builds don't depend on huggingface.co's uptime, pricing, or ownership — plus

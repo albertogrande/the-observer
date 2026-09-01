@@ -2615,3 +2615,29 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   stay first-class. AI/tech/economy/devtools + antitrust. Advances labs-go-vertical + channel-war threads; siblings
   hf-registry-dependency (08-28, the builder half), why-labs-build-chips (06-29), channel (06-09), mojo-cuda (08-24).
   Prediction: deal doesn't close on original terms by end-2027 (60%).
+- 2026-09-01 — "Chrome Capped Ad Blocking at 30,000 Rules. That's Not the Part That Hurts." (Quist) — the Manifest V2→V3
+  transition as an API architecture swap, not a policy, pegged to Google removing all remaining MV2 extensions (incl.
+  uBlock Origin) from the Chrome Web Store Aug 31 2026 (last milestone on a timeline: no new public MV2 Jan-2022 →
+  disabling began Oct-2024 → all channels off Mar-2025 → Chrome 138 the final build Jul-2025). Non-AI devtools/systems
+  story; discharges W36 devtools slot (first dive of the week). Subject = blocking `webRequest` (imperative: an arbitrary
+  JS callback on every request, sees everything, unbounded) → `declarativeNetRequest` (declarative: ship rules, browser
+  matches, extension never in the loop). TWO separate costs, and the loud one is the wrong one. (1) BUDGET (soft): DNR
+  guarantees 30,000 static rules/extension + a 300,000 shared global pool across all extensions, 50 of 100 enabled
+  rulesets, 30,000 dynamic (5,000 "unsafe"), 5,000 session, 1,000 regex each (Chrome docs). EasyList ALONE = 33,703
+  network rules in a 2019 census (Snyder et al., flagged as 2019) → one default list exceeds the 30k guarantee, but the
+  cap is raisable so it's theater. (2) VOCABULARY (hard, the real ceiling): things DNR can't express at ANY rule count —
+  no dynamic/per-site filtering ("does not enforce rules according to the top context"), no response-body/header-content
+  filtering, no CNAME uncloaking, no `replace=`, no generic cosmetic-by-default (gorhill's uBO-Lite FAQ = the honest spec
+  sheet, written by the person with max incentive to find the ceiling high). Deciding quantity = the fixed count of
+  operations DNR structurally can't say, NOT 30,000. Strongest counter engaged honestly: Google's rationale is real —
+  blocking webRequest routed every request through 3rd-party JS (top exfiltration vector + synchronous hot-path slowdown);
+  DNR fixes both by construction (extension never sees traffic, browser-native match, filters at launch w/ no SW wake).
+  So the honest sentence: Chrome didn't ban ad blocking, it swapped unlimited-expressiveness-for-unsafe-and-slow for
+  safe-and-fast-but-less-expressive, and the expressiveness dropped = exactly what the best blocker needed. So-what:
+  builders design to the grammar (no top context, no response body) from day 1; users — capability relocated (Firefox
+  kept webRequest, Brave rehosts MV2 incl. uBO on its own backend; Web Store is the distribution chokepoint even for other
+  Chromium browsers). x-vs-y/how-it-works. W36 (Quist, generalist Tue). Cross-domain echo of the capability-relocates
+  thread (cut the dominant channel → demand re-forms where the constraint isn't); siblings export-control (06-15,
+  cannot-export-control-a-model), channel (06-09), switch-off-capability (W25). Prediction: Chrome does NOT add a
+  declarativeNetRequest primitive for response-header-content filtering or sanctioned per-site dynamic rules ("top
+  context") by end-2027 — the vocabulary gap, not the rule cap, stays the binding constraint (70%).
