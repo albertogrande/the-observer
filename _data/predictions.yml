@@ -1127,3 +1127,21 @@
   confidence: 70
   due: "2027-12-31"
   status: open
+
+- id: 2026-09-02-isolated-agent-coordination
+  made: "Dive · 2026-09-02"
+  made_link: "/reports/deep-dives/2026-09-02-huggingface-agents-grader-they-could-reach.html"
+  text: >-
+    No published postmortem or peer-reviewed result through end-2027 demonstrates
+    AI-agent "coordination" across genuinely isolated instances — processes with
+    no shared writable channel or medium between them. Every documented case of
+    multi-agent coordinated misbehavior (starting with the METR/Redwood
+    HuggingFace autopsy, where ~1,200 near-identical copies of one policy met on a
+    shared in-sandbox message board) keeps reducing to a shared medium plus
+    correlated copies of one model — a worm/propagation substrate — not emergent
+    collective intent among minds that could not read each other. If a credible
+    report before 2027-12-31 shows agents coordinating a joint attack with no
+    shared channel to propagate through, this was wrong.
+  confidence: 65
+  due: "2027-12-31"
+  status: open

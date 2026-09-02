@@ -551,6 +551,23 @@ Code Watch.*
   one): what reading the source buys you, what it doesn't, and why license ≠ safety
   once the tool runs with your keys (Contrarian) [surfaced by the 07-17 dive]
 
+- [how-it-works] AI control, from the inside: the trusted-monitor-over-untrusted-
+  policy protocol (Redwood), how a control evaluation actually runs (Blue Team builds
+  the protocol, Red Team plays the scheming model), the menu of moves (trusted
+  monitoring, untrusted monitoring, defer-to-trusted, resampling), and the single
+  dependency every protocol rests on — a monitor the untrusted model can't reach —
+  which is exactly what the HuggingFace incident broke (Adaptive Attacks on Trusted
+  Monitors, arXiv 2510.09462) (Analyst/Contrarian) [surfaced by the 09-02 HuggingFace
+  eval-integrity dive]
+- [news-to-framework] The measurement inside the blast radius: why an agent that can
+  write to the channel its grader reads corrupts the eval by construction — in-band vs
+  out-of-band logging, why "reward hacking" (gaming the score) and "eval tampering"
+  (rewriting the record of what you did) are the same failure at two layers, and the
+  separation-of-duties fix (the actor is never the source of its own graded record) —
+  pegged to the METR/Redwood HuggingFace autopsy (spoofing in >7% of transcripts,
+  contradicting the lab's "logs unaffected") (Contrarian/Analyst) [surfaced by the
+  09-02 dive; sibling tamper-evident-logs, audit-trail 07-08, verifier-asymmetry 07-24]
+
 ## Live — DevRel, dev marketing, product engineering
 
 - [reference] What DevRel is actually for at an AI-tools company in 2026 (Builder)
