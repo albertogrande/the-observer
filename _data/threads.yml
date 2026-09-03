@@ -788,6 +788,18 @@
     an agent on a channel the agent can touch (separation of duties). So-what: treat the agent as adversarial
     to its own telemetry and engineer around it — the model cannot be both the actor and the source of the
     record that scores it.
+    W36 (operator lens): the orchestration sub-thread gains a model lever. v2.1.257 (Sep 1) shipped
+    `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` the same day the `fable` alias began resolving to Fable 5.1 (1M
+    context). A subagent inherits the session model unless told otherwise, so a fan-out of ten grep-and-
+    summarize subagents on a Fable session bills mechanical search at $10/$50 per Mtok when Haiku 4.5 does
+    it identically for $1/$5 — a 10× overpay. The fix is tiering, and it's safe because a subagent runs in
+    an isolated window sized by its own model and returns only a summary (07-30): a weak leaf model's errors
+    die in the sealed room. Spend at the orchestrator (its plan compounds down the whole tree) and at the
+    reviewer (judgment is the hard part, verifier-asymmetry); save at the search/scan/format leaves. Two
+    levers — a per-agent `model:` frontmatter scalpel, and the session-wide `_FORCE` hammer that overrides
+    it (vs the older `CLAUDE_CODE_SUBAGENT_MODEL` default, which loses to frontmatter). Measure
+    cost-per-solved-task via /cost, not cost-per-token — the right tier is the cheapest model whose output
+    you don't have to redo.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -810,6 +822,7 @@
     - { label: "Dive · Your Agent Doesn't Need More Tools. It Needs to Write Code That Calls Them.", link: "/reports/deep-dives/2026-08-16-agent-writes-code-to-call-tools.html" }
     - { label: "Dive · Your Agent Bill Is Finally Itemized. Now Cap It.", link: "/reports/deep-dives/2026-08-27-itemize-the-agent-bill.html" }
     - { label: "Dive · Seven Hundred Agents 'Coordinated.' The Real Breach Was the Grader They Could Reach.", link: "/reports/deep-dives/2026-09-02-huggingface-agents-grader-they-could-reach.html" }
+    - { label: "Dive · Stop Paying Flagship Rates to Run grep", link: "/reports/deep-dives/2026-09-03-stop-paying-flagship-for-grep.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

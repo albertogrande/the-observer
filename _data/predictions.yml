@@ -1145,3 +1145,19 @@
   confidence: 65
   due: "2027-12-31"
   status: open
+
+- id: 2026-09-03-no-auto-subagent-tiering
+  made: "Dive · 2026-09-03"
+  made_link: "/reports/deep-dives/2026-09-03-stop-paying-flagship-for-grep.html"
+  text: >-
+    Claude Code does NOT ship automatic subagent model-tiering by 2027-Q2 — the
+    harness will not auto-route bounded/search subagents to a cheaper model on
+    its own. Choosing a cheaper model for a leaf subagent stays a manual
+    decision: a per-agent `model:` frontmatter line, the
+    `CLAUDE_CODE_SUBAGENT_MODEL` default, or the `CLAUDE_CODE_SUBAGENT_MODEL_FORCE`
+    override shipped in v2.1.257. If Anthropic ships an on-by-default "use a
+    cheaper model for simple/search subagents" router that picks the tier without
+    explicit config, this was wrong.
+  confidence: 60
+  due: "2027-Q2"
+  status: open

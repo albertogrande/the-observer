@@ -293,6 +293,12 @@ Code Watch.*
   MAX_THINKING_TOKENS, and the rest, with what each one buys (Operator)
 - [practical-guide] Externalized memory across /clear: designing a PROGRESS.md
   handoff file an agent can dump to and reload without losing the "why" (Operator)
+- [x-vs-y] `opusplan` and the plan/execute model split: does driving planning on a
+  strong model and execution on a cheaper one actually beat one model end-to-end,
+  and where the handoff drops context (Operator) — sibling to the 09-03 tiering dive
+- [reference] The subagent context budget in practice: a subagent's window is sized
+  by *its own* model (Haiku leaf = Haiku window), so forcing a cheap tier also caps
+  what a leaf can read — how to tier by context need, not just reasoning need (Operator)
 - [practical-guide] A tool-call reliability eval: the small fixed harness you run
   on every model bump to catch schema-adherence regressions before prod (Builder)
 - [how-it-works] Grammar-constrained / strict decoding from the inside: how a JSON

@@ -2692,3 +2692,32 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   Prediction: no published postmortem through end-2027 demonstrates AI-agent coordination across genuinely isolated
   instances (no shared writable channel / medium between them) — documented "coordination" keeps reducing to a shared
   medium + correlated copies of one policy (65%).
+- 2026-09-03 — "Stop Paying Flagship Rates to Run grep" (Sandoval, Claude Code edition) — model TIERING across
+  the agent tree; a fresh front on the orchestration sub-thread (07-30 = subagent as context-isolation; this =
+  which MODEL per tier). Peg: v2.1.257 (Sep 1) made `fable` alias resolve to Fable 5.1 (1M ctx) AND shipped
+  `CLAUDE_CODE_SUBAGENT_MODEL_FORCE`. Failure: a subagent inherits the SESSION model unless told otherwise (docs
+  resolution order: per-call model → frontmatter `model:` (`inherit`=main) → `CLAUDE_CODE_SUBAGENT_MODEL` env →
+  main model), so fanning out 10 grep-and-summarize subagents on a Fable session bills grep at $10/$50 vs Haiku
+  $1/$5 = 10× overpay on identical tokens. Load-bearing mechanism (sub-agents docs, verified): each subagent =
+  fresh ISOLATED window sized by ITS OWN model, sees none of your history, returns only a summary → a weak leaf
+  model's errors + 40K grep spew die in the sealed room, only the distilled result crosses back → cheap model is
+  SAFE at the leaf, quality pays at the ORCHESTRATOR (holds plan/decides spawns/writes commits; bad plan wastes
+  every subagent). Anti-pattern = cheap-out the planner (compounds down whole tree) or the reviewer (verifier IS
+  the hard part, 07-24). Tier by JOB not depth: orchestrator/review = Fable/Opus; search/scan/format = Haiku.
+  Two levers: SCALPEL = per-agent `model:` frontmatter (travels w/ agent); HAMMER = `CLAUDE_CODE_SUBAGENT_MODEL_FORCE`
+  (overrides frontmatter, session-wide ceiling) vs the older `CLAUDE_CODE_SUBAGENT_MODEL` (a DEFAULT, loses to
+  frontmatter). Prices (pricing page, verified): Fable 5.1 $10/$50, Opus 5 $5/$25, Sonnet 5 $2/$10, Haiku 4.5
+  $1/$5; 1M ctx at STANDARD rate (no >200K multiplier → removes price brake on filling window, NOT the rot brake
+  06-25); Fable 5.1 cache-read $0.25/Mtok (0.025×, 4× cheaper than std 0.1×) → keep big stable cached prefix on
+  top model. Subagent-window wrinkle: forcing subagents to Haiku also hands them Haiku's smaller window → tier by
+  CONTEXT need too. VERIFY/FLAG beat: W36 scout said Sonnet 5 rose to $3/$15 Sep 1; primary pricing page says the
+  increase was CANCELLED, $2/$10 is now standard — used the primary, flagged the discrepancy inline. So-what:
+  `model: haiku` on search/scan agents, `inherit` on planner/reviewer; `/model fable` or `opusplan` up top;
+  `CLAUDE_CODE_SUBAGENT_MODEL_FORCE=haiku` for bulk sweeps only; measure cost-per-SOLVED-task via /cost (08-27),
+  not per-token (meter thread) — right tier = cheapest model whose output you don't redo. practical-guide/
+  reference; Claude Code slot for W36 (Thu). Advances autonomy-before-brakes/context-budget + orchestration
+  sub-thread; extends subagents-context-not-speed (07-30) + fan-out-budget (06-13) with the model lever; levers
+  channel-war/commoditization (route by workload×price) + meter (cost/solved-task); siblings context-budget
+  (06-25), verifier (07-24), itemize-the-bill (08-27), tokenizer (07-14). Prediction: Claude Code does NOT ship
+  automatic subagent model-tiering (the harness auto-routing bounded/search subagents to a cheaper model without
+  explicit frontmatter/env config) by 2027-Q2 — tiering stays a manual `model:`/`_FORCE` decision (60%).
