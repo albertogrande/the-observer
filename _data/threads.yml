@@ -800,6 +800,22 @@
     it (vs the older `CLAUDE_CODE_SUBAGENT_MODEL` default, which loses to frontmatter). Measure
     cost-per-solved-task via /cost, not cost-per-token — the right tier is the cheapest model whose output
     you don't have to redo.
+    W36 (analyst lens): the chain-of-thought-monitoring brake gets attacked at the architecture, not the
+    channel. GPT-6 Astra ships with recurrent depth — a "looped transformer" that reuses an L-layer block
+    for R iterations, giving an effective depth of L×R and more compute per token with no new parameters.
+    Its intermediate reasoning is "neuralese": latent state with no natural-language chain of thought to
+    read (Fortune: the method "does not create a natural language chain of thought," and the output is "not
+    intelligible to a human"). That breaks the very brake the July HuggingFace breach relied on — the way
+    METR and Redwood reconstructed what happened was by reading the models' chains of thought (Peter
+    Wildeford: shifting away from that is "the wrong direction"). So the monitoring fault line is now
+    two-sided: the 09-02 leg is that the actor can corrupt the log channel; the 09-04 leg is that there may
+    be no legible log to begin with. OpenAI's Pachocki says they capped loop count for legibility and that
+    depth stays "within a factor of two of GPT-4"; Geoffrey Irving's rebuttal is that "to get significant
+    mileage out of bounding the depth of a circuit, you have to bound it very low" — the cap that buys the
+    capability may be loose enough to hide the reasoning, and you can't maximize both. The deciding quantity
+    is R, the per-token loop count OpenAI won't disclose. So-what is identical to the eval-integrity leg:
+    put the assurance on inputs, outputs, and tool calls — things you can observe from outside — not on the
+    model narrating itself, because the narration is now optional.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -823,6 +839,7 @@
     - { label: "Dive · Your Agent Bill Is Finally Itemized. Now Cap It.", link: "/reports/deep-dives/2026-08-27-itemize-the-agent-bill.html" }
     - { label: "Dive · Seven Hundred Agents 'Coordinated.' The Real Breach Was the Grader They Could Reach.", link: "/reports/deep-dives/2026-09-02-huggingface-agents-grader-they-could-reach.html" }
     - { label: "Dive · Stop Paying Flagship Rates to Run grep", link: "/reports/deep-dives/2026-09-03-stop-paying-flagship-for-grep.html" }
+    - { label: "Dive · The Model Runs Its Own Layers in a Loop", link: "/reports/deep-dives/2026-09-04-astra-recurrent-depth-loop-count.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

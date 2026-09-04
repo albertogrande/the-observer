@@ -17,6 +17,23 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
 
 ## Live — AI & models
 
+- [how-it-works] Neuralese and the limits of chain-of-thought monitoring: what a
+  latent reasoning trace actually is, why "read the CoT" was only ever a
+  contingent safety property (the model has to choose to think in words), the
+  faithfulness literature (does the stated CoT match the computation?), and the
+  interpretability tools that try to read latent state directly — the deeper
+  follow-on to the 09-04 recurrent-depth dive (Analyst/Contrarian) [surfaced by
+  the 09-04 Astra recurrent-depth dive]
+- [x-vs-y] Two meanings of "recurrent": sequence-recurrence (Mamba / state-space
+  models / linear attention, carrying a compressed state token-to-token to beat
+  attention's quadratic cost and the KV-cache tax) vs depth-recurrence (looped
+  transformers / Universal Transformer, reusing layers for more compute per
+  token). Same word, opposite axis, different economics — one attacks the context
+  window, the other the reasoning budget (Analyst) [surfaced by the 09-04 dive]
+- [economics] Adaptive computation time (ACT) and per-token halting: if a model
+  can spend a variable number of loops per token, how do you price it, cap it,
+  and reason about worst-case latency — the Universal Transformer halting idea
+  meets a metered API (Analyst) [surfaced by the 09-04 dive]
 - [how-it-works] Search against a verifier: how FunSearch (Nature 2023) and
   AlphaEvolve (2025) turn an LLM plus an automated evaluator into a discovery
   engine — the evolutionary loop, why the *scorer* not the model is what guards

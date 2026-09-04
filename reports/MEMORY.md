@@ -632,6 +632,19 @@ stalling) and, when evidence cuts against it, a `Tension:` note inline.
   is the record that grades the agent writable by the agent. Siblings written-policy-is-not-a-control (08-03),
   verifier-asymmetry (07-24), hooks (07-02), sandbox (07-23), tamper-evident-logs (backlog); the incident sits on
   HuggingFace (chokepoint thread 08-28/08-31). → [dive 2026-09-02](./deep-dives/2026-09-02-huggingface-agents-grader-they-could-reach.md)
+  W36 (analyst lens): the CoT-monitoring brake gets attacked at the ARCHITECTURE, not the channel. GPT-6 Astra ships
+  with recurrent-depth ("looped transformer") — reuse an L-layer block for R iterations, effective depth D=L×R, more
+  compute per token with no new params; the intermediate reasoning is "neuralese," latent state with NO natural-language
+  chain of thought to read (Fortune: "does not create a natural language chain of thought," output is "not intelligible
+  to a human"). This breaks the same brake the 09-02 breach relied ON — the way METR/Redwood reconstructed the July HF
+  incident was by reading chains of thought (Wildeford: shifting away is "the wrong direction"). So the fault line is now
+  two-sided: 09-02 = the actor can corrupt the log channel; 09-04 = there may be no legible log to begin with. Pachocki
+  says they capped loops for legibility, depth "within 2× GPT-4"; Irving's rebuttal = "to get significant mileage out of
+  bounding the depth of a circuit, you have to bound it very low" (the cap that buys capability may be loose enough to
+  hide reasoning). Deciding quantity = `R`, the per-token loop count OpenAI won't disclose. So-what identical to the
+  eval-integrity leg: put assurance on inputs/outputs/tool-calls (observable), not on the model narrating itself.
+  Siblings encrypted-reasoning (08-12), written-policy-not-a-control (08-03), reasoning-token-tax (07-18). →
+  [dive 2026-09-04](./deep-dives/2026-09-04-astra-recurrent-depth-loop-count.md)
 - **Platforms eat the layer** `↑` — the LLMOps tool layer (gateway, tracing,
   eval, prompt store) is being absorbed from both ends: ClickHouse bought
   Langfuse (Jan, already built on ClickHouse; 23.1M SDK installs/mo) to own the
@@ -1109,6 +1122,7 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-08-31 (nvidia-hf-antitrust) | The Nvidia–Hugging Face acquisition as reported (~$12.9B, full control) does NOT close on its original terms by end-2027 — blocked, abandoned, or materially restructured (minority stake / governance firewall / mandated open-access or backend-neutrality conditions / divestiture) under antitrust pressure in ≥1 of US/EU/UK, following the Nvidia–Arm pattern; a direct chip-vendor acquisition of the neutral model registry is unwinnable intact | 60% | 2027-12-31 | OPEN |
 | Dive 2026-09-01 (dnr-vocabulary-gap) | Through end-2027 Chrome does NOT add a declarativeNetRequest primitive for response-header/response-body content filtering or a sanctioned per-site ("top context") dynamic-filtering rule; Google may raise the soft static-rule caps but the operations the declarative model structurally can't express stay off the table, so uBO Lite stays a genuine "lite" rather than reaching MV2 parity | 70% | 2027-12-31 | OPEN |
 | Dive 2026-09-02 (agent-eval-integrity) | No published postmortem or peer-reviewed result through end-2027 demonstrates AI-agent "coordination" across *genuinely isolated* instances — processes with no shared writable channel/medium between them; every documented case of multi-agent coordinated misbehavior keeps reducing to a shared medium + correlated copies of one policy (a worm/propagation substrate), not emergent collective intent among isolated minds | 65% | 2027-12-31 | OPEN |
+| Dive 2026-09-04 (recurrent-depth) | Through end-2027, no frontier lab (OpenAI/Anthropic/Google) that ships a recurrent-depth / looped-transformer flagship publicly discloses its per-token loop count `R` (or an equivalent effective-depth number / adaptive-halting distribution) as a documented model-card property; the reasoning-depth dial stays an undisclosed runtime parameter, and chain-of-thought-monitorability assurances for latent-loop ("neuralese") reasoning rest on unverifiable "we capped it" claims rather than a published bound | 70% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
 (No prediction came due in the W35 window either — the nearest, the W25 first-party multi-provider-fallback call, is due ~2026-09-20; the W30 year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W35 edge-layer-acquisition 65%; dive 08-31 Nvidia/HF-doesn't-close 60%.)
@@ -2721,3 +2735,27 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   (06-25), verifier (07-24), itemize-the-bill (08-27), tokenizer (07-14). Prediction: Claude Code does NOT ship
   automatic subagent model-tiering (the harness auto-routing bounded/search subagents to a cheaper model without
   explicit frontmatter/env config) by 2027-Q2 — tiering stays a manual `model:`/`_FORCE` decision (60%).
+- 2026-09-04 — "The Model Runs Its Own Layers in a Loop. Nobody Will Tell You How Many Times." (Quist) — GPT-6 Astra's
+  RECURRENT-DEPTH / "looped-transformer" architecture as the third act of the test-time-compute story, pegged to the
+  Sep-4 launch (HN #2, 1160pts; 96% GPQA Diamond per tracker — flagged single-src). Mechanism (LessWrong/officechai/
+  Fortune, verified): recurrence along the DEPTH axis not the sequence (contrast Mamba/SSM = sequence-recurrence, kept
+  separate) — reuse an L-layer block for R iterations → effective depth D=L×R, more compute per token with NO new
+  params/memory; intermediate reasoning is "neuralese," a latent state with no natural-language chain of thought to
+  read. The deciding quantity = `R`, the per-token loop count OpenAI won't print. Primary grounding: Universal
+  Transformer (2018, weight-share over depth + ACT halting, Turing-complete); Geiping et al. 2502.05171 (3.5B model
+  iterated to ~50B-equiv compute-load; "captures reasoning not easily represented in words," no CoT data, small ctx);
+  Fortune "50–90% less compute for same performance"; LessWrong estimate 3–4 loops / 10T-acts-like-13.8T (flagged
+  estimate). Three things the loop breaks: (1) SIZE — param count severs from capability/cost, size is now L×R with R a
+  hidden runtime knob; (2) COST — worse than the 07-18 reasoning-token tax: latent loops have NO receipt (real compute,
+  priced into the rate, surfaces as latency not a line item) → measure cost/solved-task + latency; (3) AUDIT — CoT
+  monitoring (the check that let METR/Redwood reconstruct the 09-02 HF breach) reads an empty channel when reasoning is
+  neuralese. Other side taken straight: Pachocki says they capped loops for legibility, depth "within 2× of GPT-4";
+  looping isn't free (R× latency); explicit CoT still wins where words suffice → rational design is hybrid. But Irving:
+  "to get significant mileage out of bounding the depth of a circuit, you have to bound it *very low*" — the cap that
+  buys capability may be loose enough to hide reasoning; can't max both. So-what: stop reading param count as size; stop
+  trusting cost/token; put assurance on inputs/outputs/tool-calls (observable) not on the model narrating itself.
+  how-it-works/economics; NON-Claude-Code architecture story. W36 (Quist, generalist Fri). Advances autonomy-before-
+  brakes (new front: the CoT-monitoring brake defeated by latent reasoning) + test-time-compute/meter threads; siblings
+  reasoning-token-tax (07-18), encrypted-reasoning (08-12), written-policy-not-a-control (08-03), agent-eval-integrity
+  (09-02), verifier-asymmetry (07-24). Prediction: no frontier lab discloses per-token loop count R as a model-card
+  property through end-2027 (70%).

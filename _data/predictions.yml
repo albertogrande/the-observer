@@ -1161,3 +1161,21 @@
   confidence: 60
   due: "2027-Q2"
   status: open
+
+- id: 2026-09-04-recurrent-depth-loop-count-undisclosed
+  made: "Dive · 2026-09-04"
+  made_link: "/reports/deep-dives/2026-09-04-astra-recurrent-depth-loop-count.html"
+  text: >-
+    Through end-2027, no frontier lab (OpenAI / Anthropic / Google) that ships a
+    recurrent-depth / "looped transformer" flagship publicly discloses its
+    per-token loop count `R` — or an equivalent effective-depth number, or an
+    adaptive-halting distribution — as a documented model-card property. The
+    reasoning-depth dial stays an undisclosed runtime parameter, and the
+    chain-of-thought-monitorability assurances for latent-loop ("neuralese")
+    reasoning rest on unverifiable "we capped it" claims rather than a published
+    bound. If a frontier lab documents the loop count / effective depth of a
+    shipped recurrent-depth model as a first-class model-card figure, this was
+    wrong.
+  confidence: 70
+  due: "2027-12-31"
+  status: open
