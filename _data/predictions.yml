@@ -1179,3 +1179,20 @@
   confidence: 70
   due: "2027-12-31"
   status: open
+
+- id: 2026-09-05-answer-engine-manufactured-source-share-rises
+  made: "Dive · 2026-09-05"
+  made_link: "/reports/deep-dives/2026-09-05-answer-engines-more-gameable.html"
+  text: >-
+    A repeat of the Trellner "manufactured sources" study — same method, run on a
+    major grounded answer engine (Perplexity or a peer) roughly twelve months from
+    now — finds the share of citations going to machine-built, low-authority
+    manufactured sources HIGHER than the ~2.4% baseline measured in September 2026,
+    not lower. The answer engines do not ship an inspectable provenance / authority
+    signal next to citations, and the median Tranco rank of cited sources does not
+    climb back toward the visible web. If a follow-up study finds the manufactured-
+    source share flat or falling, or an engine surfaces per-citation provenance that
+    demonstrably down-weights machine-authored authority markers, this was wrong.
+  confidence: 70
+  due: "2027-09-30"
+  status: open

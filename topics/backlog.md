@@ -605,6 +605,21 @@ Code Watch.*
   the declarative form, and why the distribution win only lands if you put a real
   consent step in front of every write tool (Builder) [the 07-11 dive covered the
   three-level gradient; this is the hands-on build] 
+- [practical-guide] GEO for honest devtools content: which of Aggarwal et al.'s
+  citation-winning tactics (statistics, cited sources, JSON-LD, comparison tables)
+  a real product should actually ship — and how to compete when the identical
+  recipe is available to content farms (Builder) [the hands-on companion to the
+  09-05 answer-engine-gaming dive; frame = win the citation with primary data the
+  farms can't fake, not more listicle shape]
+- [how-it-works] How a grounded answer engine actually picks its 3–5 sources:
+  retrieval → rerank → synthesis, and where each stage is gameable — needs a
+  primary description (Perplexity/OpenAI docs) rather than SEO-industry reverse-
+  engineering (Analyst) [09-05 dive had to flag the pipeline as industry-inferred;
+  a properly-sourced mechanism piece is worth doing if a lab publishes]
+- [what-every-engineer-should-know] Provenance for AI answers: what an inspectable
+  per-citation trust signal (site age / independence / authority score) would take,
+  and why no answer engine ships one yet (Contrarian) [the "what would change my
+  mind" from the 09-05 dive, turned into its own front]
 
 ## Live — economy & the AI business
 

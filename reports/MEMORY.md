@@ -2759,3 +2759,40 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   reasoning-token-tax (07-18), encrypted-reasoning (08-12), written-policy-not-a-control (08-03), agent-eval-integrity
   (09-02), verifier-asymmetry (07-24). Prediction: no frontier lab discloses per-token loop count R as a model-card
   property through end-2027 (70%).
+- 2026-09-05 — "AI Answer Engines Are More Gameable Than Search, Not Less" (Okafor) — inverts the "generative search
+  kills the SEO content farm / you can't game a language model like PageRank" consensus, pegged to the Trellner
+  investigation (this week): three coordinated sites (wifitalents/worldmetrics/gitnux, NameCheap Dec-23→May-24,
+  shared Cloudflare NS + templates) published 215,128 machine-generated `/best/<category>-software/` pages and won
+  Perplexity citations. Steelman (real): the GEO paper (Aggarwal et al., arXiv 2311.09735, KDD'24, ~10k-query
+  GEO-bench) found keyword density stopped mattering → crude SEO spam IS worse off. Break: the SAME paper's winning
+  signals = "epistemic authority" markers (statistics, cited sources, quotations, fluent confident prose), up to
+  +40% visibility — and those are surface markers a ranker can't tell from real authority + trivially machine-
+  generable. The farms did exactly that: JSON-LD rankings ("read without interpretation"), homepage titled "Facts &
+  Grounding Page," meta desc "a machine-readable record of verified facts," an unrendered template var in one byline.
+  It worked: Trellner queried 380 software categories × Perplexity sonar/sonar-pro via OpenRouter (760 calls, 7,534
+  citations / 2,055 domains) → the 3 farms took 181 cites in 41/380 categories; a vendor blog (guideflow.com) got 194
+  cites / 96 categories = 3rd overall, ahead of Gartner (158). Second mechanism (structural, un-patchable): the AUDIT
+  SURFACE collapsed — Google showed 10 visible-domain links you routed around; an answer engine emits ONE synthesized
+  answer grounded on ~3-5 opaquely-chosen sources (retrieve-then-rerank; industry reverse-engineering, flagged) →
+  winner-take-all, a source that wins retrieval wins the whole answer laundered as prose w/ a "[3]" chip; 59.8% of
+  cited domains ranked worse than Tranco #100k (+23.4% outside top million; median 71,611) → the "have I heard of this
+  site" check is exactly what the footnote format strips. Third: economics inverted — cost to manufacture 215k
+  authoritative-looking pages ≈ 0; cost to distinguish machine- from human-authored authority markers ≈ unsolved
+  (harder than Google's legible keyword-junk-vs-prose problem), and citation IS the payoff (no click to earn).
+  Counter-thesis: answer engines didn't remove the incentive to manufacture sources, they removed the reader's
+  ability to SEE it + reward the one input (authority-signaling structure) cheapest to fake → worse for the reader.
+  Honest counters engaged: (a) only 2.4% of cites today — existence proof at curve start, not takeover; single study/
+  one engine/software-only (flagged); (b) "Perplexity fixes the ranker" — same 20yr adversarial treadmill but defender
+  now must separate machine- from human-authored authority (harder) while attacker tools got cheaper; (c) "GEO is
+  legit marketing" — paper's own finding is the trap: winning signals are surface authority markers → honest + fake
+  page w/ same stats+citations+JSON-LD are indistinguishable to the ranker, GEO teaches both. So-what: consumers —
+  treat "best/top N software" answers (the exact commercial-intent target) as one ranking w/ the ranking hidden, click
+  citations, check the DOMAIN not the footnote number; dev-marketers — being cited is the new front page (machine-
+  buyer/docs-as-distribution) but your honest content competes vs the identical recipe → durable play = primary data
+  the model can only get from YOU (own benchmarks/changelog/docs endpoint), not another "best CRM" listicle.
+  news-to-framework. W36 (Okafor, generalist Sat) — OPENS a fresh front distinct from the 09-02/09-04 autonomy-monitor
+  cluster. Advances channel-war/off-ramps (discovery moves from ranked links to opaque grounding) + machine-buyer
+  (discovery half of be-callable); siblings docs-as-distribution (07-04), machine-buyer (07-06), channel (06-09);
+  light nod to eval-integrity (09-02, the marketing version of poisoning a source the model trusts). Prediction: a
+  repeat of Trellner's study on a major answer engine ~12mo out finds the manufactured-source citation share HIGHER,
+  not lower (70%).

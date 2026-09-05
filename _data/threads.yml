@@ -954,10 +954,18 @@
     stall in the Flattr gap. The tell that it's real is a wallet shipped inside
     an agent runtime. W28 gave the dark-mirror version: a ransomware agent swept
     hosts for provider API keys and crypto wallets — the credentials are the
-    fuel and the payment rail at once.
+    fuel and the payment rail at once. The discovery half has its own dark
+    mirror (09-05): when the agent is the buyer, being *cited* by its answer
+    engine is the new front page — and that supply chain is more gameable than
+    ranked search, not less. Three sites published 215,128 machine-built "best
+    software" pages titled "Facts & Grounding Page" and won Perplexity citations
+    (a vendor blog out-cited Gartner) because the winning signal is surface
+    authority markers a ranker can't separate from real authority, and the
+    one-answer format strips the provenance a reader would check.
   issues:
     - { label: "Dive · Your Next Customer Is an Agent With a Wallet", link: "/reports/deep-dives/2026-07-06-agent-with-a-wallet.html" }
     - { label: "Dive · The Agent Reading Your Docs Won't Scroll", link: "/reports/deep-dives/2026-07-04-docs-for-agents-distribution.html" }
+    - { label: "Dive · AI Answer Engines Are More Gameable Than Search, Not Less", link: "/reports/deep-dives/2026-09-05-answer-engines-more-gameable.html" }
 
 - slug: verifier-asymmetry
   title: "What AI is good at / the verifier asymmetry"
