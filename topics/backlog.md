@@ -368,6 +368,15 @@ Code Watch.*
 
 ## Live — devtools & systems
 
+- [x-vs-y] The three brakes on an agent-authored commit, compared on where each
+  sits: allow-list `.gitignore` (stops junk/secrets at *staging*, by grammar,
+  free but per-repo and fails on high-entropy monorepos) vs a pre-commit secret
+  scanner / `git-secrets` / gitleaks (stops them at *commit*, content-based,
+  catches the leak the allow-list's `git add -f` escape hatch reopens) vs GitHub
+  push protection (stops them at the *server*, provider-scoped patterns only) —
+  layered defense, which layer catches which failure, and why none alone closes
+  the 3.2%-agent-commit leak rate (Builder/Analyst) [surfaced by the 09-06
+  gitignore-allow-list dive; GitGuardian State of Secrets Sprawl 2026]
 - [how-it-works] Declarative vs imperative extension APIs, the general pattern:
   why moving a capability from "run my callback" (blocking webRequest, arbitrary
   logic, sees everything) to "match my rules" (declarativeNetRequest, a fixed

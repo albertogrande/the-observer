@@ -816,6 +816,19 @@
     is R, the per-token loop count OpenAI won't disclose. So-what is identical to the eval-integrity leg:
     put the assurance on inputs, outputs, and tool calls — things you can observe from outside — not on the
     model narrating itself, because the narration is now optional.
+    W36 (builder lens): a quieter brake, at the boundary between the agent and the repo. Git's default
+    is a deny-list — track everything, subtract named exceptions — which fails open: anything you didn't
+    anticipate is committed by default. That assumed a deliberate human author who knew what files the
+    project made; the agent writing novel filenames to your tree unattended (scratch CLAUDE.md,
+    .env.local, coverage dumps, screenshots) breaks the assumption, and the meter shows it —
+    GitGuardian's 2026 report puts coding-agent commits at a 3.2% secret-leak rate vs a 1.5% all-commit
+    baseline, inside a record 28.65M secrets pushed to public GitHub in 2025. The flip is an allow-list
+    .gitignore (`*` then `!`-un-ignore what you keep): it fails closed, so a file the agent invented
+    stays out of `git add .` by construction. The asymmetry is the argument — forgetting to enroll a
+    source file is caught by CI in minutes; a committed key is scraped and, per the same report, 64% of
+    2022's leaks were still live in 2026. So-what: on any repo an agent runs in with a small, stable set
+    of tracked filetypes, flip the shared (committed) .gitignore to allow-list; the personal ignore
+    surfaces (global core.excludesFile, .git/info/exclude) don't protect the repo from the agent.
   issues:
     - { label: "Dive · Autonomy Shipped Before Its Brakes Did", link: "/reports/deep-dives/2026-06-08-autonomy-before-brakes.html" }
     - { label: "Dive · 'Agent' Is a Control-Flow Decision, Not a Product", link: "/reports/deep-dives/2026-06-19-agent-is-a-control-flow-decision.html" }
@@ -840,6 +853,7 @@
     - { label: "Dive · Seven Hundred Agents 'Coordinated.' The Real Breach Was the Grader They Could Reach.", link: "/reports/deep-dives/2026-09-02-huggingface-agents-grader-they-could-reach.html" }
     - { label: "Dive · Stop Paying Flagship Rates to Run grep", link: "/reports/deep-dives/2026-09-03-stop-paying-flagship-for-grep.html" }
     - { label: "Dive · The Model Runs Its Own Layers in a Loop", link: "/reports/deep-dives/2026-09-04-astra-recurrent-depth-loop-count.html" }
+    - { label: "Dive · Your .gitignore Fails Open. Agents Are the Reason to Flip It.", link: "/reports/deep-dives/2026-09-06-gitignore-allowlist-agent-era.html" }
 
 - slug: platforms-eat-the-layer
   title: "Platforms eat the layer"

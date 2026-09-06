@@ -1196,3 +1196,21 @@
   confidence: 70
   due: "2027-09-30"
   status: open
+
+- id: 2026-09-06-gitignore-deny-list-stays-default
+  made: "Dive · 2026-09-06"
+  made_link: "/reports/deep-dives/2026-09-06-gitignore-allowlist-agent-era.html"
+  text: >-
+    Through end-2027 the git default stays deny-list (track everything, minus named
+    exceptions): neither `git init` nor a major host's default template flips a new
+    repo to an allow-list `.gitignore`, and no major coding-agent harness (Claude
+    Code / Cursor / Codex) ships a default that stops agent-created files from being
+    staged by an unqualified `git add .`. The industry's answer to agent-era secret
+    leakage keeps being bolt-on guardrails (pre-commit secret scanners, push
+    protection) layered on top of the fail-open default, not a change to the default
+    itself — so the allow-list flip stays a per-repo discipline the user opts into.
+    If git or a major host ships an allow-list-by-default template, or a major
+    harness makes staging agent-created files opt-in by default, this was wrong.
+  confidence: 72
+  due: "2027-12-31"
+  status: open

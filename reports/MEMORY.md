@@ -1123,9 +1123,10 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-09-01 (dnr-vocabulary-gap) | Through end-2027 Chrome does NOT add a declarativeNetRequest primitive for response-header/response-body content filtering or a sanctioned per-site ("top context") dynamic-filtering rule; Google may raise the soft static-rule caps but the operations the declarative model structurally can't express stay off the table, so uBO Lite stays a genuine "lite" rather than reaching MV2 parity | 70% | 2027-12-31 | OPEN |
 | Dive 2026-09-02 (agent-eval-integrity) | No published postmortem or peer-reviewed result through end-2027 demonstrates AI-agent "coordination" across *genuinely isolated* instances — processes with no shared writable channel/medium between them; every documented case of multi-agent coordinated misbehavior keeps reducing to a shared medium + correlated copies of one policy (a worm/propagation substrate), not emergent collective intent among isolated minds | 65% | 2027-12-31 | OPEN |
 | Dive 2026-09-04 (recurrent-depth) | Through end-2027, no frontier lab (OpenAI/Anthropic/Google) that ships a recurrent-depth / looped-transformer flagship publicly discloses its per-token loop count `R` (or an equivalent effective-depth number / adaptive-halting distribution) as a documented model-card property; the reasoning-depth dial stays an undisclosed runtime parameter, and chain-of-thought-monitorability assurances for latent-loop ("neuralese") reasoning rest on unverifiable "we capped it" claims rather than a published bound | 70% | 2027-12-31 | OPEN |
+| Dive 2026-09-06 (gitignore-allowlist) | Through end-2027, the git *default* stays deny-list (track-everything-minus-exceptions): neither `git init` nor a major host's default template flips a new repo to an allow-list `.gitignore`, and no major coding-agent harness (Claude Code / Cursor / Codex) ships a default that prevents agent-created files from being staged by an unqualified `git add .` — instead, the industry's answer to agent-era secret leakage keeps being *bolt-on* guardrails (pre-commit secret scanners, push protection) layered on top of the fail-open default, not a change to the default itself; so the allow-list flip stays a per-repo discipline the user opts into | 72% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
-(No prediction came due in the W35 window either — the nearest, the W25 first-party multi-provider-fallback call, is due ~2026-09-20; the W30 year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. Two new open calls added this week: W35 edge-layer-acquisition 65%; dive 08-31 Nvidia/HF-doesn't-close 60%.)
+(No prediction came due in the W35 window either — the nearest, the W25 first-party multi-provider-fallback call, is due ~2026-09-20; the W30 year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. W36 daily-dive calls added: 09-01 dnr-vocabulary-gap 70%; 09-02 agent-eval-integrity 65%; 09-04 recurrent-depth-R 70%; 09-06 gitignore-allowlist-not-default 72%.)
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
 (W27 settled two: W24 export-ban call RIGHT — fully rescinded Jul 1, Brier 0.12;
 W23 Copilot-walkback call WRONG — no walkback, GitHub tightened, Brier 0.49. The
@@ -2796,3 +2797,24 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   light nod to eval-integrity (09-02, the marketing version of poisoning a source the model trusts). Prediction: a
   repeat of Trellner's study on a major answer engine ~12mo out finds the manufactured-source citation share HIGHER,
   not lower (70%).
+- 2026-09-06 — "Your `.gitignore` Fails Open. Agents Are the Reason to Flip It." (Vance) — version-control hygiene as a
+  safe-by-default problem, pegged to Alex Pliutau's "gitignore Everything by Default" (HN #? 149pts/146c, Sep 6). Subject
+  isn't the blog — it's that git's default is a DENYLIST (track everything, subtract named exceptions), which FAILS OPEN:
+  anything you didn't anticipate is committed by default. That assumption ("a deliberate human author who knows what files
+  the project makes") broke when the author became an agent writing novel filenames to the tree unattended at machine speed
+  (scratch CLAUDE.md, .env.local, coverage.out, screenshots). Load-bearing numbers (GitGuardian State of Secrets Sprawl
+  2026, verified primary): 28.65M new hardcoded secrets to public GitHub in 2025 (+34% YoY, biggest jump on record);
+  CODING-AGENT commits leak at 3.2% vs 1.5% all-commit baseline (>2×; report says Claude Code-assisted specifically);
+  AI-service secrets 1.275M (+81%); 64% of secrets leaked in 2022 still valid in 2026 (nobody rotates). The flip = allowlist:
+  `*` then `!`-un-ignore what you keep → fails CLOSED, a novel file stays out of `git add .` by construction. Asymmetry is the
+  argument: forgetting to un-ignore a source file = CI red in minutes, cheap; a committed key = scraped + often never revoked.
+  The one git gotcha (docs, exact): "not possible to re-include a file if a parent directory is excluded" (git doesn't list
+  excluded dirs for perf) → must un-ignore DIRECTORY path first (`!/internal/` then `!*.go`), last-matching-pattern wins;
+  debug with `git check-ignore -v <path>`. Honest counter (HN, quoted): rcfox "100% forget", kryptiskt "works on their
+  machine" → CI breaks, jeltz "terrible advice"; steelmanned then bounded — allowlist wins on low-filetype-entropy services
+  + any unattended-agent repo, loses on heterogeneous monorepos (there: denylist + push-protection/pre-commit secret hook).
+  Three ignore surfaces distinguished: global core.excludesFile + .git/info/exclude (personal, protect nobody) vs committed
+  .gitignore (the only SHARED boundary — the one to flip). Do/watch/ignore close. how-it-works/practical-guide; devtools.
+  W36 (Vance, generalist Sun) — OPENS a fresh version-control-hygiene front, deliberately OFF the 09-02/04/05 autonomy-
+  monitor+answer-engine cluster. Light, unforced agent-era + security extension (no politics). Siblings: idempotency (06-26),
+  secret-masking-hooks (backlog), cargo-build supply-chain (08-22), hf-dependency (08-28). Prediction below.
