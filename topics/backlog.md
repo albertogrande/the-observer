@@ -228,6 +228,27 @@ overtakes becomes a `news-to-framework` piece instead — that's fine.
   verifier-cost variable that predicts the sign before you run the study (Analyst/
   Contrarian) [surfaced by the 08-09 skill-distribution dive]
 
+- [how-it-works] Data assimilation, from the inside: what 4D-Var actually does —
+  fusing sparse, noisy, irregular observations (satellites, radiosondes, aircraft,
+  buoys) plus a physics model's short forecast into a single dense, gridded,
+  physically-consistent "analysis," why this is the expensive load-bearing step of
+  weather prediction (not the forecast roll-forward), and why it's the input almost
+  every AI weather model still leases rather than makes — the mechanism under the
+  09-08 weather-emulator dive (Analyst) [surfaced by the 09-08 dive]
+- [x-vs-y] Learned assimilation vs the physics analysis: Aardvark Weather / GraphDOP
+  / ECMWF's DA experiments — the models trying to go end-to-end from raw observations
+  with no NWP analysis in the input list, what they give up (resolution, observation
+  count, the extreme tail) to gain independence, and the exact bar an AI model must
+  clear to make the supercomputer optional rather than upstream (Contrarian/Analyst)
+  [surfaced by the 09-08 dive; the "what would change my mind" turned into its own front]
+- [what-every-engineer-should-know] The double-penalty problem and why MSE-trained
+  models blur: how a mean-squared-error objective rewards hedging toward the mean
+  (a sharp forecast placed slightly wrong is punished harder than a vague one), why
+  this smears storm fronts and precipitation, why the generative turn (diffusion /
+  FGN ensembles) exists to buy sharpness back, and why "wins on RMSE/CRPS" can still
+  underperform on the intensity of the extreme tail — the scoring-metric trap under
+  any average-case leaderboard (Analyst/Contrarian) [surfaced by the 09-08 dive]
+
 ## Live — Claude Code & agent engineering
 
 *The Operator's home pool — Claude Code workflows and max-performance. The

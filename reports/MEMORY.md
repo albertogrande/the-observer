@@ -1141,9 +1141,10 @@ Lower is better; 0.25 = coin-flip guessing.
 | Dive 2026-09-06 (gitignore-allowlist) | Through end-2027, the git *default* stays deny-list (track-everything-minus-exceptions): neither `git init` nor a major host's default template flips a new repo to an allow-list `.gitignore`, and no major coding-agent harness (Claude Code / Cursor / Codex) ships a default that prevents agent-created files from being staged by an unqualified `git add .` — instead, the industry's answer to agent-era secret leakage keeps being *bolt-on* guardrails (pre-commit secret scanners, push protection) layered on top of the fail-open default, not a change to the default itself; so the allow-list flip stays a per-repo discipline the user opts into | 72% | 2027-12-31 | OPEN |
 | 2026-W36 | Every publicly documented case of large-scale agentic misbehavior (cross-instance coordination / eval-grader tampering / unsanctioned sandbox escape at scale) reaching public attention through end-2027 is FIRST surfaced or substantively characterized by an external party (independent lab à la METR/Redwood, academic group, or journalist), not by proactive contemporaneous first-party disclosure from the lab that ran the agents; no frontier lab establishes a track record of self-reporting these before outsiders do | 65% | 2027-12-31 | OPEN |
 | Dive 2026-09-07 (sandbox-egress) | No major agent harness (Claude Code/Cursor/Codex/Copilot) ships a DEFAULT network egress control that inspects request method/path/body (HTTP-semantic, over inspected TLS) — anything stronger than a hostname/domain allowlist over un-inspected TLS — through end-2027; HTTP-level egress stays a manual self-hosted-proxy discipline, AND ≥1 further complete network-allowlist bypass of a shipped agent sandbox is publicly documented in that window | 70% | 2027-12-31 | OPEN |
+| Dive 2026-09-08 (weather-ai-emulator) | Through end-2027, the frontier data-driven weather models that ship into operations/products (WeatherNext-class, ECMWF AIFS, Microsoft Aurora-class) keep listing an NWP analysis (ECMWF HRES/IFS analysis or equivalent) as a required inference input AND keep training against reanalysis/model output (ERA5/HRES-fc0) as ground truth — no fully end-to-end, analysis-free model (Aardvark-class: raw observations in, no NWP analysis in the input list at prediction time) reaches operational/product deployment at competitive (≤~0.25°) resolution; the physics-based analysis + global observing system stays a required upstream input for the deployed AI forecast, so the AI model stays an emulator on top of the pipeline, not a replacement for it | 72% | 2027-12-31 | OPEN |
 
 **Scorecard: 2 settled · record 1–1 · mean Brier 0.31**
-(No prediction came due in the W36 window either — the nearest, the W25 first-party multi-provider-fallback call, is due ~2026-09-20 and should settle in next week's issue; the W30 year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. W36 weekly + dive calls added: W36 disclosure-asymmetry 65%; dive 09-07 sandbox-egress-allowlist 70%. Daily-dive calls this week: 09-01 dnr-vocabulary-gap 70%; 09-02 agent-eval-integrity 65%; 09-04 recurrent-depth-R 70%; 09-05 answer-engine-manufactured-sources 70%; 09-06 gitignore-allowlist-not-default 72%.)
+(No prediction came due in the W36 window either — the nearest, the W25 first-party multi-provider-fallback call, is due ~2026-09-20 and should settle in next week's issue; the W30 year-end categorical-ban leg rides with 06-15/07-13 to 2026-12-31. Record unchanged. W36 weekly + dive calls added: W36 disclosure-asymmetry 65%; dive 09-07 sandbox-egress-allowlist 70%. Daily-dive calls this week: 09-01 dnr-vocabulary-gap 70%; 09-02 agent-eval-integrity 65%; 09-04 recurrent-depth-R 70%; 09-05 answer-engine-manufactured-sources 70%; 09-06 gitignore-allowlist-not-default 72%. W37 dive: 09-08 weather-ai-stays-an-emulator (NWP analysis stays a required input) 72%.)
 (Note: `_data/predictions.yml` had drift — W23/W24 settlements were not mirrored and several open weekly rows (W26/W27/W28) + dive rows (06-15/06-29/07-13) are still missing there. W29 corrected the two settled rows so the site scorecard reads 1–1; the missing OPEN rows remain to be backfilled.)
 (W27 settled two: W24 export-ban call RIGHT — fully rescinded Jul 1, Brier 0.12;
 W23 Copilot-walkback call WRONG — no walkback, GitHub tightened, Brier 0.49. The
@@ -2872,3 +2873,31 @@ Copilot miss is the honest one: we bet the meter would blink and it didn't.)
   practical-guide/how-it-works; devtools/security. Levers autonomy-before-brakes; siblings sandbox-is-the-brake (07-23),
   hooks (07-02), agent-egress (07-17), grader-integrity (09-02). Prediction: hostname-allowlist stays the default + ≥1 more
   bypass by end-2027 (70%). → [2026-W36](../2026-W36.md), [dive 2026-09-02](./2026-09-02-huggingface-agents-grader-they-could-reach.md)
+- 2026-09-08 — "The AI Weather Model Has a Supercomputer in Its Input List" (Okafor) — inverts the "AI beat/replaced the
+  physics-based numerical weather models" consensus, pegged to WeatherNext 3's Sep-3 launch (64-member ensemble, 15-day,
+  5km, hourly, up to 50% better precip; FGN mesh transformer; blog.google + arXiv 2609.03582). Steelman (real): GraphCast
+  beat ECMWF HRES on >90% of 1,380 targets in <1 min on one TPU (Science 2023); GenCast beat the ENS ensemble on 97.2% of
+  1,320 targets (99.8% past 36h) in 8 min (Nature 2024), better on extremes + cyclone tracks; ECMWF shipped its own AIFS.
+  Break — it's EMULATION not replacement, two dependencies: (1) TRAINING ground truth is ERA5 reanalysis = ECMWF's IFS model
+  + 4D-Var assimilation (the physics stack's own product); WN3 trains on ERA5/HRES-fc0 → the network's ceiling is the
+  reanalysis. (2) RUNTIME initial condition: most AI models are handed an NWP analysis and roll it forward (GraphCast_op
+  init from HRES); WN3 — the model whose PRESS says "draws directly from raw satellite imagery" — still lists in its OWN
+  paper "two analysis frames (6 hours apart)" (ECMWF HRES analysis) as input (a), satellite as (b), and falls back to the
+  "2h HRES forecast" when analysis is stale (developer docs: "Live geostationary satellite mosaics + ECMWF HRES analysis").
+  Marketing-vs-docs contradiction = the spine. Fraying at the tail (vendor's own admissions): WN3 caps precip evaluation at
+  4mm/6h and "leave[s] the evaluation of extreme precipitation for future work"; cyclone ensemble "more under-spread"
+  (overconfident); hex mesh artifacts, temporal discontinuities, per-member global warm/cold bias — the seams of a
+  statistical emulator on the OOD tail a conservation-law physics model doesn't have. Counter-thesis: AI is a fast emulator
+  of an expensive pipeline that has made the pipeline MORE load-bearing — the global analysis (ECMWF/NOAA + the public
+  observing system) is now a monopoly input under a growing stack of cheap private forecasts (Google/Microsoft/academia all
+  train on ERA5, all init on someone's analysis); commoditizing the forecast didn't commoditize the analysis. Natural
+  (unforced) econ reach: cut ECMWF funding / age out the satellites → every downstream AI model degrades at once with no
+  supercomputer to fall back on. So-what: before believing "AI replaced X," read two lines — what was it trained against,
+  what does it take as input at runtime; if either is "the thing it replaced," it's an emulator with a marketing budget →
+  score it as one and keep funding the pipeline. What-would-change-my-mind (happening at the edges): Aardvark Weather
+  (Cambridge/Turing/Microsoft/ECMWF, Nature 2025) — first end-to-end from raw observations, NO NWP at prediction time,
+  beats some baselines on a coarse 1.41° grid with far fewer obs; early + coarse, but the direction. news-to-framework;
+  AI-for-science, NON-Claude-Code. W37 (Okafor, generalist Tue) — OPENS a fresh AI-for-science/emulation-vs-replacement
+  front, off the 09-02/04/07 autonomy-monitor + 09-05 answer-engine + 09-06 gitignore lines. Cheap-verifier nod (weather has
+  a faithful next-day oracle → why AI won it) links verifier-asymmetry (07-24), biology-verifier (08-21), reading-a-benchmark
+  (06-13). Prediction: NWP analysis stays a required inference input for shipped frontier AI weather models through 2027 (72%).

@@ -1103,12 +1103,28 @@
     the model's benchmark score. Prove it wrong with a de-novo AI-designed molecule
     hitting a Phase 3 endpoint on a model-compressed timeline, or AI binder
     hit-rates holding at 2–3× the baseline on targets with no cheap binding assay.
-  issues:
-    - { label: "Dive · A Counterexample Checks in One Pass", link: "/reports/deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.html" }
+    W37 (contrarian lens — the limit of the law): weather is the cheapest oracle in
+    the physical sciences — tomorrow arrives and you score yesterday's forecast — and
+    that is exactly why AI won it (GraphCast beat ECMWF HRES on >90% of 1,380 targets;
+    GenCast beat the ENS ensemble on 97.2%; WeatherNext 3 shipped into Google Search).
+    But a cheap verifier proves the emulator is *good*, not that it is *independent*.
+    Every one of these models trains on ERA5 reanalysis (ECMWF's physics model +
+    4D-Var, the pipeline's own product) and most, WeatherNext 3 included, still take an
+    ECMWF HRES analysis as a required runtime input — the model's own paper lists "two
+    analysis frames (6 hours apart)," despite the press line "draws directly from raw
+    satellite imagery." So the AI stays a fast emulator on top of the expensive
+    physics-plus-observation pipeline, not a replacement for it, and the vendor's own
+    admissions cluster on the tail (WN3 caps precip evaluation at 4mm/6h, cyclone
+    ensemble "more under-spread"). Corollary to the law: a cheap faithful verifier
+    tells you the generate-and-check loop is skillful; it says nothing about whether
+    the loop is self-sufficient or is quietly leasing its inputs from the thing it is
+    said to have replaced. Prove it wrong with an end-to-end, analysis-free model
+    (Aardvark-class) shipping operationally at competitive resolution.
     - { label: "Dive · Claude Didn't Break Cryptography", link: "/reports/deep-dives/2026-07-31-ai-cryptanalysis-labor-not-security.html" }
     - { label: "Dive · AI Levels the Field Where the Errors Are Cheap", link: "/reports/deep-dives/2026-08-09-ai-levels-where-errors-are-cheap.html" }
     - { label: "Dive · SQLite Tests Every Branch", link: "/reports/deep-dives/2026-08-14-sqlite-coverage-missed-the-race.html" }
     - { label: "Dive · Claude Designed a Working Drug This Week", link: "/reports/deep-dives/2026-08-21-ai-biology-is-a-verifier-story.html" }
+    - { label: "Dive · The AI Weather Model Has a Supercomputer in Its Input List", link: "/reports/deep-dives/2026-09-08-weather-ai-still-needs-the-physics-model.html" }
 
 - slug: labs-go-vertical-silicon
   title: "Labs go vertical / own the silicon"

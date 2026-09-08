@@ -1,0 +1,53 @@
+# The AI Weather Model Has a Supercomputer in Its Input List
+
+*Deep dive · June Okafor (The Contrarian) · 2026-09-08 · Everyone says AI replaced numerical weather prediction; the newest model's own paper lists it as a required input.*
+
+Here is the sentence everyone repeats: AI has beaten the physics-based weather models, and it did it on a laptop's worth of compute. It is close enough to true that repeating it feels safe. It is also the wrong lesson, and this week's launch is the cleanest place to see why.
+
+On September 3, Google DeepMind [shipped WeatherNext 3](https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-weathernext-3/) into Search, Maps, and Gemini: a 64-member ensemble, 15 days out, initialized every hour, resolving surface temperature at 5 km, with precipitation forecasts it says are up to 50% more accurate than its last model. The [science page](https://deepmind.google/science/weathernext/) says it "draws directly from raw satellite imagery" rather than "traditional numerical approximations." Read quickly, that reads like the last cord to the supercomputer was finally cut.
+
+Read the paper instead. WeatherNext 3's own [technical report](https://arxiv.org/abs/2609.03582) describes its inputs in one flat sentence: the model "takes two sources of input: (a) two analysis frames (6 hours apart)... and (b) the 12 most recent geostationary satellite mosaic frames." Those analysis frames are ECMWF's HRES analysis — the output of a physics model running 4D-Var data assimilation on a supercomputer in Reading. Google's own [developer docs](https://developers.google.com/weathernext/guides/models) list the inputs plainly: "Live geostationary satellite mosaics + ECMWF HRES analysis." The satellite is new. The supercomputer is still in the list.
+
+## The consensus, at full strength
+
+I want to be fair to the claim before I break it, because the claim is mostly right.
+
+[GraphCast](https://www.science.org/doi/10.1126/science.adi2336), in 2023, beat ECMWF's high-resolution deterministic model on more than 90% of 1,380 verification targets, ten days out, and produced the forecast in under a minute on a single TPU where the physics model needs an hour on a national supercomputer. [GenCast](https://deepmind.google/discover/blog/gencast-predicts-weather-and-the-risks-of-extreme-conditions-with-sota-accuracy/), in 2024, went probabilistic — a diffusion model that beat ECMWF's 50-member ensemble on 97.2% of 1,320 targets, and on 99.8% of them past 36 hours, in eight minutes on one chip. It was better on heat, on cold, on wind, on cyclone tracks. ECMWF, the incumbent, was impressed enough to ship its own machine-learned model into operations. This is not vaporware. The compute asymmetry is real and enormous, and for a working forecaster the accuracy gains are the kind you reorganize a workflow around.
+
+So the steelman is not "the benchmarks are fake." The benchmarks are real. The steelman is: a neural network now produces a better forecast, thousands of times cheaper, than sixty years of fluid dynamics on the world's biggest machines. If that is not replacement, what is?
+
+## What the system is actually doing
+
+It is emulation, and the tell is in what these models learn from and what they read at runtime.
+
+Every model in that paragraph — GraphCast, GenCast, WeatherNext 3 — is trained on [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5). ERA5 is not "observations." It is a *reanalysis*: ECMWF's physics model run over four decades of history, with 4D-Var assimilation stitching scattered real measurements into a dense, gridded, physically-consistent estimate of the atmosphere at every point. It is the single best guess of what the weather *was*, and it is manufactured by the exact numerical stack the AI is said to replace. WeatherNext 3 trains its lower-resolution stages on ERA5 and its high-resolution stages on `HRES-fc0` — again, ECMWF model output. The ground truth is the physics model's homework. The network's ceiling is how well that homework was done.
+
+Then there is inference. A forecast needs a starting point: the state of the atmosphere *right now*, everywhere, on a grid. Producing that state is the hard, expensive part of weather prediction — it is what data assimilation *is*, fusing satellites, radiosondes, aircraft, and buoys into one coherent field. The AI models mostly do not do this. They are handed an analysis and asked to roll it forward. GraphCast's operational variant is initialized from ECMWF's analysis. And WeatherNext 3, the model whose headline is "raw observations," still takes two HRES analysis frames as input every cycle, and falls back to the "2h HRES forecast" when the analysis is stale. The satellite mosaic is bolted *onto* the analysis to sharpen clouds and moisture. It does not stand in for it.
+
+So the cheap, fast, brilliant forecast rides on top of two things it did not make and cannot make: a training signal generated by the physics model, and a runtime initial condition generated by the physics model plus the global observing system. Take those away and the network has nothing to emulate and nothing to start from.
+
+## Where the emulation frays
+
+If it were pure replacement, you would expect the AI to be at least as trustworthy as the physics on the cases that matter most. It is not, and the honest evidence is in the vendors' own reports.
+
+The average-case metrics these models win — RMSE, CRPS — reward a forecast that hedges toward the mean. A deterministic model trained on mean-squared error learns to blur: it smears the sharp edge of a storm into a wider, softer blob, because a confident wrong placement is punished harder than a vague one. That is why GraphCast's fields look smooth and why the generative turn (GenCast's diffusion, WeatherNext's FGN) exists at all — to buy back the sharpness that MSE training throws away.
+
+But sharpness is not the same as being right in the tail. WeatherNext 3's paper says, in as many words, that it caps its precipitation evaluation "at moderate accumulations of 4 mm/6h" and leaves "the evaluation of extreme precipitation for future work." Extreme precipitation is the entire reason a precipitation forecast exists. The same paper reports the cyclone ensemble is "generally more under-spread" than the previous version on intensity and extent — under-spread means overconfident, the failure mode you least want when a hurricane is inbound. It documents hexagonal artifacts from the model's mesh, temporal discontinuities at its 6-hour boundaries, and a per-member "global warm-or-cold bias." These are not scandals. They are the normal seams of a statistical emulator, disclosed responsibly. But they are exactly the seams a conservation-law-respecting physics model does not have, and they cluster on the rare, high-stakes, out-of-distribution events — the ones with the fewest training examples and the highest cost of error.
+
+## The counter-thesis
+
+So here is the claim I will defend: the AI weather model is a fast emulator of an expensive pipeline, not a replacement for it — and it has made that pipeline *more* load-bearing, not less.
+
+Think about the dependency graph. A handful of institutions produce a global analysis — ECMWF and NOAA chief among them — off a global observing system that is largely public and government-funded. That analysis was one input among many when only a few physics models consumed it. Now Google, Microsoft, Nvidia, and every academic weather model in the literature all train on ECMWF's reanalysis and initialize on someone's operational analysis. The expensive public good sits under a growing stack of cheap private forecasts. The "50% better precipitation" a billion people will read in Google Search is a fast, sharp emulator sitting on ECMWF's HRES analysis, NASA's IMERG, and NOAA's radars. Cut ECMWF's funding, or let the satellite constellation age out, and every AI model downstream degrades at once — with no supercomputer of their own to fall back on. Commoditizing the forecast did not commoditize the analysis. It turned the analysis into a monopoly input.
+
+This is the same shape The Wire keeps finding under "AI replaced X." The model learns the *output* of a mature pipeline, wins on the average-case metric, and quietly keeps the pipeline on its input list. It is why weather was winnable in the first place: it has a cheap, faithful verifier — tomorrow arrives, and you score yesterday's forecast against it — the same property that makes AI strong at [math counterexamples and protein binders](../deep-dives/2026-07-24-verifier-asymmetry-check-vs-find.md) and weak where the check is expensive. A cheap verifier tells you the emulator is *good*. It does not tell you the emulator is *independent*.
+
+The so-what for anyone reading a model's benchmark — weather or otherwise: before you believe "replacement," read two lines. What was it trained against, and what does it take as input at runtime? If the answer to either is "the thing it supposedly replaced," you are looking at an emulator with a marketing budget. Score it on that basis, and keep funding the pipeline underneath it, because your cheap forecast is a lease on it.
+
+## What would change my mind
+
+A model that assimilates raw observations and produces its own initial state — no NWP analysis in the input list at prediction time — and does it at operational resolution, on the extreme tail, not just the moderate middle.
+
+That model is not hypothetical. [Aardvark Weather](https://www.nature.com/articles/s41586-025-08897-0), from Cambridge, the Turing Institute, Microsoft, and ECMWF, published in Nature this year, is the first end-to-end system that goes from raw observations to forecast with no NWP input at prediction time — and beats some operational baselines on a coarse 1.41° grid using an order of magnitude fewer observations and thousands of times less compute. That is the real thing: the assimilation step itself, learned. It is early, it is coarse, and it uses far fewer inputs than the operational system it is measured against. But it is the direction that would make my counter-thesis wrong.
+
+Watch that line, not the press releases. When an AI weather model drops the analysis frames from its input list, runs at 5 km, and holds up on the 40 mm/6h days instead of capping the evaluation at 4 — then the supercomputer is genuinely optional, and I will say so. Until then, the correct reading of WeatherNext 3 is the one printed in its own paper: two analysis frames, and twelve satellite mosaics. The physics model is input (a).

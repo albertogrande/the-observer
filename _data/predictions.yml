@@ -1214,3 +1214,24 @@
   confidence: 72
   due: "2027-12-31"
   status: open
+
+- id: 2026-09-08-weather-ai-stays-an-emulator
+  made: "Dive · 2026-09-08"
+  made_link: "/reports/deep-dives/2026-09-08-weather-ai-still-needs-the-physics-model.html"
+  text: >-
+    Through end-2027, the frontier data-driven weather models that ship into
+    operations or products (WeatherNext-class, ECMWF AIFS, Microsoft Aurora-class)
+    keep listing a numerical-weather-prediction analysis (ECMWF HRES/IFS analysis or
+    equivalent) as a required inference input, and keep training against reanalysis /
+    model output (ERA5 / HRES-fc0) as ground truth. No fully end-to-end, analysis-free
+    model (Aardvark-class: raw observations in, no NWP analysis in the input list at
+    prediction time) reaches operational or product deployment at competitive
+    (roughly 0.25 degree or finer) resolution — so the physics-based analysis plus the
+    global observing system stays a required upstream input for the deployed AI
+    forecast, and the AI model stays an emulator on top of the pipeline, not a
+    replacement for it. If a shipped, operational/product frontier AI weather model
+    drops the NWP analysis from its inference inputs (assimilating raw observations
+    end to end) at competitive resolution, this was wrong.
+  confidence: 72
+  due: "2027-12-31"
+  status: open
